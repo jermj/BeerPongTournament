@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <script>
+			
+            function isEven(value){
+                 return value % 2 == 0;             
+            }
+            
+            function canBeADirectTournament(value){
+                 var data = Math.log(value)/Math.log(2); 
+                return data === parseInt(data);
+            }
+            
+			function algo(numberOfPlayers,element){
+                 /* tournoi directe sans poules*/
+                    if(canBeADirectTournament(numberOfPlayers)){
+                        element.innerHTML  += "Tournoi directe a partir du: 1/"+numberOfPlayers/2+" de finale<br />";
+                    }
+                    
+                    var numberOfPlayersCouldBeDivisableInMoreGroups = true,
+                        compt = 0;
+                    
+					/* championnat avec poules*/
+                    while(numberOfPlayersCouldBeDivisableInMoreGroups){
+                        var nbrPlayersPerGroup = numberOfPlayers/Math.pow(2,compt);
+                        
+						/* On peut faire x groupe de y joueurs*/
+                        if(nbrPlayersPerGroup === parseInt(nbrPlayersPerGroup) && nbrPlayersPerGroup > 2){
+                            
+                            var nbrGroups = Math.pow(2,compt);
+                            
+                            element.innerHTML  += nbrGroups+" poules de "+nbrPlayersPerGroup+" equipes ---- optionnel Playoff apres championnat : ";
+                            
+                            /* joueurs qualifiés en playoff = forcément au moins un perdant par poule */
+                            var potentialNbrOfPlayerInPlayoff = numberOfPlayers - nbrGroups,
+                                round = Math.floor(Math.log(potentialNbrOfPlayerInPlayoff)/Math.log(2))
+								exactNbrOfPlayerInPlayoff = Math.pow(2,round)
+								canBeMakeAnOtherRound = true,
+								puissance = 0;
+                         
+							
+							/* 1 poules = au moins finale; 2 poules = au moins finales; 4 poules = au moins demi , 8 poules = au moins quart ... */
+                            while(canBeMakeAnOtherRound){
+								console.log('puissance',puissance);
+								if(nbrGroups < 3 && 2*Math.pow(2,puissance) <= exactNbrOfPlayerInPlayoff){
+									console.log('nbrGroups',nbrGroups,'puissance',puissance);
+										element.innerHTML  += "1/"+Math.pow(2,puissance)+', ';
+										puissance++;
+								}
+								else if(nbrGroups > 2 && nbrGroups*Math.pow(2,puissance) <= exactNbrOfPlayerInPlayoff){
+									element.innerHTML  += "1/"+nbrGroups*Math.pow(2,puissance)/2+', ';
+									puissance++;
+								}
+								else{
+									console.log('fin',nbrGroups);
+									canBeMakeAnOtherRound = false
+								}
+								
+							}
+                            
+                            element.innerHTML  += "<br />";
+                            
+                            compt++;
+                        }else{
+                            numberOfPlayersCouldBeDivisableInMoreGroups = false;
+                        }
+                    }
+            }
+			
+			
+			
+            
+            function getPartiesFromPlayers(){
+                var numberOfPlayers = document.forms[0].elements[0].value,
+				element = document.getElementById("result");
+                
+                element.innerHTML = "";
+                
+				/* equipe de 1 */
+                if(numberOfPlayers > 1){
+                    element.innerHTML  += "<br />----------------------<br />equipes de 1 joueur<br />----------------------<br />";                    
+					algo(numberOfPlayers,element);
+                }
+                
+                /* equipe de 2 */
+                if(numberOfPlayers % 2 == 0 && numberOfPlayers > 4){
+                    element.innerHTML  +="<br />----------------------<br />equipes de 2 joueurs<br />----------------------<br />";
+					algo(numberOfPlayers/2,element);
+                }
+                
+                /* equipe de 3 */
+                if(numberOfPlayers % 3 == 0 && numberOfPlayers > 6){
+                    element.innerHTML  +="<br />----------------------<br />equipes de 3 joueurs<br />----------------------<br />";
+					algo(numberOfPlayers/3,element);
+                }
+                
+                
+            }
+        </script>
+    </head>
+    <body>
+       
+       <form action="javascript:getPartiesFromPlayers();">
+         <input type="number">
+         <input type="submit" value="ok">  
+       </form>
+       
+        <p id="result"></p>
+        
+    </body>
+</html>
