@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-  .controller('SelectTournamentCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('SelectTournamentCtrl', function ($scope,GroupEngine) {
+   
+      $scope.callAlgo = function(numberOfPlayers){
+        //TODO buffer 300ms
+        
+          console.log('great',GroupEngine.getGroupFromNumberOfPlayers(numberOfPlayers));
+          
+      }
+      
   });

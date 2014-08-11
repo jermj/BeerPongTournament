@@ -8,28 +8,56 @@
         </tr>
     </table>
 </div>
-<div class="select-tournament-choose">
+<div class="select-tournament-choose" ng-init="isAutomatic = true">
 
     <div class="select-tournament-choose-title"><span>1. CREATE YOUR TOURNAMENT</span></div>
 
     <div class="column_container">
-        <div class="column-left">
+        <div class="column-left" ng-click="isAutomatic = true">
             <span class="select-tournament-choose-button green">
                 <h2>Automatic game</h2>
                 <p>Generate an automatic tournament based on the number of players and the time you have</p>
-                <div class="bpicon-capsulevalidation"></div>
+                <div ng-class="{
+                               'bpicon-capsuleaxe': isAutomatic,
+                               'bpicon-capsule': !isAutomatic
+                               }"></div>
             </span>
         </div>
-        <div class="column-right">
+        <div class="column-right" ng-click="isAutomatic = false">
             <span class="select-tournament-choose-button blue">
                 <h2>Customized game</h2>
                 <p>Generate a customized you have designed yourself</p>
-                <div class="bpicon-capsule"></div>
+                <div ng-class="{
+                               'bpicon-capsuleaxe': !isAutomatic,
+                               'bpicon-capsule': isAutomatic
+                               }"></div>
             </span>
         </div>
-
-
-
     </div>
-
 </div>
+<div class="select-tournament-form" ng-if="isAutomatic">
+
+    <div class="select-tournament-form-line">
+        <div class="column-left">Number of players</div>
+        <div class="column-right">
+            <input ng-model="numberOfPlayers" ng-change="callAlgo(numberOfPlayers)" type="number" min="2" value="2">
+        </div>
+    </div>
+    <div class="select-tournament-form-line">
+        <div class="column-left">Number of cups</div>
+        <div class="column-right">
+            <input type="number" value="2">
+        </div>
+    </div>
+    <div class="select-tournament-form-line">
+        <div class="column-left">Groups</div>
+        <div class="column-right">
+            <input type="number" value="2"></div>
+    </div>
+    <div class="select-tournament-form-line">
+        <div class="column-left">Playoff</div>
+        <div class="column-right">
+            <input type="number" value="2"></div>
+    </div>
+</div>
+<div ng-if="!isAutomatic">custom</div>

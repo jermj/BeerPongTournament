@@ -57,7 +57,7 @@
             &.blue{
                 background-color:$BP-blue;
             }
-            
+
             h2{
                 margin: 0;
             }
@@ -76,6 +76,24 @@
 
 
 
+    }
+}
+
+.select-tournament-form{
+    .select-tournament-form-line{
+        
+        margin: 10px 0px;
+        
+        .column-left {
+            float: left;
+            width: 50%;
+            text-align: right;
+            line-height: 25px;
+            padding-right: 20px;
+        }
+        .column-right {
+            margin-left: 50%;
+        }
     }
 }
 

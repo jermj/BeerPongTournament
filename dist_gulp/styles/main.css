@@ -20,26 +20,31 @@
 }
 
 /* line 26, ../main.scss */
+.bpicon-capsuleaxe:before {
+  content: "\e603";
+}
+
+/* line 29, ../main.scss */
 .bpicon-capsule:before {
   content: "\e601";
 }
 
-/* line 29, ../main.scss */
+/* line 32, ../main.scss */
 .bpicon-capsulevalidation:before {
   content: "\e602";
 }
 
-/* line 32, ../main.scss */
+/* line 35, ../main.scss */
 .bpicon-Logobeerpong:before {
   content: "\e600";
 }
 
-/* line 37, ../main.scss */
+/* line 40, ../main.scss */
 body {
   margin: 0;
 }
 
-/* line 41, ../main.scss */
+/* line 44, ../main.scss */
 * {
   box-sizing: border-box;
   font-family: calibri;
@@ -212,15 +217,32 @@ body {
   font-size: 100px;
 }
 
+/* line 83, ../_selecttournament.scss */
+.select-tournament-form .select-tournament-form-line {
+  margin: 10px 0px;
+}
+/* line 87, ../_selecttournament.scss */
+.select-tournament-form .select-tournament-form-line .column-left {
+  float: left;
+  width: 50%;
+  text-align: right;
+  line-height: 25px;
+  padding-right: 20px;
+}
+/* line 94, ../_selecttournament.scss */
+.select-tournament-form .select-tournament-form-line .column-right {
+  margin-left: 50%;
+}
+
 @media screen and (max-width: 550px) {
-  /* line 85, ../_selecttournament.scss */
+  /* line 103, ../_selecttournament.scss */
   .select-tournament-choose .column_container .column-left {
     float: inherit;
     width: inherit;
     margin-bottom: 20px;
   }
 
-  /* line 90, ../_selecttournament.scss */
+  /* line 108, ../_selecttournament.scss */
   .select-tournament-choose .column_container .column-right {
     margin-left: inherit;
   }
