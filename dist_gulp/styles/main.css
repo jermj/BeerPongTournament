@@ -1,0 +1,227 @@
+@font-face {
+  font-family: 'beerpongfont';
+  src: url("../fonts/logo/beerpongfont.eot");
+  src: url("../fonts/logo/beerpongfont.eot") format("embedded-opentype"), url("../fonts/logo/beerpongfont.woff") format("woff"), url("../fonts/logo/beerpongfont.ttf") format("truetype"), url("../fonts/logo/beerpongfont.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 12, ../main.scss */
+[class^="bpicon-"], [class*=" bpicon-"] {
+  font-family: 'beerpongfont';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 26, ../main.scss */
+.bpicon-capsule:before {
+  content: "\e601";
+}
+
+/* line 29, ../main.scss */
+.bpicon-capsulevalidation:before {
+  content: "\e602";
+}
+
+/* line 32, ../main.scss */
+.bpicon-Logobeerpong:before {
+  content: "\e600";
+}
+
+/* line 37, ../main.scss */
+body {
+  margin: 0;
+}
+
+/* line 41, ../main.scss */
+* {
+  box-sizing: border-box;
+  font-family: calibri;
+}
+
+/* line 1, ../_home.scss */
+#home-picture {
+  background: url(../images/banner_img.min.jpg) no-repeat center fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+/* line 6, ../_home.scss */
+#home-picture #home-header {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+/* line 10, ../_home.scss */
+#home-picture #home-header table {
+  table-layout: fixed;
+  width: 100%;
+}
+/* line 14, ../_home.scss */
+#home-picture #home-header table td:first-child {
+  width: 120px;
+}
+/* line 19, ../_home.scss */
+#home-picture #home-header .home-header-logo {
+  font-size: 114px;
+}
+/* line 22, ../_home.scss */
+#home-picture #home-header .home-header-content {
+  text-align: center;
+}
+/* line 27, ../_home.scss */
+#home-picture #home-start-block {
+  margin: 25px 0px;
+  text-align: center;
+}
+/* line 30, ../_home.scss */
+#home-picture #home-start-block a {
+  background-color: #50829A;
+  color: white;
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 20px;
+  display: block;
+  width: 170px;
+}
+/* line 40, ../_home.scss */
+#home-picture #home-start-block a:active {
+  position: relative;
+  top: 1px;
+}
+
+/* line 49, ../_home.scss */
+.home-wrapper .home-button {
+  margin: 30px 20px;
+  color: white;
+  display: block;
+  cursor: pointer;
+}
+/* line 55, ../_home.scss */
+.home-wrapper .home-button table {
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+}
+/* line 60, ../_home.scss */
+.home-wrapper .home-button table td:last-child {
+  width: 120px;
+  font-size: 60px;
+}
+/* line 66, ../_home.scss */
+.home-wrapper .home-button.home-green {
+  background-color: #54804d;
+}
+/* line 69, ../_home.scss */
+.home-wrapper .home-button.home-blue {
+  background-color: #4d807e;
+}
+/* line 72, ../_home.scss */
+.home-wrapper .home-button.home-purple {
+  background-color: #804d53;
+}
+/* line 78, ../_home.scss */
+.home-wrapper .home-button:active {
+  position: relative;
+  top: 1px;
+}
+
+/* line 2, ../_selecttournament.scss */
+.select-tournament-header table {
+  table-layout: fixed;
+  width: 100%;
+}
+/* line 6, ../_selecttournament.scss */
+.select-tournament-header table td:first-child {
+  width: 60px;
+}
+/* line 11, ../_selecttournament.scss */
+.select-tournament-header .select-tournament-header-logo {
+  font-size: 50px;
+}
+/* line 14, ../_selecttournament.scss */
+.select-tournament-header .select-tournament-header-content {
+  text-align: right;
+}
+
+/* line 19, ../_selecttournament.scss */
+.select-tournament-choose {
+  background-color: #dedede;
+  overflow: hidden;
+  padding: 10px 0px;
+}
+/* line 24, ../_selecttournament.scss */
+.select-tournament-choose .select-tournament-choose-title {
+  text-align: center;
+  margin: 10px;
+}
+/* line 28, ../_selecttournament.scss */
+.select-tournament-choose .select-tournament-choose-title span {
+  padding: 10px;
+  background-color: #494a49;
+  color: white;
+  display: inline-block;
+}
+/* line 35, ../_selecttournament.scss */
+.select-tournament-choose .column_container {
+  margin: auto;
+  text-align: center;
+  overflow: hidden;
+}
+/* line 40, ../_selecttournament.scss */
+.select-tournament-choose .column_container .column-left {
+  float: left;
+  width: 50%;
+}
+/* line 44, ../_selecttournament.scss */
+.select-tournament-choose .column_container .column-right {
+  margin-left: 50%;
+}
+/* line 48, ../_selecttournament.scss */
+.select-tournament-choose .column_container .select-tournament-choose-button {
+  width: 250px;
+  display: inline-block;
+  color: white;
+  padding: 10px;
+}
+/* line 54, ../_selecttournament.scss */
+.select-tournament-choose .column_container .select-tournament-choose-button.green {
+  background-color: #54804d;
+}
+/* line 57, ../_selecttournament.scss */
+.select-tournament-choose .column_container .select-tournament-choose-button.blue {
+  background-color: #4d807e;
+}
+/* line 61, ../_selecttournament.scss */
+.select-tournament-choose .column_container .select-tournament-choose-button h2 {
+  margin: 0;
+}
+/* line 65, ../_selecttournament.scss */
+.select-tournament-choose .column_container .select-tournament-choose-button p {
+  height: 70px;
+  margin-bottom: 0;
+  text-align: justify;
+}
+/* line 71, ../_selecttournament.scss */
+.select-tournament-choose .column_container .select-tournament-choose-button div {
+  font-size: 100px;
+}
+
+@media screen and (max-width: 550px) {
+  /* line 85, ../_selecttournament.scss */
+  .select-tournament-choose .column_container .column-left {
+    float: inherit;
+    width: inherit;
+    margin-bottom: 20px;
+  }
+
+  /* line 90, ../_selecttournament.scss */
+  .select-tournament-choose .column_container .column-right {
+    margin-left: inherit;
+  }
+}
