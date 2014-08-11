@@ -81,9 +81,9 @@
 
 .select-tournament-form{
     .select-tournament-form-line{
-        
+
         margin: 10px 0px;
-        
+
         .column-left {
             float: left;
             width: 50%;
@@ -97,6 +97,20 @@
     }
 }
 
+.select-tournament-nextstep{
+    margin: 25px 0px;
+    text-align: center;
+    a{
+        background-color: $BP-light-green;
+        color: white;
+        text-decoration: none;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px 20px;
+        display: block;
+        width: 170px;
+    }
+}
 
 
 @media screen and (max-width: 550px) {

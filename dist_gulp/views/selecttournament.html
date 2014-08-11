@@ -13,8 +13,8 @@
     <div class="select-tournament-choose-title"><span>1. CREATE YOUR TOURNAMENT</span></div>
 
     <div class="column_container">
-        <div class="column-left" ng-click="isAutomatic = true">
-            <span class="select-tournament-choose-button green">
+        <div class="column-left">
+            <span class="select-tournament-choose-button green" ng-click="isAutomatic = true">
                 <h2>Automatic game</h2>
                 <p>Generate an automatic tournament based on the number of players and the time you have</p>
                 <div ng-class="{
@@ -23,8 +23,8 @@
                                }"></div>
             </span>
         </div>
-        <div class="column-right" ng-click="isAutomatic = false">
-            <span class="select-tournament-choose-button blue">
+        <div class="column-right">
+            <span class="select-tournament-choose-button blue" ng-click="isAutomatic = false">
                 <h2>Customized game</h2>
                 <p>Generate a customized you have designed yourself</p>
                 <div ng-class="{
@@ -46,18 +46,31 @@
     <div class="select-tournament-form-line">
         <div class="column-left">Number of cups</div>
         <div class="column-right">
-            <input type="number" value="2">
+            <input type="number" value="10">
         </div>
     </div>
     <div class="select-tournament-form-line">
         <div class="column-left">Groups</div>
         <div class="column-right">
-            <input type="number" value="2"></div>
+            <select
+                    ng-disabled="!numberOfPlayers"
+                    ng-model="configuration"
+                    ng-options="item.value group by item.separator for item in groupsSelect">
+            </select>    
+        </div>
     </div>
     <div class="select-tournament-form-line">
         <div class="column-left">Playoff</div>
         <div class="column-right">
-            <input type="number" value="2"></div>
+            <select
+                    ng-disabled="!configuration"
+                    ng-model="playoff"
+                    ng-options="item for item in configuration.playoffs">
+            </select>      
+        </div>
     </div>
 </div>
 <div ng-if="!isAutomatic">custom</div>
+<div class="select-tournament-nextstep">
+    <a href="#/step2" alt="">Step2</a>
+</div>

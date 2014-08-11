@@ -32,14 +32,12 @@ angular.module('beerPongTournamentApp')
 
         /* championnat avec poules*/
         while(numberOfPlayersCouldBeDivisableInMoreGroups){
-            var nbrPlayersPerGroup = numberOfPlayers/Math.pow(2,compt);
+            var nbrOfTeam = numberOfPlayers/Math.pow(2,compt);
 
             /* On peut faire x groupe de y joueurs*/
-            if(nbrPlayersPerGroup === parseInt(nbrPlayersPerGroup) && nbrPlayersPerGroup > 2){
+            if(nbrOfTeam === parseInt(nbrOfTeam) && nbrOfTeam > 2){
 
                 var nbrGroups = Math.pow(2,compt);
-
-                var configWithoutPlayogg = nbrGroups+" poules de "+nbrPlayersPerGroup+" equipes ---- optionnel Playoff apres championnat : ";
 
                 /* joueurs qualifiés en playoff = forcément au moins un perdant par poule */
                 var potentialNbrOfPlayerInPlayoff = numberOfPlayers - nbrGroups,
@@ -69,7 +67,7 @@ angular.module('beerPongTournamentApp')
                 result.push(
                     {
                         nbrOfGroups:nbrGroups,
-                        nbrPlayersPerGroup: nbrPlayersPerGroup,
+                        nbrOfTeam: nbrOfTeam,
                         playOffStepMin: playOffStepMin
                     }
                 );
