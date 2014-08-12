@@ -106,31 +106,32 @@ body {
   color: white;
   display: block;
   cursor: pointer;
+  text-decoration: none;
 }
-/* line 55, ../_home.scss */
+/* line 56, ../_home.scss */
 .home-wrapper .home-button table {
   table-layout: fixed;
   width: 100%;
   text-align: center;
 }
-/* line 60, ../_home.scss */
+/* line 61, ../_home.scss */
 .home-wrapper .home-button table td:last-child {
   width: 120px;
   font-size: 60px;
 }
-/* line 66, ../_home.scss */
+/* line 67, ../_home.scss */
 .home-wrapper .home-button.home-green {
   background-color: #54804d;
 }
-/* line 69, ../_home.scss */
+/* line 70, ../_home.scss */
 .home-wrapper .home-button.home-blue {
   background-color: #4d807e;
 }
-/* line 72, ../_home.scss */
+/* line 73, ../_home.scss */
 .home-wrapper .home-button.home-purple {
   background-color: #804d53;
 }
-/* line 78, ../_home.scss */
+/* line 79, ../_home.scss */
 .home-wrapper .home-button:active {
   position: relative;
   top: 1px;
@@ -208,7 +209,7 @@ body {
 }
 /* line 65, ../_selecttournament.scss */
 .select-tournament-choose .column_container .select-tournament-choose-button p {
-  height: 70px;
+  height: 80px;
   margin-bottom: 0;
   text-align: justify;
 }
@@ -240,7 +241,7 @@ body {
   text-align: center;
 }
 /* line 103, ../_selecttournament.scss */
-.select-tournament-nextstep a {
+.select-tournament-nextstep button {
   background-color: #7cc570;
   color: white;
   text-decoration: none;

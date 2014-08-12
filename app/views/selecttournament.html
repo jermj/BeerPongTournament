@@ -49,17 +49,18 @@
             <input type="number" value="10">
         </div>
     </div>
-    <div class="select-tournament-form-line">
+    <div ng-show="numberOfPlayers" class="select-tournament-form-line">
         <div class="column-left">Groups</div>
         <div class="column-right">
             <select
+                    ng-click="$parent.showPlayoffs = true" 
                     ng-disabled="!numberOfPlayers"
                     ng-model="configuration"
                     ng-options="item.value group by item.separator for item in groupsSelect">
             </select>    
         </div>
     </div>
-    <div class="select-tournament-form-line">
+    <div ng-show="$parent.showPlayoffs && configuration && !configuration.directTournament" class="select-tournament-form-line">
         <div class="column-left">Playoff</div>
         <div class="column-right">
             <select
@@ -69,8 +70,10 @@
             </select>      
         </div>
     </div>
+    <div class="select-tournament-nextstep">
+        
+        <button ng-disabled="!configuration || (configuration && !configuration.directTournament && !playoff)" ng-click="goNextStep()">Step 2</button>
+    </div>
 </div>
 <div ng-if="!isAutomatic">custom</div>
-<div class="select-tournament-nextstep">
-    <a href="#/step2" alt="">Step2</a>
-</div>
+

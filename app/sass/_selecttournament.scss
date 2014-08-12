@@ -63,7 +63,7 @@
             }
 
             p{
-                height: 70px;
+                height: 80px;
                 margin-bottom: 0;
                 text-align:justify;
             }
@@ -100,7 +100,7 @@
 .select-tournament-nextstep{
     margin: 25px 0px;
     text-align: center;
-    a{
+    button{
         background-color: $BP-light-green;
         color: white;
         text-decoration: none;

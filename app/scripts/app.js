@@ -1,21 +1,25 @@
 'use strict';
 
 angular
-  .module('beerPongTournamentApp', [
+.module('beerPongTournamentApp', [
     'ngRoute'
-  ])
- .config(function ($routeProvider) {
+])
+.config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+    .when('/', {
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
-      })
-      .when('/selectTournament', {
+    })
+    .when('/selectTournament', {
         templateUrl: 'views/selecttournament.html',
         controller: 'SelectTournamentCtrl'
-      })
-      .otherwise({
+    })
+    .when('/teamNaming', {
+        templateUrl: 'views/teamnaming.html',
+        controller: 'TeamNamingCtrl'
+    })
+    .otherwise({
         redirectTo: '/'
-      });
+    });
 
-  });
+});
