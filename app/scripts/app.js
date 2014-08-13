@@ -2,7 +2,8 @@
 
 angular
 .module('beerPongTournamentApp', [
-    'ngRoute'
+    'ngRoute',
+    'LocalStorageModule'
 ])
 .config(function ($routeProvider) {
     $routeProvider

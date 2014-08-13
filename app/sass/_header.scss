@@ -1,0 +1,17 @@
+.tournament-header{
+    table{
+        table-layout: fixed;
+        width: 100%;
+
+        td:first-child{
+            width: 60px;
+        }
+    }
+
+    .tournament-header-logo{
+        font-size: 50px;
+    }
+    .tournament-header-content{
+        text-align: right;
+    }
+}

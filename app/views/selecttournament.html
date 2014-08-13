@@ -1,37 +1,32 @@
-<div class="select-tournament-header">
-    <table>
-        <tr>
-            <td><div class="select-tournament-header-logo bpicon-Logobeerpong"></div></td>
-            <td class="select-tournament-header-content">
-                <p>Beer Pong Tournament</p>
-            </td>
-        </tr>
-    </table>
-</div>
-<div class="select-tournament-choose" ng-init="isAutomatic = true">
+<div ng-include src="'views/partials/header.html'"></div>
+    <div class="select-tournament-choose" ng-init="isAutomatic = true">
 
     <div class="select-tournament-choose-title"><span>1. CREATE YOUR TOURNAMENT</span></div>
 
     <div class="column_container">
         <div class="column-left">
-            <span class="select-tournament-choose-button green" ng-click="isAutomatic = true">
-                <h2>Automatic game</h2>
-                <p>Generate an automatic tournament based on the number of players and the time you have</p>
-                <div ng-class="{
-                               'bpicon-capsuleaxe': isAutomatic,
-                               'bpicon-capsule': !isAutomatic
-                               }"></div>
-            </span>
+            <div class="select-tournament-choose-button green" ng-click="isAutomatic = true" ng-class="{
+                                                                                                       'active': isAutomatic,
+                                                                                                       'disabled': !isAutomatic
+                                                                                                       }">
+                <div class="select-tournament-text">
+                    <h2>Automatic game</h2>
+                    <p class="subtitle">Generate an automatic tournament based on the number of players and the time you have</p>
+                </div>
+                <p class="bpicon- select-tournament-icon"></p>
+            </div>
         </div>
         <div class="column-right">
-            <span class="select-tournament-choose-button blue" ng-click="isAutomatic = false">
-                <h2>Customized game</h2>
-                <p>Generate a customized you have designed yourself</p>
-                <div ng-class="{
-                               'bpicon-capsuleaxe': !isAutomatic,
-                               'bpicon-capsule': isAutomatic
-                               }"></div>
-            </span>
+            <div class="select-tournament-choose-button blue" ng-click="isAutomatic = false"ng-class="{
+                                                                                                      'active': !isAutomatic,
+                                                                                                      'disabled': isAutomatic
+                                                                                                      }">
+                <div class="select-tournament-text">
+                    <h2>Customized game</h2>
+                    <p class="subtitle">Generate a customized you have designed yourself</p>
+                </div>
+                <div class="bpicon- select-tournament-icon"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -66,13 +61,12 @@
             <select
                     ng-disabled="!configuration"
                     ng-model="playoff"
-                    ng-options="item for item in configuration.playoffs">
+                    ng-options="item.value for item in configuration.playoffs">
             </select>      
         </div>
     </div>
     <div class="select-tournament-nextstep">
-        
-        <button ng-disabled="!configuration || (configuration && !configuration.directTournament && !playoff)" ng-click="goNextStep()">Step 2</button>
+        <button ng-disabled="!configuration || (configuration && !configuration.directTournament && !playoff)" ng-click="goNextStep(configuration,playoff)">Step 2</button>
     </div>
 </div>
 <div ng-if="!isAutomatic">custom</div>

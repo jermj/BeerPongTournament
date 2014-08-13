@@ -1,0 +1,92 @@
+.naming-choose-title-block{
+    background-color: #dedede;
+    overflow: hidden;
+    padding: 10px 0px;
+
+    .naming-choose-title{
+        text-align: center;
+        margin: 10px;
+
+        span{
+            padding: 10px;
+            background-color: #494a49;
+            color: white;
+            display: inline-block;
+        }
+    }
+}
+
+.naming-block{
+    text-align: center;
+
+    .group-block{
+        color: white;
+        padding: 10px;
+
+        &.group-color-0{
+            background-color: #DF6363;
+        }
+        &.group-color-1{
+            background-color: #434991;
+        }
+        &.group-color-2{
+            background-color: #334E34;
+        }
+        &.group-color-3{
+            background-color: #6D978C;
+        }
+        &.group-color-4{
+            background-color: #55572B;
+        }
+        &.group-color-5{
+            background-color: #81547C;
+        }
+        &.group-color-6{
+            background-color: #C06D21;
+        }
+        &.group-color-7{
+            background-color: #DF6363;
+        }
+        &.group-color-8{
+            background-color: #521111;
+        }
+        &.group-color-9{
+            background-color: #7F858D;
+        }
+
+        h1{
+            margin:0;
+        }
+        
+        .team-block{
+            border: 1px solid black;
+            display: inline-block;
+            .team-name{
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+        }
+
+
+
+        .player-name{
+
+        }
+
+    }
+}
+
+.naming-nextstep{
+    margin: 25px 0px;
+    text-align: center;
+    button{
+        background-color: #7cc570;
+        color: white;
+        text-decoration: none;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px 20px;
+        display: block;
+        width: 170px;
+    }
+}

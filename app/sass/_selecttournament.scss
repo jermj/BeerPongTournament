@@ -1,21 +1,3 @@
-.select-tournament-header{
-    table{
-        table-layout: fixed;
-        width: 100%;
-
-        td:first-child{
-            width: 60px;
-        }
-    }
-
-    .select-tournament-header-logo{
-        font-size: 50px;
-    }
-    .select-tournament-header-content{
-        text-align: right;
-    }
-}
-
 .select-tournament-choose{
     background-color: #dedede;
     overflow: hidden;
@@ -58,18 +40,37 @@
                 background-color:$BP-blue;
             }
 
+            &.disabled.green{
+                background-color:rgba(84, 128, 77, 0.5);
+            }
+            &.disabled.blue{
+                background-color:rgba(77, 128, 126, 0.5);
+            }
+
             h2{
                 margin: 0;
             }
 
-            p{
+            .subtitle{
                 height: 80px;
                 margin-bottom: 0;
                 text-align:justify;
             }
 
-            div{
+            .select-tournament-icon{
                 font-size: 100px;
+                margin: 0;
+            }
+
+            &.active{
+                .select-tournament-icon:before{
+                    content: "\e603";
+                }
+            }
+            &.disabled{
+                .select-tournament-icon:before{
+                    content: "\e601";
+                }
             }
         }
 
@@ -114,6 +115,31 @@
 
 
 @media screen and (max-width: 550px) {
+    .select-tournament-choose .column_container{
+
+        .select-tournament-choose-button{
+            width: inherit;
+            margin: 0px 10px;
+            display: inherit;
+            
+            .select-tournament-text{
+                display: table-cell;
+                width: 100%;
+                padding: 0px 10px;
+                
+                p{
+                    height: inherit;
+                }
+            }
+
+            .select-tournament-icon{
+                display: table-cell;
+                width: 125px;
+                vertical-align: middle;
+            }
+        }
+    }
+
     .select-tournament-choose .column_container .column-left {
         float:inherit;
         width: inherit;
@@ -121,5 +147,22 @@
     }
     .select-tournament-choose .column_container .column-right {
         margin-left: inherit;
+    }
+
+    .select-tournament-form-line{
+        text-align: center;
+    }
+
+    .select-tournament-form{
+        .select-tournament-form-line{
+            .column-left {
+                float: inherit;
+                width: inherit;
+                text-align: center;
+            }
+            .column-right {
+                margin-left: inherit;
+            }
+        }
     }
 }

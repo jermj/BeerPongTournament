@@ -2,7 +2,8 @@
 
 angular
 .module('beerPongTournamentApp', [
-    'ngRoute'
+    'ngRoute',
+    'LocalStorageModule'
 ])
 .config(["$routeProvider", function ($routeProvider) {
     $routeProvider
@@ -49,19 +50,20 @@ angular.module('beerPongTournamentApp')
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('SelectTournamentCtrl', ["$scope", "$location", "GroupEngine", function ($scope,$location,GroupEngine) {
+.controller('SelectTournamentCtrl', ["$scope", "$location", "GroupEngine", "Tournament", function ($scope,$location,GroupEngine,Tournament) {
 
     var PLAYOFF_NAME = ['final', 'semi-final', 'quarter-final','16nd round', '32nd round', '64nd round']; //TODO when stop???
 
+    var nbrOfPlayers;
+
     $scope.callAlgo = function(numberOfPlayers){
-        
+
         //TODO buffer 300ms
 
+        nbrOfPlayers = numberOfPlayers;
         $scope.showPlayoffs = false;
-        
-        var configs = GroupEngine.getGroupFromNumberOfPlayers(numberOfPlayers);
 
-        console.log(configs);
+        var configs = GroupEngine.getGroupFromNumberOfPlayers(numberOfPlayers);
 
         $scope.groupsSelect = [];
 
@@ -69,28 +71,62 @@ angular.module('beerPongTournamentApp')
             for(var y=0, len2=configs[x]['configurations'].length; y < len2; y++){
                 //direct tournament
                 if(configs[x]['configurations'][y]['directTournament']){
-                    $scope.groupsSelect.push({separator:'team of '+configs[x]['numberOfPlayers'],value:'Direct tournament from '+PLAYOFF_NAME[configs[x]['configurations'][y]['step']], directTournament:1});
+                    $scope.groupsSelect.push({
+                        separator:'team of '+configs[x]['numberOfPlayers'],
+                        value:'Direct tournament from '+PLAYOFF_NAME[configs[x]['configurations'][y]['step']],
+                        directTournament:1,
+                        step:configs[x]['configurations'][y]['step'],
+                        playersPerTeam:configs[x]['numberOfPlayers'],
+                        numberOfTeams: +Math.pow(2, 1+configs[x]['configurations'][y]['step'])
+                    });
                 }
                 //group(s) whith potential playoffs
                 else{
 
                     var playoffs=[];
                     if(configs[x]['configurations'][y]['nbrOfGroups'] === 1){
-                        playoffs.push('simple championship');
+                        playoffs.push({
+                            step:-1,
+                            value:'simple championship'
+                        });
                     }
                     for(var i=0, len3=configs[x]['configurations'][y]['playOffStepMin'].length; i < len3; i++){
-                        playoffs.push(PLAYOFF_NAME[configs[x]['configurations'][y]['playOffStepMin'][i]]);
+                        playoffs.push({
+                            step:configs[x]['configurations'][y]['playOffStepMin'][i],
+                            value: PLAYOFF_NAME[configs[x]['configurations'][y]['playOffStepMin'][i]]
+                        });
                     }
 
-                        $scope.groupsSelect.push({separator:'team of '+configs[x]['numberOfPlayers'],value:configs[x]['configurations'][y]['nbrOfGroups']+' group(s) of '+configs[x]['configurations'][y]['nbrOfTeam']+' teams',playOffStepMin:configs[x]['configurations'][y]['playOffStepMin'], playoffs:playoffs});
+                    $scope.groupsSelect.push({
+                        separator:'team of '+configs[x]['numberOfPlayers'],
+                        playersPerTeam:configs[x]['numberOfPlayers'],
+                        value:configs[x]['configurations'][y]['nbrOfGroups']+' group(s) of '+configs[x]['configurations'][y]['nbrOfTeam']+' teams',
+                        playOffStepMin:configs[x]['configurations'][y]['playOffStepMin'],
+                        playoffs:playoffs,
+                        nbrOfGroups: configs[x]['configurations'][y]['nbrOfGroups'],
+                        numberOfTeams:configs[x]['configurations'][y]['nbrOfTeam']
+                    });
                 }
 
             }
         }
     }
-    
-    
-    $scope.goNextStep = function(){
+
+
+    $scope.goNextStep = function(configuration,playoff){
+        
+        console.log('goNextStep',configuration,playoff);
+
+        var params = {
+            numberOfPlayers: nbrOfPlayers,
+            numberOfGroups: configuration.nbrOfGroups,
+            numberOfTeamsPerGroup: configuration.numberOfTeams,
+            numberOfPlayerPerTeam: configuration.playersPerTeam,
+            playoffStepAfterGroup: playoff ? playoff.step : undefined,
+            isDirectTournament: configuration.directTournament
+        }
+
+        Tournament.init(params);
         $location.path('/teamNaming');
     }
 
@@ -228,10 +264,114 @@ angular.module('beerPongTournamentApp')
 'use strict';
 
 angular.module('beerPongTournamentApp')
-  .controller('TeamNamingCtrl', ["$scope", function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  }]);
+.controller('TeamNamingCtrl', ["$scope", "$location", "Tournament", function ($scope,$location,Tournament) {
+
+    var numberOfGroups = Tournament.getNumberOfGroups(),
+        numberOfTeamsPerGroup = Tournament.getNumberOfTeamsPerGroup(),
+        numberOfPlayerPerTeam = Tournament.getNumberOfPlayerPerTeam(),
+        isDirectTournament = Tournament.isADirectTournament(),
+        groups=[],
+        teamCompt =1,
+        playerCompt =1;
+
+    if(isDirectTournament){
+        var group = {
+            name: 'Direct Tournament',
+            teams:[]
+        };
+        
+        for(var y=0, len2=numberOfTeamsPerGroup; y < len2; y++){
+            group.teams.push({
+                name: 'Team '+teamCompt++,
+                players: []
+            });
+
+            for(var z=0, len3=numberOfPlayerPerTeam; z < len3; z++){
+                group.teams[y]['players'].push({
+                    name: 'Player '+playerCompt++,
+                });
+            }
+        }
+        groups.push(group);
+        $scope.groups = groups;
+    }
+    else{
+        for(var x=0, len=numberOfGroups; x < len; x++){
+            var group = {
+                name: 'GROUP '+ String.fromCharCode(65 + x), //97 lowercase
+                teams:[]
+            }
+            for(var y=0, len2=numberOfTeamsPerGroup; y < len2; y++){
+                group.teams.push({
+                    name: 'Team '+teamCompt++,
+                    players: []
+                });
+
+                for(var z=0, len3=numberOfPlayerPerTeam; z < len3; z++){
+                    group.teams[y]['players'].push({
+                        name: 'Player '+playerCompt++,
+                    });
+                }
+            }
+            groups.push(group);
+            $scope.groups = groups;
+        }
+    }
+
+
+    console.log('groups',groups);
+
+    $scope.startTournament = function(){
+        Tournament.setTeams($scope.groups); 
+         $location.path('/startTournament');
+    }
+
+
+}]);
+
+'use strict';
+
+angular.module('beerPongTournamentApp')
+.service('Tournament', ["localStorageService", function Tournament(localStorageService) {
+    // AngularJS will instantiate a singleton by calling "new" on this function
+
+    /*
+        isDirectTournament: boolean
+        numberOfGroups: integer
+        numberOfPlayerPerTeam: integer
+        numberOfPlayers: integer
+        numberOfTeamsPerGroup: integer
+        playoffStepAfterGroup: integer
+      */
+    var tournamentSettings = localStorageService.get('tournamentSettings') || {},
+        teams = localStorageService.get('teams') || {};
+
+    this.init = function(params){
+        localStorageService.set('tournamentSettings',params);
+        console.log(params);
+        tournamentSettings = params;
+    }
+    
+    this.isADirectTournament = function(){
+        return tournamentSettings.isDirectTournament;
+    }
+
+    this.getNumberOfGroups = function(){
+        return tournamentSettings.numberOfGroups;
+    }
+    
+    this.getNumberOfTeamsPerGroup = function(){
+        return tournamentSettings.numberOfTeamsPerGroup;
+    }
+
+    this.getNumberOfPlayerPerTeam = function(){
+        return tournamentSettings.numberOfPlayerPerTeam;
+    }
+    
+    this.setTeams = function(params){
+        localStorageService.set('teams',params);
+        console.log(params);
+        teams = params;
+    }
+
+}]);
