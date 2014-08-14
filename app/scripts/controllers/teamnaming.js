@@ -60,7 +60,7 @@ angular.module('beerPongTournamentApp')
 
     $scope.startTournament = function(){
         Tournament.setTeams($scope.groups); 
-         $location.path('/startTournament');
+        $location.path('/tournament');
     }
 
 

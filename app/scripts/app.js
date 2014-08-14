@@ -19,6 +19,10 @@ angular
         templateUrl: 'views/teamnaming.html',
         controller: 'TeamNamingCtrl'
     })
+    .when('/tournament', {
+        templateUrl: 'views/tournament.html',
+        controller: 'TournamentCtrl'
+    })
     .otherwise({
         redirectTo: '/'
     });

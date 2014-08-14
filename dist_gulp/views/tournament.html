@@ -1,0 +1,15 @@
+
+<div ng-repeat="group in groups">
+    <h1>{{group.name}}</h1>
+
+    <select ng-init="roundSelected = group.rounds[0]"
+            ng-model="roundSelected"
+            ng-options="'ROUND '+(group.rounds.indexOf(round)+1) for round in group.rounds">
+    </select>  
+    
+    <div ng-repeat="match in roundSelected">
+        <p>{{match.title}}</p>
+    </div>
+
+
+</div>

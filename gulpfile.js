@@ -69,7 +69,7 @@ gulp.task('styles', function () {
             style: 'expanded',
             lineNumbers: true
         }))
-        .pipe($.autoprefixer('iOS >= 6', 'Android >= 4'))
+        .pipe($.autoprefixer('last 2 version', '> 1%', 'ie 8', 'ie 7'))
         .pipe($.if(shouldMinify, $.cache($.csso())))
         .pipe($.concat('main.css'))
         .pipe(gulp.dest(paths.dist_base + 'styles/'));
