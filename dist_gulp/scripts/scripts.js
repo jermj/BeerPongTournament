@@ -304,7 +304,6 @@ angular.module('beerPongTournamentApp')
 */
 
 
-
 }]);
 'use strict';
 

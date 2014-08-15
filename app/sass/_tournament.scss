@@ -1,0 +1,48 @@
+.tournament-games{
+    .group-block{
+        overflow:hidden;
+        h1{
+            text-align: center;
+        }
+        .select-block{
+            margin: 0px 10px;
+            padding: 10px;
+
+            select{
+                width: 100%;
+                font-size: 30px;
+            }
+        }
+        .group-games-block{
+            text-align: center;
+            .group-game{
+                border:1px solid black;
+                overflow:hidden;
+
+                table{
+                    table-layout: fixed;
+                    width: 100%;
+
+                    .player{
+                        .player-name{
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .tournament-games{
+        .group-block{
+            .group-games-block{
+                .group-game{
+                    width: 400px;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

@@ -420,3 +420,48 @@ body {
 .tournament-header .tournament-header-content {
   text-align: right;
 }
+
+/* line 2, ../_tournament.scss */
+.tournament-games .group-block {
+  overflow: hidden;
+}
+/* line 4, ../_tournament.scss */
+.tournament-games .group-block h1 {
+  text-align: center;
+}
+/* line 7, ../_tournament.scss */
+.tournament-games .group-block .select-block {
+  margin: 0px 10px;
+  padding: 10px;
+}
+/* line 11, ../_tournament.scss */
+.tournament-games .group-block .select-block select {
+  width: 100%;
+  font-size: 30px;
+}
+/* line 16, ../_tournament.scss */
+.tournament-games .group-block .group-games-block {
+  text-align: center;
+}
+/* line 18, ../_tournament.scss */
+.tournament-games .group-block .group-games-block .group-game {
+  border: 1px solid black;
+  overflow: hidden;
+}
+/* line 22, ../_tournament.scss */
+.tournament-games .group-block .group-games-block .group-game table {
+  table-layout: fixed;
+  width: 100%;
+}
+/* line 27, ../_tournament.scss */
+.tournament-games .group-block .group-games-block .group-game table .player .player-name {
+  display: inline-block;
+}
+
+@media screen and (min-width: 400px) {
+  /* line 41, ../_tournament.scss */
+  .tournament-games .group-block .group-games-block .group-game {
+    width: 400px;
+    display: inline-block;
+  }
+}

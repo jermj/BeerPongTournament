@@ -165,5 +165,4 @@ angular.module('beerPongTournamentApp')
 */
 
 
-
 });

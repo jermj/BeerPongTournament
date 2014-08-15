@@ -1,15 +1,38 @@
+<div ng-include src="'views/partials/header.html'"></div>
+<div class="tournament-games">
+    <div class="group-block" ng-repeat="group in groups">
+        <h1>{{group.name}}</h1>
 
-<div ng-repeat="group in groups">
-    <h1>{{group.name}}</h1>
+        <div class="select-block">
+            <select ng-init="roundSelected = group.rounds[0]"
+                    ng-model="roundSelected"
+                    ng-options="'ROUND '+(group.rounds.indexOf(round)+1) for round in group.rounds">
+            </select>  
+        </div>
+        <div class="group-games-block">
+            <div class="group-game" ng-repeat="match in roundSelected" ng-init="match.result= {score:[0,0],buteurs:[]}">
+                <p>{{match.title}}</p>
+                <p>{{group.teams[match.match[0]]['name']}}:<input ng-model="match.result.score[0]" type="text"></p>
+                <p>{{group.teams[match.match[1]]['name']}}:<input ng-model="match.result.score[1]" type="text"></p>
 
-    <select ng-init="roundSelected = group.rounds[0]"
-            ng-model="roundSelected"
-            ng-options="'ROUND '+(group.rounds.indexOf(round)+1) for round in group.rounds">
-    </select>  
-    
-    <div ng-repeat="match in roundSelected">
-        <p>{{match.title}}</p>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="player" ng-repeat="player in group.teams[match.match[0]]['players']">
+                                <button ng-click="match.result.score[0]= match.result.score[0]-1">-</button><p class="player-name" >{{player.name}}</p><button ng-click="match.result.score[0]= match.result.score[0]+1">+</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="player" ng-repeat="player in group.teams[match.match[1]]['players']">
+                                <button ng-click="match.result.score[1]= match.result.score[1]-1">-</button><p class="player-name" ><p class="player-name" >{{player.name}}</p><button ng-click="match.result.score[1]= match.result.score[1]+1">+</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+            </div>
+        </div>
     </div>
-
-
 </div>
