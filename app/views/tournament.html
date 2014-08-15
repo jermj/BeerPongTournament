@@ -10,21 +10,26 @@
             </select>  
         </div>
         <div class="group-games-block">
-            <div class="group-game" ng-repeat="match in roundSelected" ng-init="match.result= {score:[0,0],buteurs:[]}">
+            <div class="group-game" ng-repeat="match in roundSelected" ng-init="match.score = [0,0]; match.scorers =[[],[]]">
                 <p>{{match.title}}</p>
-                <p>{{group.teams[match.match[0]]['name']}}:<input ng-model="match.result.score[0]" type="text"></p>
-                <p>{{group.teams[match.match[1]]['name']}}:<input ng-model="match.result.score[1]" type="text"></p>
+                <p>{{group.teams[match.match[0]]['name']}}:<input ng-model="match.score[0]" disabled type="number"></p>
+                <p>{{group.teams[match.match[1]]['name']}}:<input ng-model="match.score[1]" disabled type="number"></p>
 
                 <table>
                     <tr>
                         <td>
-                            <div class="player" ng-repeat="player in group.teams[match.match[0]]['players']">
-                                <button ng-click="match.result.score[0]= match.result.score[0]-1">-</button><p class="player-name" >{{player.name}}</p><button ng-click="match.result.score[0]= match.result.score[0]+1">+</button>
+                            <div class="player" ng-repeat="player in group.teams[match.match[0]]['players']" ng-init="player.score =0;match.scorers[0].push(player)">
+                               <p class="player-name" >{{player.name}}</p>
+                                <button  ng-click="scoreDown(match.scorers[0][$index],match.score,0)" >-</button>
+                                <input style="width: 32px;text-align: center;" ng-model="player.score" disabled type="number">
+                                <button ng-click="scoreUp(match.scorers[0][$index],match.score,0)">+</button>
                             </div>
                         </td>
                         <td>
-                            <div class="player" ng-repeat="player in group.teams[match.match[1]]['players']">
-                                <button ng-click="match.result.score[1]= match.result.score[1]-1">-</button><p class="player-name" ><p class="player-name" >{{player.name}}</p><button ng-click="match.result.score[1]= match.result.score[1]+1">+</button>
+                            <div class="player" ng-repeat="player in group.teams[match.match[1]]['players']" ng-init="player.score =0;match.scorers[1].push(player)">
+                               <p class="player-name" >{{player.name}}</p>
+                                <button  ng-click="scoreDown(match.scorers[1][$index],match.score,1)" >-</button><input style="width: 32px;text-align: center;" ng-model="player.score" disabled type="number">
+                                <button ng-click="scoreUp(match.scorers[1][$index],match.score,1)">+</button>
                             </div>
                         </td>
                     </tr>

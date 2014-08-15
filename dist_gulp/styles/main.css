@@ -453,10 +453,6 @@ body {
   table-layout: fixed;
   width: 100%;
 }
-/* line 27, ../_tournament.scss */
-.tournament-games .group-block .group-games-block .group-game table .player .player-name {
-  display: inline-block;
-}
 
 @media screen and (min-width: 400px) {
   /* line 41, ../_tournament.scss */

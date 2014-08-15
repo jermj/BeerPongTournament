@@ -3,7 +3,8 @@
 angular.module('beerPongTournamentApp')
 .controller('TournamentCtrl', function ($scope,Tournament) {
 
-    var groups = Tournament.getTeams();
+    var groups = Tournament.getTeams(),
+        nbrOfCupsToWin = Tournament.getNumberOfCupsToWin();
 
     console.log('groups',groups);
 
@@ -13,44 +14,6 @@ angular.module('beerPongTournamentApp')
     //else
     //for each group 
     // generate as game as team by group
-
-    /*
-
-      {
-        rounds:[
-            {
-                level:1,
-                games: [
-                {
-                    group: 'GROUP A',
-                    equipe1:'equipe sam',
-                    equipe2:'equipe dam',
-                },
-                {
-                    group: 'GROUP B',
-                    equipe1:'equipe ruch',
-                    equipe2:'equipe emil',
-                }
-                ,]
-            }
-            {
-                level:2,
-                games: [
-                {
-                    group: 'GROUP A',
-                    equipe1:'equipe sam',
-                    equipe2:'equipe thomas',
-                },
-                {
-                    group: 'GROUP B',
-                    equipe1:'equipe ruch',
-                    equipe2:'equipe lucas',
-                }
-                ]
-            }
-        ]
-      }
-      */
 
     function updatePriorities(array, game, games){
         for(var i=0, len=array.length; i<len; i++){
@@ -115,54 +78,24 @@ angular.module('beerPongTournamentApp')
         console.log('final planning',planning);
 
     }
-
-
-    /*
-3 équipes  3 matchs
-1 2
-
-2 3
-
-1 3
-
-4 equipes 6 matchs
-1 2
-3 4
-
-1 3
-2 4
-
-1 4
-2 3
-
-5 equipes, 3 * 2 + 4   
-
-5/2 = 2.5 = 2
-
-1 2
-1 3
-
-1 4
-1 5
-
-2 3
-2 4
-
-2 5
-3 4
-
-3 5
-4 5
-
-7 équipes 5 * 3 + 6 = 21 match
-
-7/2 = 3,5 = 3
-
-7 * 3 par rounds
-
-
-
-*/
+    
+    $scope.scoreUp = function(player, score,index){
+        console.log(player,score);
+        if(score[index] < nbrOfCupsToWin){
+            score[index] = score[index] +1;
+            player.score = player.score ? player.score + 1 : 1;
+        }
+        console.log(score);
+    }
+    
+    $scope.scoreDown = function(player, score,index){
+        console.log(player,score);
+        if(player.score >0){
+            score[index] = score[index] -1;
+            player.score = player.score - 1;
+        }
+        console.log(score);
+    }
 
 
 });

@@ -46,5 +46,10 @@ angular.module('beerPongTournamentApp')
     this.getTeams = function(){
         return teams;
     }
+    
+    this.getNumberOfCupsToWin = function(){
+        return tournamentSettings.numberOfCupsToWin;
+    }
+
 
 });

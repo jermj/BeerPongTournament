@@ -64,9 +64,9 @@ angular.module('beerPongTournamentApp')
     }
 
 
-    $scope.goNextStep = function(configuration,playoff){
+    $scope.goNextStep = function(configuration,playoff,numberOfCup){
         
-        console.log('goNextStep',configuration,playoff);
+        console.log('goNextStep',configuration,playoff,numberOfCup);
 
         var params = {
             numberOfPlayers: nbrOfPlayers,
@@ -74,7 +74,8 @@ angular.module('beerPongTournamentApp')
             numberOfTeamsPerGroup: configuration.numberOfTeams,
             numberOfPlayerPerTeam: configuration.playersPerTeam,
             playoffStepAfterGroup: playoff ? playoff.step : undefined,
-            isDirectTournament: configuration.directTournament
+            isDirectTournament: configuration.directTournament,
+            numberOfCupsToWin:numberOfCup
         }
 
         Tournament.init(params);
