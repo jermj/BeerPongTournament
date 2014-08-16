@@ -12,8 +12,8 @@
         <div class="group-games-block">
             <div class="group-game" ng-repeat="match in roundSelected" ng-init="match.score = [0,0]; match.scorers =[[],[]]">
                 <p>{{match.title}}</p>
-                <p>{{group.teams[match.match[0]]['name']}}:<input ng-model="match.score[0]" disabled type="number"></p>
-                <p>{{group.teams[match.match[1]]['name']}}:<input ng-model="match.score[1]" disabled type="number"></p>
+                <p>{{group.teams[match.match[0]]['name']}}:<input class="score" ng-class="{'winner': match.score[0] == nbrOfCupsToWin}" ng-model="match.score[0]" disabled type="number"></p>
+                <p>{{group.teams[match.match[1]]['name']}}:<input class="score" ng-class="{'winner': match.score[1] == nbrOfCupsToWin}" ng-model="match.score[1]" disabled type="number"></p>
 
                 <table>
                     <tr>
@@ -40,4 +40,7 @@
             </div>
         </div>
     </div>
+</div>
+<div ng-if="showNextStep" class="tournament-nextstep">
+    <button ng-click="goNextStep()">Show table</button>
 </div>

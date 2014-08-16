@@ -23,6 +23,10 @@ angular
         templateUrl: 'views/tournament.html',
         controller: 'TournamentCtrl'
     })
+    .when('/tables', {
+        templateUrl: 'views/tables.html',
+        controller: 'TablesCtrl'
+    })
     .otherwise({
         redirectTo: '/'
     });
@@ -141,10 +145,13 @@ angular.module('beerPongTournamentApp')
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('TournamentCtrl', ["$scope", "Tournament", function ($scope,Tournament) {
+.controller('TournamentCtrl', ["$scope", "$location", "Tournament", function ($scope,$location,Tournament) {
 
     var groups = Tournament.getTeams(),
         nbrOfCupsToWin = Tournament.getNumberOfCupsToWin();
+
+    $scope.nbrOfCupsToWin = nbrOfCupsToWin;
+    $scope.showNextStep = false;
 
     console.log('groups',groups);
 
@@ -172,7 +179,8 @@ angular.module('beerPongTournamentApp')
     else{
         console.log('not a direct tournament');
 
-        var planning = [];
+        var planning = [],
+            numberOfGames = 0;
 
         for(var x=0, len=groups.length; x < len; x++){
             var group = groups[x],
@@ -194,6 +202,9 @@ angular.module('beerPongTournamentApp')
                 }
             }
 
+
+            numberOfGames += matchs.length;
+
             group.rounds = [];
 
             while(matchs.length >0){
@@ -213,28 +224,42 @@ angular.module('beerPongTournamentApp')
             planning.push(group);
         }
 
-        
+
         $scope.groups = planning;
         console.log('final planning',planning);
 
     }
-    
+
     $scope.scoreUp = function(player, score,index){
-        console.log(player,score);
-        if(score[index] < nbrOfCupsToWin){
+        console.log('scope up',nbrOfCupsToWin,score[index],numberOfGames);
+        if((score[+!index] == nbrOfCupsToWin && score[index] < nbrOfCupsToWin-1) || (score[+!index] != nbrOfCupsToWin && score[index] < nbrOfCupsToWin)){
+            var scoreBeforeUp = score[index];
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
+            if(scoreBeforeUp === nbrOfCupsToWin-1){
+                numberOfGames--;
+                if(numberOfGames == 0){
+                    console.log($scope.groups);
+                    $scope.showNextStep = true;
+                }
+            }
         }
-        console.log(score);
     }
-    
+
     $scope.scoreDown = function(player, score,index){
-        console.log(player,score);
+        console.log('score down',player,score,numberOfGames);
         if(player.score >0){
+            if(score[index] === nbrOfCupsToWin){
+                numberOfGames++;
+            }
             score[index] = score[index] -1;
             player.score = player.score - 1;
         }
-        console.log(score);
+    }
+
+    $scope.goNextStep = function(){
+        Tournament.setGroupsResult($scope.groups);
+        $location.path('/tables');
     }
 
 
@@ -306,6 +331,29 @@ angular.module('beerPongTournamentApp')
 
 
 }]);
+
+'use strict';
+
+angular.module('beerPongTournamentApp')
+  .controller('TablesCtrl', ["$scope", "Tournament", function ($scope,Tournament) {
+    
+      $scope.tables = Tournament.getTables();
+      console.log('tables',$scope.tables);
+      
+      var stepPlayoff = Tournament.getPlayoffStepAfterGroup();
+      //playoff
+      if(stepPlayoff >-1){
+          var nbrOfGroups = Tournament.getNumberOfGroups();
+          $scope.numberOfTeamsQualifiedPerGroups = Math.pow(2,stepPlayoff+1)/nbrOfGroups;
+          console.log(stepPlayoff,nbrOfGroups,$scope.numberOfTeamsQualifiedPerGroups);
+      }
+      //simple championship = only 1 group
+      else{
+        alert('game finish');
+      }
+      
+      
+  }]);
 
 'use strict';
 
@@ -443,21 +491,23 @@ angular.module('beerPongTournamentApp')
 
     /*
         isDirectTournament: boolean
-        numberOfGroups: integer
-        numberOfPlayerPerTeam: integer
-        numberOfPlayers: integer
-        numberOfTeamsPerGroup: integer
-        playoffStepAfterGroup: integer
+        numberOfGroups: number
+        numberOfPlayerPerTeam: number
+        numberOfPlayers: number
+        numberOfTeamsPerGroup: number
+        playoffStepAfterGroup: number
+        numberOfCupsToWin: number        
       */
     var tournamentSettings = localStorageService.get('tournamentSettings') || {},
-        teams = localStorageService.get('teams') || {};
+        teams = localStorageService.get('teams') || {},
+        groupResult = localStorageService.get('groupResult') || {};
 
     this.init = function(params){
         localStorageService.set('tournamentSettings',params);
         console.log(params);
         tournamentSettings = params;
     }
-    
+
     this.isADirectTournament = function(){
         return tournamentSettings.isDirectTournament;
     }
@@ -465,7 +515,7 @@ angular.module('beerPongTournamentApp')
     this.getNumberOfGroups = function(){
         return tournamentSettings.numberOfGroups;
     }
-    
+
     this.getNumberOfTeamsPerGroup = function(){
         return tournamentSettings.numberOfTeamsPerGroup;
     }
@@ -473,20 +523,95 @@ angular.module('beerPongTournamentApp')
     this.getNumberOfPlayerPerTeam = function(){
         return tournamentSettings.numberOfPlayerPerTeam;
     }
-    
+
     this.setTeams = function(params){
         localStorageService.set('teams',params);
         console.log(params);
         teams = params;
     }
-    
+
     this.getTeams = function(){
         return teams;
     }
-    
+
     this.getNumberOfCupsToWin = function(){
         return tournamentSettings.numberOfCupsToWin;
     }
+    
+    this.getPlayoffStepAfterGroup = function(){
+        return tournamentSettings.playoffStepAfterGroup;
+    }
 
+    this.setGroupsResult = function(gpResult){
+        localStorageService.set('groupResult',gpResult);
+        groupResult = gpResult;
+    }
+
+    function updateTable(table,teamName,type,cupsFor,cupsAgainst){
+        var i = table.length;
+        while( i-- ) {
+            if( table[i].name === teamName ){
+                if(type === 'win'){
+                    table[i]['win'] += 1;
+                }
+                else if(type === 'lose'){
+                    table[i]['lose'] += 1;
+                }
+                table[i]['cupsFor'] += cupsFor;
+                table[i]['cupsAgainst'] += cupsAgainst;
+                break;
+            } 
+        }
+    }
+
+    this.getTables = function(){
+        var tables = [];
+        
+        console.log(groupResult);
+
+        for(var i=0, len = groupResult.length; i<len; i++){
+            var group = {
+                name: groupResult[i]['name'],
+                table:[]
+            };
+
+            for(var j=0, len2 = groupResult[i]['teams'].length; j<len2; j++){
+                var team = {
+                    name: groupResult[i]['teams'][j]['name'],
+                    win:0,
+                    lose:0,
+                    cupsFor: 0,
+                    cupsAgainst: 0
+                }
+                group.table.push(team);
+            }
+
+            for(var k=0, len3 = groupResult[i]['rounds'].length; k<len3; k++){
+                for(var l=0, len4 = groupResult[i]['rounds'][k].length; l<len4; l++){
+                    var game = groupResult[i]['rounds'][k][l];
+
+                    //check if the match is ended = winner / looser
+                    if(game.score[0] === tournamentSettings.numberOfCupsToWin || game.score[1] === tournamentSettings.numberOfCupsToWin ){
+                        var winner, looser;
+                        if(game.score[0] === tournamentSettings.numberOfCupsToWin){
+                            winner = 0;
+                            looser = 1;
+                        }else{
+                            winner = 0;
+                            looser = 1;
+                        }
+                        updateTable(group.table,groupResult[i]['teams'][game.match[winner]]['name'],'win',game.score[winner],game.score[looser]);
+                        updateTable(group.table,groupResult[i]['teams'][game.match[1]]['name'],'lose',game.score[looser],game.score[winner]);
+                    }
+                }
+            }
+            group.table.sort(function(a, b){
+               // console.log(b.win-a.win);
+                return b.win-a.win;
+            })
+            tables.push(group);
+        }
+        return tables;
+    }
 
 }]);

@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('TournamentCtrl', function ($scope,Tournament) {
+.controller('TournamentCtrl', function ($scope,$location,Tournament) {
 
     var groups = Tournament.getTeams(),
         nbrOfCupsToWin = Tournament.getNumberOfCupsToWin();
+
+    $scope.nbrOfCupsToWin = nbrOfCupsToWin;
+    $scope.showNextStep = false;
 
     console.log('groups',groups);
 
@@ -32,7 +35,8 @@ angular.module('beerPongTournamentApp')
     else{
         console.log('not a direct tournament');
 
-        var planning = [];
+        var planning = [],
+            numberOfGames = 0;
 
         for(var x=0, len=groups.length; x < len; x++){
             var group = groups[x],
@@ -54,6 +58,9 @@ angular.module('beerPongTournamentApp')
                 }
             }
 
+
+            numberOfGames += matchs.length;
+
             group.rounds = [];
 
             while(matchs.length >0){
@@ -73,28 +80,42 @@ angular.module('beerPongTournamentApp')
             planning.push(group);
         }
 
-        
+
         $scope.groups = planning;
         console.log('final planning',planning);
 
     }
-    
+
     $scope.scoreUp = function(player, score,index){
-        console.log(player,score);
-        if(score[index] < nbrOfCupsToWin){
+        console.log('scope up',nbrOfCupsToWin,score[index],numberOfGames);
+        if((score[+!index] == nbrOfCupsToWin && score[index] < nbrOfCupsToWin-1) || (score[+!index] != nbrOfCupsToWin && score[index] < nbrOfCupsToWin)){
+            var scoreBeforeUp = score[index];
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
+            if(scoreBeforeUp === nbrOfCupsToWin-1){
+                numberOfGames--;
+                if(numberOfGames == 0){
+                    console.log($scope.groups);
+                    $scope.showNextStep = true;
+                }
+            }
         }
-        console.log(score);
     }
-    
+
     $scope.scoreDown = function(player, score,index){
-        console.log(player,score);
+        console.log('score down',player,score,numberOfGames);
         if(player.score >0){
+            if(score[index] === nbrOfCupsToWin){
+                numberOfGames++;
+            }
             score[index] = score[index] -1;
             player.score = player.score - 1;
         }
-        console.log(score);
+    }
+
+    $scope.goNextStep = function(){
+        Tournament.setGroupsResult($scope.groups);
+        $location.path('/tables');
     }
 
 

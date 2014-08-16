@@ -449,15 +449,59 @@ body {
   overflow: hidden;
 }
 /* line 22, ../_tournament.scss */
+.tournament-games .group-block .group-games-block .group-game .score.winner {
+  background-color: green;
+  color: white;
+}
+/* line 27, ../_tournament.scss */
 .tournament-games .group-block .group-games-block .group-game table {
   table-layout: fixed;
   width: 100%;
 }
+/* line 31, ../_tournament.scss */
+.tournament-games .group-block .group-games-block .group-game table td:first-child {
+  border-right: 1px solid black;
+}
+
+/* line 40, ../_tournament.scss */
+.tournament-nextstep {
+  margin: 25px 0px;
+  text-align: center;
+}
+/* line 43, ../_tournament.scss */
+.tournament-nextstep button {
+  background-color: #7cc570;
+  color: white;
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 20px;
+  display: block;
+  width: 170px;
+}
 
 @media screen and (min-width: 400px) {
-  /* line 41, ../_tournament.scss */
+  /* line 59, ../_tournament.scss */
   .tournament-games .group-block .group-games-block .group-game {
     width: 400px;
     display: inline-block;
   }
+}
+/* line 1, ../_tables.scss */
+.table-group {
+  text-align: center;
+}
+/* line 3, ../_tables.scss */
+.table-group table {
+  table-layout: fixed;
+  width: 100%;
+}
+/* line 7, ../_tables.scss */
+.table-group table .qualified {
+  background-color: #6BB661;
+}
+/* line 11, ../_tables.scss */
+.table-group table, .table-group th, .table-group td {
+  border: 1px solid black;
+  border-collapse: collapse;
 }
