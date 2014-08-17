@@ -19,13 +19,21 @@ angular
         templateUrl: 'views/teamnaming.html',
         controller: 'TeamNamingCtrl'
     })
-    .when('/tournament', {
-        templateUrl: 'views/tournament.html',
-        controller: 'TournamentCtrl'
+    .when('/groups', {
+        templateUrl: 'views/groups.html',
+        controller: 'GroupsCtrl'
+    })
+    .when('/playoffs/:round', {
+        templateUrl: 'views/playoffs.html',
+        controller: 'PlayoffsCtrl'
     })
     .when('/tables', {
         templateUrl: 'views/tables.html',
         controller: 'TablesCtrl'
+    })
+    .when('/winner', {
+        templateUrl: 'views/winner.html',
+        controller: 'WinnerCtrl'
     })
     .otherwise({
         redirectTo: '/'

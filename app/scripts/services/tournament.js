@@ -6,6 +6,7 @@ angular.module('beerPongTournamentApp')
 
     /*
         isDirectTournament: boolean
+        directTournamentStep: number
         numberOfGroups: number
         numberOfPlayerPerTeam: number
         numberOfPlayers: number
@@ -15,12 +16,14 @@ angular.module('beerPongTournamentApp')
       */
     var tournamentSettings = localStorageService.get('tournamentSettings') || {},
         teams = localStorageService.get('teams') || {},
-        groupResult = localStorageService.get('groupResult') || {};
+        groupResult = localStorageService.get('groupResult') || false,
+        playoffs = localStorageService.get('playoffs') || false;
 
     this.init = function(params){
         localStorageService.set('tournamentSettings',params);
         console.log(params);
         tournamentSettings = params;
+        console.log('sam',params);
     }
 
     this.isADirectTournament = function(){
@@ -30,7 +33,9 @@ angular.module('beerPongTournamentApp')
     this.getNumberOfGroups = function(){
         return tournamentSettings.numberOfGroups;
     }
-
+    this.getDirectTournamentStep = function(){
+        return tournamentSettings.directTournamentStep;
+    }
     this.getNumberOfTeamsPerGroup = function(){
         return tournamentSettings.numberOfTeamsPerGroup;
     }
@@ -49,14 +54,40 @@ angular.module('beerPongTournamentApp')
         return teams;
     }
 
+
+    this.SetTeamsQualifiedForPlayoff = function(teamsQualified){
+        playoffs = [{teams: teamsQualified}];
+        localStorageService.set('playoffs',playoffs);
+    }
+    
+    this.setPlayoffs = function(params){
+        localStorageService.set('playoffs',params);
+        playoffs = params;
+    }
+
+    this.getPlayoffs = function(){
+
+        if(playoffs){
+            return playoffs;
+        }
+        else{
+            return [{teams: teams[0]['teams']}];
+        }
+
+    }
+
     this.getNumberOfCupsToWin = function(){
         return tournamentSettings.numberOfCupsToWin;
     }
-    
+
     this.getPlayoffStepAfterGroup = function(){
         return tournamentSettings.playoffStepAfterGroup;
     }
 
+    this.getGroupsResult = function(){
+            return groupResult;
+    }
+    
     this.setGroupsResult = function(gpResult){
         localStorageService.set('groupResult',gpResult);
         groupResult = gpResult;
@@ -81,7 +112,7 @@ angular.module('beerPongTournamentApp')
 
     this.getTables = function(){
         var tables = [];
-        
+
         console.log(groupResult);
 
         for(var i=0, len = groupResult.length; i<len; i++){
@@ -121,7 +152,7 @@ angular.module('beerPongTournamentApp')
                 }
             }
             group.table.sort(function(a, b){
-               // console.log(b.win-a.win);
+                // console.log(b.win-a.win);
                 return b.win-a.win;
             })
             tables.push(group);

@@ -1,22 +1,52 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-  .controller('TablesCtrl', function ($scope,Tournament) {
-    
-      $scope.tables = Tournament.getTables();
-      console.log('tables',$scope.tables);
-      
-      var stepPlayoff = Tournament.getPlayoffStepAfterGroup();
-      //playoff
-      if(stepPlayoff >-1){
-          var nbrOfGroups = Tournament.getNumberOfGroups();
-          $scope.numberOfTeamsQualifiedPerGroups = Math.pow(2,stepPlayoff+1)/nbrOfGroups;
-          console.log(stepPlayoff,nbrOfGroups,$scope.numberOfTeamsQualifiedPerGroups);
-      }
-      //simple championship = only 1 group
-      else{
+.controller('TablesCtrl', function ($scope,$location,Tournament) {
+
+    var stepPlayoff = Tournament.getPlayoffStepAfterGroup(),
+        tables = Tournament.getTables(),
+        teams = Tournament.getTeams();
+
+    $scope.tables = tables;
+
+    //playoff
+    if(stepPlayoff >-1){
+        var nbrOfGroups = Tournament.getNumberOfGroups(),
+            numberOfTeamsQualifiedPerGroups = Math.pow(2,stepPlayoff+1)/nbrOfGroups;
+
+        $scope.numberOfTeamsQualifiedPerGroups = numberOfTeamsQualifiedPerGroups;
+
+        //set teams for playoffs
+        //Tournament.SetTeamsQualifiedForPlayoff();
+
+        var teamsQualified = [],
+            tmpTeams = angular.copy(teams);
+
+        console.log('teams',teams,tables);
+
+        for(var i = 0; i< teams.length; i++){
+            for(var j = 0; j<numberOfTeamsQualifiedPerGroups;j++){
+                var a = tmpTeams[i]['teams'].length;
+                while( a-- ) {
+                    if( tmpTeams[i]['teams'][a]['name'] === tables[i]['table'][j]['name']){
+                        teamsQualified.push(tmpTeams[i]['teams'][a]);
+                        break;
+                    }
+                }
+                
+            }
+        }
+
+        Tournament.SetTeamsQualifiedForPlayoff(teamsQualified);
+        console.log('teamsQualified',teamsQualified);
+
+        $scope.goNextStep = function(){
+            $location.path('/playoffs/0');
+        }
+    }
+    //simple championship = only 1 group
+    else{
         alert('game finish');
-      }
-      
-      
-  });
+    }
+
+});

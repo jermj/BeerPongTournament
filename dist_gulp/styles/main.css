@@ -421,54 +421,31 @@ body {
   text-align: right;
 }
 
-/* line 2, ../_tournament.scss */
+/* line 2, ../_groups.scss */
 .tournament-games .group-block {
   overflow: hidden;
 }
-/* line 4, ../_tournament.scss */
+/* line 4, ../_groups.scss */
 .tournament-games .group-block h1 {
   text-align: center;
 }
-/* line 7, ../_tournament.scss */
+/* line 7, ../_groups.scss */
 .tournament-games .group-block .select-block {
   margin: 0px 10px;
   padding: 10px;
 }
-/* line 11, ../_tournament.scss */
+/* line 11, ../_groups.scss */
 .tournament-games .group-block .select-block select {
   width: 100%;
   font-size: 30px;
 }
-/* line 16, ../_tournament.scss */
-.tournament-games .group-block .group-games-block {
-  text-align: center;
-}
-/* line 18, ../_tournament.scss */
-.tournament-games .group-block .group-games-block .group-game {
-  border: 1px solid black;
-  overflow: hidden;
-}
-/* line 22, ../_tournament.scss */
-.tournament-games .group-block .group-games-block .group-game .score.winner {
-  background-color: green;
-  color: white;
-}
-/* line 27, ../_tournament.scss */
-.tournament-games .group-block .group-games-block .group-game table {
-  table-layout: fixed;
-  width: 100%;
-}
-/* line 31, ../_tournament.scss */
-.tournament-games .group-block .group-games-block .group-game table td:first-child {
-  border-right: 1px solid black;
-}
 
-/* line 40, ../_tournament.scss */
+/* line 19, ../_groups.scss */
 .tournament-nextstep {
   margin: 25px 0px;
   text-align: center;
 }
-/* line 43, ../_tournament.scss */
+/* line 22, ../_groups.scss */
 .tournament-nextstep button {
   background-color: #7cc570;
   color: white;
@@ -480,13 +457,11 @@ body {
   width: 170px;
 }
 
-@media screen and (min-width: 400px) {
-  /* line 59, ../_tournament.scss */
-  .tournament-games .group-block .group-games-block .group-game {
-    width: 400px;
-    display: inline-block;
-  }
+/* line 2, ../_playoffs.scss */
+.playoffs > h1 {
+  text-align: center;
 }
+
 /* line 1, ../_tables.scss */
 .table-group {
   text-align: center;
@@ -504,4 +479,36 @@ body {
 .table-group table, .table-group th, .table-group td {
   border: 1px solid black;
   border-collapse: collapse;
+}
+
+/* line 1, ../_match.scss */
+.games-block {
+  text-align: center;
+}
+/* line 3, ../_match.scss */
+.games-block .group-game {
+  border: 1px solid black;
+  overflow: hidden;
+}
+/* line 7, ../_match.scss */
+.games-block .group-game .winner {
+  background-color: green;
+  color: white;
+}
+/* line 12, ../_match.scss */
+.games-block .group-game table {
+  table-layout: fixed;
+  width: 100%;
+}
+/* line 16, ../_match.scss */
+.games-block .group-game table td:first-child {
+  border-right: 1px solid black;
+}
+
+@media screen and (min-width: 400px) {
+  /* line 25, ../_match.scss */
+  .games-block .group-game {
+    width: 400px;
+    display: inline-block;
+  }
 }

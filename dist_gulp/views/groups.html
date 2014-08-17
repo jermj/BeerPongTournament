@@ -1,0 +1,46 @@
+<div ng-include src="'views/partials/header.html'"></div>
+<div class="tournament-games">
+    <div class="group-block" ng-repeat="group in groups">
+        <h1>{{group.name}}</h1>
+
+        <div class="select-block">
+            <select ng-init="roundSelected = group.rounds[0]"
+                    ng-model="roundSelected"
+                    ng-options="'ROUND '+(group.rounds.indexOf(round)+1) for round in group.rounds">
+            </select>  
+        </div>
+        <div class="games-block">
+            <div class="group-game" ng-repeat="match in roundSelected">
+                <p>{{match.title}}</p>
+                <p ng-class="{'winner': match.score[0] == nbrOfCupsToWin}">{{group.teams[match.match[0]]['name']}}: <span class="score">{{match.score[0]}}</span></p>
+                <p ng-class="{'winner': match.score[1] == nbrOfCupsToWin}">{{group.teams[match.match[1]]['name']}}: <span class="score">{{match.score[1]}}</p>
+
+                <table>
+                    <tr>
+                        <td>
+                            <div class="player" ng-repeat="player in match.scorers[0]">
+                                <p class="player-name" >{{player.name}}</p>
+                                <button  ng-click="scoreDown(player,match.score,0)" >-</button>
+                                <span >{{player.score}}</span>
+                                <button ng-click="scoreUp(player,match.score,0)">+</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="player" ng-repeat="player in match.scorers[1]" >
+                                <p class="player-name" >{{player.name}}</p>
+                                <button  ng-click="scoreDown(player,match.score,1)" >-</button>                                 <span>{{player.score}}</span>
+                                <button ng-click="scoreUp(player,match.score,1)">+</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="showNextStep" class="tournament-nextstep">
+    <button ng-click="goNextStep()">Show table</button>
+</div>

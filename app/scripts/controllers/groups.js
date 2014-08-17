@@ -1,22 +1,12 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('TournamentCtrl', function ($scope,$location,Tournament) {
+.controller('GroupsCtrl', function ($scope,$location,Tournament) {
 
-    var groups = Tournament.getTeams(),
-        nbrOfCupsToWin = Tournament.getNumberOfCupsToWin();
+    var nbrOfCupsToWin = Tournament.getNumberOfCupsToWin();
 
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
     $scope.showNextStep = false;
-
-    console.log('groups',groups);
-
-    //if direct tournament
-    //random by 2 team
-
-    //else
-    //for each group 
-    // generate as game as team by group
 
     function updatePriorities(array, game, games){
         for(var i=0, len=array.length; i<len; i++){
@@ -28,15 +18,18 @@ angular.module('beerPongTournamentApp')
         games.sort(function(a,b){return b.priority - a.priority;});
     }
 
-
-    if(Tournament.isADirectTournament()){
-        //TODO
+    if(Tournament.getGroupsResult()){
+        $scope.groups = Tournament.getGroupsResult();
+        
+        console.log($scope.groups);
+        //TODO calculate numberOfGames if 0 $scope.showNextStep = true;
+        $scope.showNextStep = true;
     }
     else{
-        console.log('not a direct tournament');
 
         var planning = [],
-            numberOfGames = 0;
+            numberOfGames = 0,
+            groups = Tournament.getTeams();
 
         for(var x=0, len=groups.length; x < len; x++){
             var group = groups[x],
@@ -54,7 +47,24 @@ angular.module('beerPongTournamentApp')
 
             for(var y=1, len3=teamsArray.length; y<len3; y++){
                 for(var j=0; j<=y-1; j++){
-                    matchs.push({priority: 0, match: [y,j], title:teamsArray[y]['name']+' vs '+teamsArray[j]['name']});
+                    
+                    var team1 = [], team2 = [];
+                    
+                    for(var a= 0, len4 = teamsArray[y]['players'].length; a< len4; a++){
+                        teamsArray[y]['players'][a]['score'] = 0;
+                        team1.push(angular.copy(teamsArray[y]['players'][a]));
+                        
+                        teamsArray[j]['players'][a]['score'] = 0;
+                        team2.push(angular.copy(teamsArray[j]['players'][a]));
+                    }
+                    
+                    matchs.push({
+                        priority: 0,
+                        match: [y,j],
+                        title:teamsArray[y]['name']+' vs '+teamsArray[j]['name'],
+                        score:[0,0],
+                        scorers:[team1,team2]
+                    });
                 }
             }
 
@@ -73,18 +83,18 @@ angular.module('beerPongTournamentApp')
                 group.rounds.push(round);
             }
 
-            console.log('group round planned',group.rounds);
-
-            //TODO : split gameScheduled by round and make a big JSON
-
             planning.push(group);
         }
 
-
         $scope.groups = planning;
-        console.log('final planning',planning);
-
     }
+
+
+
+
+
+
+
 
     $scope.scoreUp = function(player, score,index){
         console.log('scope up',nbrOfCupsToWin,score[index],numberOfGames);
@@ -117,6 +127,5 @@ angular.module('beerPongTournamentApp')
         Tournament.setGroupsResult($scope.groups);
         $location.path('/tables');
     }
-
 
 });

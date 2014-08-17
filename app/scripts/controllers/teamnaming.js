@@ -60,7 +60,13 @@ angular.module('beerPongTournamentApp')
 
     $scope.startTournament = function(){
         Tournament.setTeams($scope.groups); 
-        $location.path('/tournament');
+        if(isDirectTournament){
+            $location.path('/playoffs/0');
+        }
+        else{
+            $location.path('/groups');
+        }
+        
     }
 
 

@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('SelectTournamentCtrl', function ($scope,$location,GroupEngine,Tournament) {
+.controller('SelectTournamentCtrl', function ($scope,$location,GroupEngine,Tournament,constants) {
 
-    var PLAYOFF_NAME = ['final', 'semi-final', 'quarter-final','16nd round', '32nd round', '64nd round']; //TODO when stop???
-
+    
     var nbrOfPlayers;
 
     $scope.callAlgo = function(numberOfPlayers){
@@ -24,7 +23,7 @@ angular.module('beerPongTournamentApp')
                 if(configs[x]['configurations'][y]['directTournament']){
                     $scope.groupsSelect.push({
                         separator:'team of '+configs[x]['numberOfPlayers'],
-                        value:'Direct tournament from '+PLAYOFF_NAME[configs[x]['configurations'][y]['step']],
+                        value:'Direct tournament from '+constants.PLAYOFF_NAME[configs[x]['configurations'][y]['step']],
                         directTournament:1,
                         step:configs[x]['configurations'][y]['step'],
                         playersPerTeam:configs[x]['numberOfPlayers'],
@@ -44,7 +43,7 @@ angular.module('beerPongTournamentApp')
                     for(var i=0, len3=configs[x]['configurations'][y]['playOffStepMin'].length; i < len3; i++){
                         playoffs.push({
                             step:configs[x]['configurations'][y]['playOffStepMin'][i],
-                            value: PLAYOFF_NAME[configs[x]['configurations'][y]['playOffStepMin'][i]]
+                            value: constants.PLAYOFF_NAME[configs[x]['configurations'][y]['playOffStepMin'][i]]
                         });
                     }
 
@@ -75,9 +74,10 @@ angular.module('beerPongTournamentApp')
             numberOfPlayerPerTeam: configuration.playersPerTeam,
             playoffStepAfterGroup: playoff ? playoff.step : undefined,
             isDirectTournament: configuration.directTournament,
+            directTournamentStep: configuration.step,
             numberOfCupsToWin:numberOfCup
         }
-
+        
         Tournament.init(params);
         $location.path('/teamNaming');
     }

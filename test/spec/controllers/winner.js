@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: TournamentCtrl', function () {
+describe('Controller: WinnerCtrl', function () {
 
   // load the controller's module
   beforeEach(module('beerPongTournamentApp'));
 
-  var TournamentCtrl,
+  var WinnerCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    TournamentCtrl = $controller('TournamentCtrl', {
+    WinnerCtrl = $controller('WinnerCtrl', {
       $scope: scope
     });
   }));

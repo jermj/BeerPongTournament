@@ -1,0 +1,31 @@
+.games-block{
+    text-align: center;
+    .group-game{
+        border:1px solid black;
+        overflow:hidden;
+
+        .winner{
+            background-color: green;
+            color: white;
+        }
+
+        table{
+            table-layout: fixed;
+            width: 100%;
+
+            td:first-child{
+                border-right: 1px solid black;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .games-block{
+        .group-game{
+            width: 400px;
+            display: inline-block;
+        }
+    }
+
+}
