@@ -131,6 +131,8 @@ angular.module('beerPongTournamentApp')
     $scope.goNextStep = function(configuration,playoff,numberOfCup){
         
         console.log('goNextStep',configuration,playoff,numberOfCup);
+        
+        Tournament.clearSettings();
 
         var params = {
             numberOfPlayers: nbrOfPlayers,
@@ -275,37 +277,42 @@ angular.module('beerPongTournamentApp')
             title:team1.name+' vs '+team2.name,
             match:[team1,team2],
             score: [ 0, 0 ],
-            scorers: [[],[]]
+            scorers: [[],[]],
+            winner: -1
         })
     }
 
         $scope.games = games;
     }
 
-    
+    $scope.setWinner = function(match,winner){
+        console.log('setWinner',match,winner);
+
+        if(match.winner === -1){
+            numberOfGames--;
+            if(numberOfGames == 0){
+                $scope.showNextStep = true;
+            }
+        }
+        match.winner = winner;
+    }   
 
     
 
     $scope.scoreUp = function(player, score,index){
         console.log('scope up',player, score,index);
-        if((score[+!index] == nbrOfCupsToWin && score[index] < nbrOfCupsToWin-1) || (score[+!index] != nbrOfCupsToWin && score[index] < nbrOfCupsToWin)){
+        if(score[index] < nbrOfCupsToWin){
             var scoreBeforeUp = score[index];
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
-            if(scoreBeforeUp === nbrOfCupsToWin-1){
-                numberOfGames--;
-                if(numberOfGames === 0){
-                    console.log('GO NEXT', $scope.games,playoffs);
-                    $scope.showNextStep = true;
-                }
-            }
         }
     }
 
-    $scope.scoreDown = function(player, score,index){
-        console.log('score down',player,score,numberOfGames);
+    $scope.scoreDown = function(player, score,index,game){
+        console.log('score down',player,score,numberOfGames,game);
         if(player.score >0){
-            if(score[index] === nbrOfCupsToWin){
+            if(game.winner === index){
+                game.winner = -1;
                 numberOfGames++;
             }
             score[index] = score[index] -1;
@@ -361,7 +368,7 @@ angular.module('beerPongTournamentApp')
 
     if(Tournament.getGroupsResult()){
         $scope.groups = Tournament.getGroupsResult();
-        
+
         console.log($scope.groups);
         //TODO calculate numberOfGames if 0 $scope.showNextStep = true;
         $scope.showNextStep = true;
@@ -388,23 +395,24 @@ angular.module('beerPongTournamentApp')
 
             for(var y=1, len3=teamsArray.length; y<len3; y++){
                 for(var j=0; j<=y-1; j++){
-                    
+
                     var team1 = [], team2 = [];
-                    
+
                     for(var a= 0, len4 = teamsArray[y]['players'].length; a< len4; a++){
                         teamsArray[y]['players'][a]['score'] = 0;
                         team1.push(angular.copy(teamsArray[y]['players'][a]));
-                        
+
                         teamsArray[j]['players'][a]['score'] = 0;
                         team2.push(angular.copy(teamsArray[j]['players'][a]));
                     }
-                    
+
                     matchs.push({
                         priority: 0,
                         match: [y,j],
                         title:teamsArray[y]['name']+' vs '+teamsArray[j]['name'],
                         score:[0,0],
-                        scorers:[team1,team2]
+                        scorers:[team1,team2],
+                        winner:-1
                     });
                 }
             }
@@ -435,28 +443,32 @@ angular.module('beerPongTournamentApp')
 
 
 
+    $scope.setWinner = function(match,winner){
+        console.log('setWinner',match,winner);
 
+        if(match.winner === -1){
+            numberOfGames--;
+            if(numberOfGames == 0){
+                $scope.showNextStep = true;
+            }
+        }
+        match.winner = winner;
+    }
 
     $scope.scoreUp = function(player, score,index){
         console.log('scope up',nbrOfCupsToWin,score[index],numberOfGames);
-        if((score[+!index] == nbrOfCupsToWin && score[index] < nbrOfCupsToWin-1) || (score[+!index] != nbrOfCupsToWin && score[index] < nbrOfCupsToWin)){
+        if(score[index] < nbrOfCupsToWin){
             var scoreBeforeUp = score[index];
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
-            if(scoreBeforeUp === nbrOfCupsToWin-1){
-                numberOfGames--;
-                if(numberOfGames == 0){
-                    console.log($scope.groups);
-                    $scope.showNextStep = true;
-                }
-            }
         }
     }
 
-    $scope.scoreDown = function(player, score,index){
+    $scope.scoreDown = function(player, score,index,game){
         console.log('score down',player,score,numberOfGames);
         if(player.score >0){
-            if(score[index] === nbrOfCupsToWin){
+           if(game.winner === index){
+                game.winner = -1;
                 numberOfGames++;
             }
             score[index] = score[index] -1;
@@ -683,6 +695,15 @@ angular.module('beerPongTournamentApp')
         teams = localStorageService.get('teams') || {},
         groupResult = localStorageService.get('groupResult') || false,
         playoffs = localStorageService.get('playoffs') || false;
+    
+    this.clearSettings = function(){
+        localStorageService.remove('tournamentSettings');
+        localStorageService.remove('teams');
+        localStorageService.remove('groupResult');
+        localStorageService.remove('playoffs');
+        
+        tournamentSettings = teams = groupResult = playoffs = null;
+    }
 
     this.init = function(params){
         localStorageService.set('tournamentSettings',params);
@@ -710,12 +731,13 @@ angular.module('beerPongTournamentApp')
     }
 
     this.setTeams = function(params){
-        localStorageService.set('teams',params);
-        console.log(params);
+        console.log('setTeams',params);
         teams = params;
+        localStorageService.set('teams',params);
     }
 
     this.getTeams = function(){
+        console.log('getTeams',teams);
         return teams;
     }
 
@@ -802,17 +824,11 @@ angular.module('beerPongTournamentApp')
                     var game = groupResult[i]['rounds'][k][l];
 
                     //check if the match is ended = winner / looser
-                    if(game.score[0] === tournamentSettings.numberOfCupsToWin || game.score[1] === tournamentSettings.numberOfCupsToWin ){
-                        var winner, looser;
-                        if(game.score[0] === tournamentSettings.numberOfCupsToWin){
-                            winner = 0;
-                            looser = 1;
-                        }else{
-                            winner = 0;
-                            looser = 1;
-                        }
+                    if(game.winner>-1){
+                        var winner =game.winner,
+                            looser = +!game.winner;
                         updateTable(group.table,groupResult[i]['teams'][game.match[winner]]['name'],'win',game.score[winner],game.score[looser]);
-                        updateTable(group.table,groupResult[i]['teams'][game.match[1]]['name'],'lose',game.score[looser],game.score[winner]);
+                        updateTable(group.table,groupResult[i]['teams'][game.match[looser]]['name'],'lose',game.score[looser],game.score[winner]);
                     }
                 }
             }

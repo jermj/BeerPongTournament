@@ -18,6 +18,15 @@ angular.module('beerPongTournamentApp')
         teams = localStorageService.get('teams') || {},
         groupResult = localStorageService.get('groupResult') || false,
         playoffs = localStorageService.get('playoffs') || false;
+    
+    this.clearSettings = function(){
+        localStorageService.remove('tournamentSettings');
+        localStorageService.remove('teams');
+        localStorageService.remove('groupResult');
+        localStorageService.remove('playoffs');
+        
+        tournamentSettings = teams = groupResult = playoffs = null;
+    }
 
     this.init = function(params){
         localStorageService.set('tournamentSettings',params);
@@ -45,12 +54,13 @@ angular.module('beerPongTournamentApp')
     }
 
     this.setTeams = function(params){
-        localStorageService.set('teams',params);
-        console.log(params);
+        console.log('setTeams',params);
         teams = params;
+        localStorageService.set('teams',params);
     }
 
     this.getTeams = function(){
+        console.log('getTeams',teams);
         return teams;
     }
 
@@ -137,17 +147,11 @@ angular.module('beerPongTournamentApp')
                     var game = groupResult[i]['rounds'][k][l];
 
                     //check if the match is ended = winner / looser
-                    if(game.score[0] === tournamentSettings.numberOfCupsToWin || game.score[1] === tournamentSettings.numberOfCupsToWin ){
-                        var winner, looser;
-                        if(game.score[0] === tournamentSettings.numberOfCupsToWin){
-                            winner = 0;
-                            looser = 1;
-                        }else{
-                            winner = 0;
-                            looser = 1;
-                        }
+                    if(game.winner>-1){
+                        var winner =game.winner,
+                            looser = +!game.winner;
                         updateTable(group.table,groupResult[i]['teams'][game.match[winner]]['name'],'win',game.score[winner],game.score[looser]);
-                        updateTable(group.table,groupResult[i]['teams'][game.match[1]]['name'],'lose',game.score[looser],game.score[winner]);
+                        updateTable(group.table,groupResult[i]['teams'][game.match[looser]]['name'],'lose',game.score[looser],game.score[winner]);
                     }
                 }
             }

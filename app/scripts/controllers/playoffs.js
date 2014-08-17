@@ -49,37 +49,42 @@ angular.module('beerPongTournamentApp')
             title:team1.name+' vs '+team2.name,
             match:[team1,team2],
             score: [ 0, 0 ],
-            scorers: [[],[]]
+            scorers: [[],[]],
+            winner: -1
         })
     }
 
         $scope.games = games;
     }
 
-    
+    $scope.setWinner = function(match,winner){
+        console.log('setWinner',match,winner);
+
+        if(match.winner === -1){
+            numberOfGames--;
+            if(numberOfGames == 0){
+                $scope.showNextStep = true;
+            }
+        }
+        match.winner = winner;
+    }   
 
     
 
     $scope.scoreUp = function(player, score,index){
         console.log('scope up',player, score,index);
-        if((score[+!index] == nbrOfCupsToWin && score[index] < nbrOfCupsToWin-1) || (score[+!index] != nbrOfCupsToWin && score[index] < nbrOfCupsToWin)){
+        if(score[index] < nbrOfCupsToWin){
             var scoreBeforeUp = score[index];
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
-            if(scoreBeforeUp === nbrOfCupsToWin-1){
-                numberOfGames--;
-                if(numberOfGames === 0){
-                    console.log('GO NEXT', $scope.games,playoffs);
-                    $scope.showNextStep = true;
-                }
-            }
         }
     }
 
-    $scope.scoreDown = function(player, score,index){
-        console.log('score down',player,score,numberOfGames);
+    $scope.scoreDown = function(player, score,index,game){
+        console.log('score down',player,score,numberOfGames,game);
         if(player.score >0){
-            if(score[index] === nbrOfCupsToWin){
+            if(game.winner === index){
+                game.winner = -1;
                 numberOfGames++;
             }
             score[index] = score[index] -1;
