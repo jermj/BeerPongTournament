@@ -39,12 +39,17 @@
   content: "\e600";
 }
 
-/* line 40, ../main.scss */
+/* line 38, ../main.scss */
+.bpicon-trophy:before {
+  content: "\e604";
+}
+
+/* line 43, ../main.scss */
 body {
   margin: 0;
 }
 
-/* line 44, ../main.scss */
+/* line 47, ../main.scss */
 * {
   box-sizing: border-box;
   font-family: calibri;
@@ -511,4 +516,14 @@ body {
     width: 400px;
     display: inline-block;
   }
+}
+/* line 3, ../_winner.scss */
+.winner-page h1, .winner-page h3 {
+  text-align: center;
+}
+/* line 7, ../_winner.scss */
+.winner-page .trophy {
+  color: gold;
+  text-align: center;
+  font-size: 150px;
 }

@@ -539,12 +539,14 @@ angular.module('beerPongTournamentApp')
 'use strict';
 
 angular.module('beerPongTournamentApp')
-  .controller('WinnerCtrl', ["$scope", function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('WinnerCtrl', ["$scope", "Tournament", function ($scope,Tournament) {
+   
+      var playoffs = Tournament.getPlayoffs(),
+          winner = playoffs.pop()['teams'][0];
+      
+      console.log('winner',playoffs,winner);
+            
+      $scope.winner = winner;
   }]);
 
 'use strict';
