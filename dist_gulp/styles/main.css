@@ -20,8 +20,8 @@
 }
 
 /* line 26, ../main.scss */
-.bpicon-capsuleaxe:before {
-  content: "\e603";
+.bpicon-Logobeerpong:before {
+  content: "\e600";
 }
 
 /* line 29, ../main.scss */
@@ -35,8 +35,8 @@
 }
 
 /* line 35, ../main.scss */
-.bpicon-Logobeerpong:before {
-  content: "\e600";
+.bpicon-capsuleaxe:before {
+  content: "\e603";
 }
 
 /* line 38, ../main.scss */
@@ -44,12 +44,17 @@
   content: "\e604";
 }
 
-/* line 43, ../main.scss */
+/* line 41, ../main.scss */
+.bpicon-menu:before {
+  content: "\e605";
+}
+
+/* line 46, ../main.scss */
 body {
   margin: 0;
 }
 
-/* line 47, ../main.scss */
+/* line 50, ../main.scss */
 * {
   box-sizing: border-box;
   font-family: calibri;
@@ -106,42 +111,66 @@ body {
 }
 
 /* line 49, ../_home.scss */
-.home-wrapper .home-button {
-  margin: 30px 20px;
+.home-wrapper .home-wrapper-line {
+  text-align: center;
+}
+/* line 52, ../_home.scss */
+.home-wrapper .home-wrapper-line .home-button {
+  margin: 20px 20px 0px 20px;
   color: white;
-  display: block;
+  display: inline-block;
   cursor: pointer;
   text-decoration: none;
 }
-/* line 56, ../_home.scss */
-.home-wrapper .home-button table {
+/* line 59, ../_home.scss */
+.home-wrapper .home-wrapper-line .home-button table {
   table-layout: fixed;
   width: 100%;
   text-align: center;
 }
-/* line 61, ../_home.scss */
-.home-wrapper .home-button table td:last-child {
+/* line 64, ../_home.scss */
+.home-wrapper .home-wrapper-line .home-button table td:last-child {
   width: 120px;
   font-size: 60px;
 }
-/* line 67, ../_home.scss */
-.home-wrapper .home-button.home-green {
+/* line 69, ../_home.scss */
+.home-wrapper .home-wrapper-line .home-button table .home-button-content {
+  padding-left: 30px;
+}
+/* line 74, ../_home.scss */
+.home-wrapper .home-wrapper-line .home-button.home-green {
   background-color: #54804d;
 }
-/* line 70, ../_home.scss */
-.home-wrapper .home-button.home-blue {
+/* line 77, ../_home.scss */
+.home-wrapper .home-wrapper-line .home-button.home-blue {
   background-color: #4d807e;
 }
-/* line 73, ../_home.scss */
-.home-wrapper .home-button.home-purple {
+/* line 80, ../_home.scss */
+.home-wrapper .home-wrapper-line .home-button.home-purple {
   background-color: #804d53;
 }
-/* line 79, ../_home.scss */
-.home-wrapper .home-button:active {
+/* line 86, ../_home.scss */
+.home-wrapper .home-wrapper-line .home-button:active {
   position: relative;
   top: 1px;
 }
 
+@media screen and (max-width: 449px) {
+  /* line 98, ../_home.scss */
+  .home-wrapper .home-button table .home-button-content h1 {
+    font-size: 1em;
+  }
+  /* line 102, ../_home.scss */
+  .home-wrapper .home-button table .home-button-content p {
+    font-size: 1em;
+  }
+}
+@media screen and (min-width: 750px) {
+  /* line 113, ../_home.scss */
+  .home-wrapper .home-button {
+    width: 700px;
+  }
+}
 /* line 1, ../_selecttournament.scss */
 .select-tournament-choose {
   background-color: #dedede;
@@ -408,24 +437,63 @@ body {
   width: 170px;
 }
 
-/* line 2, ../_header.scss */
-.tournament-header table {
-  table-layout: fixed;
-  width: 100%;
+/* line 3, ../_header.scss */
+.tournament-header .icon-menu {
+  font-size: 50px;
+  vertical-align: middle;
 }
-/* line 6, ../_header.scss */
-.tournament-header table td:first-child {
-  width: 60px;
+/* line 9, ../_header.scss */
+.tournament-header .menu-content {
+  display: inline-block;
 }
 /* line 11, ../_header.scss */
-.tournament-header .tournament-header-logo {
-  font-size: 50px;
+.tournament-header .menu-content .menu-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
-/* line 14, ../_header.scss */
-.tournament-header .tournament-header-content {
-  text-align: right;
+/* line 16, ../_header.scss */
+.tournament-header .menu-content .menu-list li {
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+/* line 21, ../_header.scss */
+.tournament-header .menu-content .menu-list li.active {
+  background-color: black;
+  color: white;
 }
 
+@media screen and (max-width: 400px) {
+  /* line 32, ../_header.scss */
+  .tournament-header .menu-content {
+    display: none;
+  }
+  /* line 35, ../_header.scss */
+  .tournament-header .menu-content.open {
+    display: block;
+  }
+  /* line 38, ../_header.scss */
+  .tournament-header .menu-content .menu-list {
+    background-color: #dedede;
+  }
+  /* line 40, ../_header.scss */
+  .tournament-header .menu-content .menu-list li {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px 0px;
+  }
+  /* line 46, ../_header.scss */
+  .tournament-header .menu-content .menu-list li.active {
+    background-color: black;
+    color: white;
+  }
+  /* line 52, ../_header.scss */
+  .tournament-header .menu-content .menu-list li + li {
+    border-top: 1px solid black;
+  }
+}
 /* line 2, ../_groups.scss */
 .tournament-games .group-block {
   overflow: hidden;

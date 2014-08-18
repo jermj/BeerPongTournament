@@ -1,17 +1,59 @@
 .tournament-header{
-    table{
-        table-layout: fixed;
-        width: 100%;
 
-        td:first-child{
-            width: 60px;
+    .icon-menu {
+        font-size: 50px;
+        vertical-align: middle;
+    }
+
+
+    .menu-content{
+        display: inline-block;
+        .menu-list{
+            list-style-type: none;
+            margin:0;
+            padding: 0;
+
+            li{
+                display: inline-block;
+                padding: 10px;
+                cursor: pointer;
+                
+                &.active{
+                        background-color: black;
+                        color: white;
+                    }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .tournament-header{
+        .menu-content{
+            display: none;
+            
+            &.open{
+                display: block;
+            }
+            .menu-list{
+                background-color: #dedede;
+                li{
+                    display: block;
+                    text-align: center;
+                    font-size: 30px;
+                    padding: 10px 0px;
+                    
+                    &.active{
+                        background-color: black;
+                        color: white;
+                    }
+                }
+                
+                li + li {
+                    border-top: 1px solid black;
+                }
+            }
         }
     }
 
-    .tournament-header-logo{
-        font-size: 50px;
-    }
-    .tournament-header-content{
-        text-align: right;
-    }
 }

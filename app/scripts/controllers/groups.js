@@ -3,7 +3,8 @@
 angular.module('beerPongTournamentApp')
 .controller('GroupsCtrl', function ($scope,$location,Tournament) {
 
-    var nbrOfCupsToWin = Tournament.getNumberOfCupsToWin();
+    var nbrOfCupsToWin = Tournament.getNumberOfCupsToWin(),
+        numberOfGames = 0;
 
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
     $scope.showNextStep = false;
@@ -19,16 +20,32 @@ angular.module('beerPongTournamentApp')
     }
 
     if(Tournament.getGroupsResult()){
-        $scope.groups = Tournament.getGroupsResult();
+        var previousResult = Tournament.getGroupsResult();
+        $scope.groups = previousResult;
 
-        console.log($scope.groups);
+        console.log('calculate number of games',previousResult);
         //TODO calculate numberOfGames if 0 $scope.showNextStep = true;
-        $scope.showNextStep = true;
+        //for each groups
+        for(var y=0, len=previousResult.length; y<len; y++){
+            //for each rounds per group
+            for(var j=0, len2=previousResult[y]['rounds'].length; j<len2; j++){
+                //for each game in a round
+                for(var a= 0, len3 = previousResult[y]['rounds'][j].length; a< len3; a++){
+                    if(previousResult[y]['rounds'][j][a]['winner'] <0){
+                        numberOfGames++;
+                    }
+                }
+            }
+        }
+        
+        
+        if(numberOfGames === 0){
+            $scope.showNextStep = true;
+        }
     }
     else{
 
         var planning = [],
-            numberOfGames = 0,
             groups = Tournament.getTeams();
 
         for(var x=0, len=groups.length; x < len; x++){
@@ -88,6 +105,7 @@ angular.module('beerPongTournamentApp')
         }
 
         $scope.groups = planning;
+        Tournament.setGroupsResult($scope.groups);
     }
 
 
@@ -113,24 +131,27 @@ angular.module('beerPongTournamentApp')
             var scoreBeforeUp = score[index];
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
+            Tournament.setGroupsResult($scope.groups);
         }
     }
 
     $scope.scoreDown = function(player, score,index,game){
         console.log('score down',player,score,numberOfGames);
         if(player.score >0){
-           if(game.winner === index){
+            if(game.winner === index){
                 game.winner = -1;
                 numberOfGames++;
             }
             score[index] = score[index] -1;
             player.score = player.score - 1;
+            Tournament.setGroupsResult($scope.groups);
         }
     }
 
     $scope.goNextStep = function(){
+        console.log('go tables');
         Tournament.setGroupsResult($scope.groups);
-        $location.path('/tables');
+        $location.path('/tables/1');
     }
 
 });

@@ -38,51 +38,81 @@
             width: 170px;
         }
         a:active{
-        position: relative;
-        top: 1px;
-    }
+            position: relative;
+            top: 1px;
+        }
     }
 
 }
 
 .home-wrapper{
-    .home-button{
-        margin: 30px 20px;
-        color:white;
-        display: block;
-        cursor: pointer;
-        text-decoration: none;
+    .home-wrapper-line{
+        text-align: center;
+        
+        .home-button{
+            margin: 20px 20px 0px 20px;
+            color:white;
+            display: inline-block;
+            cursor: pointer;
+            text-decoration: none;
 
-        table{
-            table-layout: fixed;
-            width: 100%;
-            text-align: center;
+            table{
+                table-layout: fixed;
+                width: 100%;
+                text-align: center;
 
-            td:last-child{
-                width: 120px;
-                font-size: 60px;
+                td:last-child{
+                    width: 120px;
+                    font-size: 60px;
+                }
+                
+                .home-button-content{
+                    padding-left: 30px;
+                }
             }
+
+            &.home-green{
+                background-color: $BP-green;
+            }
+            &.home-blue{
+                background-color: $BP-blue;
+            }
+            &.home-purple{
+                background-color: $BP-purple;
+            }
+
         }
 
-        &.home-green{
-            background-color: $BP-green;
+        .home-button:active{
+            position: relative;
+            top: 1px;
         }
-        &.home-blue{
-            background-color: $BP-blue;
-        }
-        &.home-purple{
-            background-color: $BP-purple;
-        }
-
     }
-
-    .home-button:active{
-        position: relative;
-        top: 1px;
-    }
-
-
 }
 
-
+@media screen and (max-width: 449px){
+.home-wrapper{
+        .home-button{
+            table{
+                .home-button-content{
+                    h1{
+                        font-size: 1em;
+                    }
+                    
+                    p{
+                        font-size: 1em;
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 750px) {
+    .home-wrapper{
+        .home-button{
+            width: 700px;
+        }
+    }
+}
 
