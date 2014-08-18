@@ -27,7 +27,7 @@ angular
         templateUrl: 'views/playoffs.html',
         controller: 'PlayoffsCtrl'
     })
-    .when('/tables', {
+    .when('/tables/:showButton', {
         templateUrl: 'views/tables.html',
         controller: 'TablesCtrl'
     })

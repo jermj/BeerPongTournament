@@ -1,10 +1,10 @@
-<div class="tournament-header">
-    <table>
-        <tr>
-            <td><div class="tournament-header-logo bpicon-Logobeerpong"></div></td>
-            <td class="tournament-header-content">
-                <p>Beer Pong Tournament</p>
-            </td>
-        </tr>
-    </table>
+<div class="tournament-header" ng-controller="HeaderCtrl">
+    <span class="icon-menu bpicon-Logobeerpong" ng-click="toggleMenu()"></span>
+    <span class="menu-content" ng-class="{'open':isOpen}">
+        <ul class="menu-list">         
+            <li ng-class="{'active': tournamentView}" ng-click="goBackToTournament()">Tournament</li>
+            <li ng-class="{'active': tablesView}" ng-if="displayTablesButton" ng-click="goTables()">Tables</li>
+            <li ng-class="{'active': scorersView}" ng-if="displayScorersButton" ng-click="goScorers()">Scorers</li>
+        </ul>
+    </span>
 </div>

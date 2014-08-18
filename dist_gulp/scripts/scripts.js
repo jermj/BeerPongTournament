@@ -27,7 +27,7 @@ angular
         templateUrl: 'views/playoffs.html',
         controller: 'PlayoffsCtrl'
     })
-    .when('/tables', {
+    .when('/tables/:showButton', {
         templateUrl: 'views/tables.html',
         controller: 'TablesCtrl'
     })
@@ -351,7 +351,8 @@ angular.module('beerPongTournamentApp')
 angular.module('beerPongTournamentApp')
 .controller('GroupsCtrl', ["$scope", "$location", "Tournament", function ($scope,$location,Tournament) {
 
-    var nbrOfCupsToWin = Tournament.getNumberOfCupsToWin();
+    var nbrOfCupsToWin = Tournament.getNumberOfCupsToWin(),
+        numberOfGames = 0;
 
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
     $scope.showNextStep = false;
@@ -367,16 +368,32 @@ angular.module('beerPongTournamentApp')
     }
 
     if(Tournament.getGroupsResult()){
-        $scope.groups = Tournament.getGroupsResult();
+        var previousResult = Tournament.getGroupsResult();
+        $scope.groups = previousResult;
 
-        console.log($scope.groups);
+        console.log('calculate number of games',previousResult);
         //TODO calculate numberOfGames if 0 $scope.showNextStep = true;
-        $scope.showNextStep = true;
+        //for each groups
+        for(var y=0, len=previousResult.length; y<len; y++){
+            //for each rounds per group
+            for(var j=0, len2=previousResult[y]['rounds'].length; j<len2; j++){
+                //for each game in a round
+                for(var a= 0, len3 = previousResult[y]['rounds'][j].length; a< len3; a++){
+                    if(previousResult[y]['rounds'][j][a]['winner'] <0){
+                        numberOfGames++;
+                    }
+                }
+            }
+        }
+        
+        
+        if(numberOfGames === 0){
+            $scope.showNextStep = true;
+        }
     }
     else{
 
         var planning = [],
-            numberOfGames = 0,
             groups = Tournament.getTeams();
 
         for(var x=0, len=groups.length; x < len; x++){
@@ -436,6 +453,7 @@ angular.module('beerPongTournamentApp')
         }
 
         $scope.groups = planning;
+        Tournament.setGroupsResult($scope.groups);
     }
 
 
@@ -461,24 +479,27 @@ angular.module('beerPongTournamentApp')
             var scoreBeforeUp = score[index];
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
+            Tournament.setGroupsResult($scope.groups);
         }
     }
 
     $scope.scoreDown = function(player, score,index,game){
         console.log('score down',player,score,numberOfGames);
         if(player.score >0){
-           if(game.winner === index){
+            if(game.winner === index){
                 game.winner = -1;
                 numberOfGames++;
             }
             score[index] = score[index] -1;
             player.score = player.score - 1;
+            Tournament.setGroupsResult($scope.groups);
         }
     }
 
     $scope.goNextStep = function(){
+        console.log('go tables');
         Tournament.setGroupsResult($scope.groups);
-        $location.path('/tables');
+        $location.path('/tables/1');
     }
 
 }]);
@@ -486,11 +507,15 @@ angular.module('beerPongTournamentApp')
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('TablesCtrl', ["$scope", "$location", "Tournament", function ($scope,$location,Tournament) {
+.controller('TablesCtrl', ["$scope", "$routeParams", "$location", "Tournament", function ($scope,$routeParams,$location,Tournament) {
 
     var stepPlayoff = Tournament.getPlayoffStepAfterGroup(),
         tables = Tournament.getTables(),
         teams = Tournament.getTeams();
+    
+        $scope.showButton = $routeParams.showButton;
+    
+    console.log('hide button',$scope.hideButton);
 
     $scope.tables = tables;
 
@@ -531,7 +556,9 @@ angular.module('beerPongTournamentApp')
     }
     //simple championship = only 1 group
     else{
-        alert('game finish');
+        $scope.goNextStep = function(){
+            $location.path('/winner');
+        }
     }
 
 }]);
@@ -548,6 +575,54 @@ angular.module('beerPongTournamentApp')
             
       $scope.winner = winner;
   }]);
+
+'use strict';
+
+angular.module('beerPongTournamentApp')
+.controller('HeaderCtrl', ["$scope", "$location", "$window", "Tournament", "localStorageService", function ($scope,$location,$window,Tournament,localStorageService) {
+
+    var currentPath = $location.url(),
+        goTournament = localStorageService.get('tournamentPath');
+
+    $scope.isOpen = false;
+
+    if(currentPath == '/tables/0'){
+        $scope.tablesView = true;
+        $scope.scorersView = false;
+        $scope.tournamentView = false;
+    }
+    else if(currentPath == '/scorers'){
+        $scope.scorersView = true;
+        $scope.tablesView = false;
+        $scope.tournamentView = false;
+    }
+    else{
+        localStorageService.set('tournamentPath',currentPath);
+        goTournament = currentPath;
+        $scope.tournamentView = true;
+        $scope.tablesView = false;
+        $scope.scorersView = false;
+    }
+
+    $scope.displayTablesButton = Tournament.getTables();
+
+    $scope.goBackToTournament =function(){
+        console.log('go back tournament',goTournament);
+        $location.path(goTournament);
+    }
+
+    $scope.goTables =function(){
+        console.log('go tables',goTournament);
+        $location.path('/tables/0');
+    }
+
+    $scope.toggleMenu = function(){
+        if($window.innerWidth < 400 ){
+            $scope.isOpen = !$scope.isOpen;
+        }
+    }
+
+}]);
 
 'use strict';
 
@@ -704,7 +779,7 @@ angular.module('beerPongTournamentApp')
         localStorageService.remove('groupResult');
         localStorageService.remove('playoffs');
         
-        tournamentSettings = teams = groupResult = playoffs = null;
+        tournamentSettings = teams = groupResult = playoffs = false;
     }
 
     this.init = function(params){
@@ -802,7 +877,7 @@ angular.module('beerPongTournamentApp')
     this.getTables = function(){
         var tables = [];
 
-        console.log(groupResult);
+        console.log('getTables',groupResult);
 
         for(var i=0, len = groupResult.length; i<len; i++){
             var group = {

@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('TablesCtrl', function ($scope,$location,Tournament) {
+.controller('TablesCtrl', function ($scope,$routeParams,$location,Tournament) {
 
     var stepPlayoff = Tournament.getPlayoffStepAfterGroup(),
         tables = Tournament.getTables(),
         teams = Tournament.getTeams();
+    
+        $scope.showButton = $routeParams.showButton;
+    
+    console.log('hide button',$scope.hideButton);
 
     $scope.tables = tables;
 
@@ -46,7 +50,9 @@ angular.module('beerPongTournamentApp')
     }
     //simple championship = only 1 group
     else{
-        alert('game finish');
+        $scope.goNextStep = function(){
+            $location.path('/winner');
+        }
     }
 
 });

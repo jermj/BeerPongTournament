@@ -25,7 +25,7 @@ angular.module('beerPongTournamentApp')
         localStorageService.remove('groupResult');
         localStorageService.remove('playoffs');
         
-        tournamentSettings = teams = groupResult = playoffs = null;
+        tournamentSettings = teams = groupResult = playoffs = false;
     }
 
     this.init = function(params){
@@ -123,7 +123,7 @@ angular.module('beerPongTournamentApp')
     this.getTables = function(){
         var tables = [];
 
-        console.log(groupResult);
+        console.log('getTables',groupResult);
 
         for(var i=0, len = groupResult.length; i<len; i++){
             var group = {
