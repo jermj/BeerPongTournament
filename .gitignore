@@ -43,4 +43,5 @@ dist
 .tmp
 .sass-cache
 app/bower_components
+dist_gulp
 *~
