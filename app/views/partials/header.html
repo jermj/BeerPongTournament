@@ -4,9 +4,9 @@
     <span class="bpicon-menu icon-menu" ng-click="toggleMenu()"></span>
     <span class="menu-content" ng-class="{'open':isOpen}">
         <ul class="menu-list">         
-            <li ng-class="{'active': tournamentView}" ng-click="goBackToTournament()">Tournament</li>
-            <li ng-class="{'active': tablesView}" ng-if="displayTablesButton" ng-click="goTables()">Tables</li>
-            <li ng-class="{'active': scorersView}" ng-if="displayScorersButton" ng-click="goScorers()">Scorers</li>
+            <li ng-class="{'active': iconActive===0}"><a ng-href="{{goTournament}}">Tournament</a></li>
+            <li ng-class="{'active': iconActive===1}" ng-if="displayTablesButton" ><a href="#/tables/0">Tables</a></li>
+            <li ng-class="{'active': iconActive===2}" ng-if="displayScorersButton" ng-click="goScorers()"><a href="#/scorers">Scorers</a></li>
         </ul>
     </span>
 </div>

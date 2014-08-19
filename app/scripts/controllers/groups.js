@@ -69,8 +69,6 @@ angular.module('beerPongTournamentApp')
                         teamsArray[e]['players'][f]['score'] = 0;
                         team2.push(angular.copy(teamsArray[e]['players'][f]));
                     }
-                    
-                    console.log('team1',team1,'team2',team2);
 
                     matchs.push({
                         priority: 0,

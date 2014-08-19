@@ -12,6 +12,13 @@ angular.module('beerPongTournamentApp')
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
 
     $scope.title = constants.PLAYOFF_NAME[step];
+    
+    console.log(playoffs,        
+        nbrOfCupsToWin,
+        round,
+        step,
+        numberOfGames,
+               playoffs[round]['teams'].length);
 
     if(playoffs[round]['result']){
         $scope.games = playoffs[round]['result'];

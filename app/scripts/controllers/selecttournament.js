@@ -65,8 +65,6 @@ angular.module('beerPongTournamentApp')
 
     $scope.goNextStep = function(configuration,playoff,numberOfCup){
 
-        console.log('goNextStep',configuration,playoff,numberOfCup);
-
         Tournament.clearSettings();
 
         var params = {

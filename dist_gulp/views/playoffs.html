@@ -1,1 +1,45 @@
-<div ng-include src="'views/partials/header.html'"></div><div class="playoffs"><h1>{{title}}</h1><div class="games-block"><div class="group-game" ng-repeat="game in games"><p>{{game.title}}</p><p ng-class="{'winner': game.winner == 0}">{{game.match[0]['name']}}: <span class="score">{{game.score[0]}}</span></p><p ng-class="{'winner': game.winner == 1}">{{game.match[1]['name']}}: <span class="score">{{game.score[1]}}</span></p><table><tr><td><button ng-if="game.score[0] === nbrOfCupsToWin" ng-click="setWinner(game,0);">winner</button></td><td><button ng-if="game.score[1] === nbrOfCupsToWin" ng-click="setWinner(game,1);">winner</button></td></tr><tr><td><div class="player" ng-repeat="player in game.match[0]['players']" ng-init="player.score =0;game.scorers[0].push(player)"><p class="player-name">{{player.name}}</p><button ng-click="scoreDown(game.scorers[0][$index],game.score,0,game)">-</button><span>{{player.score}}</span><button ng-click="scoreUp(game.scorers[0][$index],game.score,0,game)">+</button></div></td><td><div class="player" ng-repeat="player in game.match[1]['players']" ng-init="player.score =0;game.scorers[1].push(player)"><p class="player-name">{{player.name}}</p><button ng-click="scoreDown(game.scorers[1][$index],game.score,1,game)">-</button><span>{{player.score}}</span><button ng-click="scoreUp(game.scorers[1][$index],game.score,1,game)">+</button></div></td></tr></table></div></div></div><div ng-if="showNextStep" class="tournament-nextstep"><button ng-click="goNextStep()">Next Round</button></div>
+<div ng-include src="'views/partials/header.html'"></div>
+
+<div class="playoffs">
+    <h1>{{title}}</h1>
+
+
+    <div class="games-block">
+        <div class="group-game" ng-repeat="game in games">
+            <p>{{game.title}}</p>
+            <p ng-class="{'winner': game.winner == 0}">{{game.match[0]['name']}}: <span class="score">{{game.score[0]}}</span></p>
+            <p ng-class="{'winner': game.winner == 1}">{{game.match[1]['name']}}: <span class="score" >{{game.score[1]}}</span></p>
+
+            <table>
+                <tr>
+                    <td><button ng-if="game.score[0] === nbrOfCupsToWin" ng-click="setWinner(game,0);">winner</button></td>
+                    <td><button ng-if="game.score[1] === nbrOfCupsToWin" ng-click="setWinner(game,1);">winner</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="player" ng-repeat="player in game.match[0]['players']" ng-init="player.score =0;game.scorers[0].push(player)">
+                            <p class="player-name" >{{player.name}}</p>
+                            <button  ng-click="scoreDown(game.scorers[0][$index],game.score,0,game)" >-</button>
+                            <span  >{{player.score}}</span>
+                            <button ng-click="scoreUp(game.scorers[0][$index],game.score,0,game)">+</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="player" ng-repeat="player in game.match[1]['players']" ng-init="player.score =0;game.scorers[1].push(player)">
+                            <p class="player-name" >{{player.name}}</p>
+                            <button  ng-click="scoreDown(game.scorers[1][$index],game.score,1,game)" >-</button>
+                            <span  >{{player.score}}</span>
+                            <button ng-click="scoreUp(game.scorers[1][$index],game.score,1,game)">+</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<div ng-if="showNextStep" class="tournament-nextstep">
+    <button ng-click="goNextStep()">Next Round</button>
+</div>

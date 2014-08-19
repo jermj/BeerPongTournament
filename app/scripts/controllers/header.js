@@ -3,40 +3,28 @@
 angular.module('beerPongTournamentApp')
 .controller('HeaderCtrl', function ($scope,$location,Tournament,localStorageService) {
 
-    var currentPath = $location.url(),
-        goTournament = localStorageService.get('tournamentPath');
+    var currentPath = $location.url();
+    
+    $scope.goTournament = localStorageService.get('tournamentPath');
 
     $scope.isOpen = false;
+    
+    $scope.iconActive = -1;
 
     if(currentPath === '/tables/0'){
-        $scope.tablesView = true;
-        $scope.scorersView = false;
-        $scope.tournamentView = false;
+        $scope.iconActive = 1;
     }
     else if(currentPath === '/scorers'){
-        $scope.scorersView = true;
-        $scope.tablesView = false;
-        $scope.tournamentView = false;
+        $scope.iconActive = 2;
     }
     else{
-        localStorageService.set('tournamentPath',currentPath);
-        goTournament = currentPath;
-        $scope.tournamentView = true;
-        $scope.tablesView = false;
-        $scope.scorersView = false;
+        localStorageService.set('tournamentPath','#'+currentPath);
+        $scope.goTournament = '#'+currentPath;
+        $scope.iconActive = 0;
     }
 
     $scope.displayTablesButton = Tournament.getTables();
-
-    $scope.goBackToTournament =function(){
-        console.log('go back tournament',goTournament);
-        $location.path(goTournament);
-    };
-
-    $scope.goTables =function(){
-        console.log('go tables',goTournament);
-        $location.path('/tables/0');
-    };
+    $scope.displayScorersButton = Tournament.getTeams();
 
     $scope.toggleMenu = function(){
             $scope.isOpen = !$scope.isOpen;

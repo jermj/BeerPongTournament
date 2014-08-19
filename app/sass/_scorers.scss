@@ -1,0 +1,16 @@
+.scorers{
+    text-align: center;
+    table{
+        table-layout: fixed;
+        width: 100%;
+        
+        .qualified{
+            background-color: #6BB661;
+        }
+    }
+    table,th,td
+    {
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+}

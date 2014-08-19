@@ -25,8 +25,10 @@ angular.module('beerPongTournamentApp')
             });
 
             for(var z=0; z < numberOfPlayerPerTeam; z++){
+                playerCompt++;
                 group.teams[y]['players'].push({
-                    name: 'Player '+playerCompt++,
+                    name: 'Player '+playerCompt,
+                    id:playerCompt
                 });
             }
         }
@@ -48,6 +50,7 @@ angular.module('beerPongTournamentApp')
                 for(var j=0, len3=numberOfPlayerPerTeam; j < len3; j++){
                     group.teams[i]['players'].push({
                         name: 'Player '+playerCompt++,
+                        id:playerCompt
                     });
                 }
             }
@@ -55,9 +58,6 @@ angular.module('beerPongTournamentApp')
             $scope.groups = groups;
         }
     }
-
-
-    console.log('groups',groups);
 
     $scope.startTournament = function(){
         Tournament.setTeams($scope.groups); 

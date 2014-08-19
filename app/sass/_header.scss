@@ -25,12 +25,20 @@
 
             li{
                 display: inline-block;
-                padding: 14px;
                 cursor: pointer;
+
+                a{
+                    text-decoration: none;
+                    color: black;
+                    display: block;
+                    padding: 14px;
+                }
 
                 &.active{
                     background-color: black;
-                    color: white;
+                    a{
+                        color: white;
+                    }
                 }
             }
         }
@@ -55,9 +63,11 @@
         .menu-content{
             display: none;
             float: inherit;
+            position: absolute;
+            width: 100%;
 
             &.open{
-                display: block;
+                display: block;    
             }
             .menu-list{
                 background-color: #dedede;
