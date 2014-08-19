@@ -3,10 +3,6 @@
 angular.module('beerPongTournamentApp')
 .factory('GroupEngine', function GroupEngine() {
 
-    function isEven(value){
-        return value % 2 == 0;             
-    }
-
     function canBeADirectTournament(value){
         var data = Math.log(value)/Math.log(2); 
         return data === parseInt(data);
@@ -60,7 +56,7 @@ angular.module('beerPongTournamentApp')
                         puissance++;
                     }
                     else{
-                        canBeMakeAnOtherRound = false
+                        canBeMakeAnOtherRound = false;
                     }
                 }
 
@@ -98,28 +94,28 @@ angular.module('beerPongTournamentApp')
         }
 
         /* equipe de 2 */
-        if(numberOfPlayers % 2 == 0 && numberOfPlayers > 4){
-            var category = {
+        if(numberOfPlayers % 2 === 0 && numberOfPlayers > 4){
+            var category2 = {
                 numberOfPlayers:2,
                 configurations:[]
             };
-            category.configurations = algo(numberOfPlayers/2);
-            result.push(category);
+            category2.configurations = algo(numberOfPlayers/2);
+            result.push(category2);
         }
 
         /* equipe de 3 */
-        if(numberOfPlayers % 3 == 0 && numberOfPlayers > 6){
-            var category = {
+        if(numberOfPlayers % 3 === 0 && numberOfPlayers > 6){
+            var category3 = {
                 numberOfPlayers:3,
                 configurations:[]
             };
-            category.configurations = algo(numberOfPlayers/3);
-            result.push(category);
+            category3.configurations = algo(numberOfPlayers/3);
+            result.push(category3);
         }
 
 
         return result;
-    }
+    };
 
 
     return api;

@@ -13,12 +13,9 @@ angular.module('beerPongTournamentApp')
 
     $scope.title = constants.PLAYOFF_NAME[step];
 
-    console.log('playoffs',playoffs);
-    
     if(playoffs[round]['result']){
         $scope.games = playoffs[round]['result'];
         
-        console.log(playoffs[round]['result']);
         for(var j = 0, len2 = playoffs[round]['result'].length; j < len2; j++){
             if(playoffs[round]['result'][j]['score'][0] === nbrOfCupsToWin || playoffs[round]['result'][j]['match'][1] === nbrOfCupsToWin){
                 numberOfGames--;
@@ -51,37 +48,33 @@ angular.module('beerPongTournamentApp')
             score: [ 0, 0 ],
             scorers: [[],[]],
             winner: -1
-        })
+        });
     }
 
         $scope.games = games;
     }
 
     $scope.setWinner = function(match,winner){
-        console.log('setWinner',match,winner);
 
         if(match.winner === -1){
             numberOfGames--;
-            if(numberOfGames == 0){
+            if(numberOfGames === 0){
                 $scope.showNextStep = true;
             }
         }
         match.winner = winner;
-    }   
+    };
 
     
 
     $scope.scoreUp = function(player, score,index){
-        console.log('scope up',player, score,index);
         if(score[index] < nbrOfCupsToWin){
-            var scoreBeforeUp = score[index];
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
         }
-    }
+    };
 
     $scope.scoreDown = function(player, score,index,game){
-        console.log('score down',player,score,numberOfGames,game);
         if(player.score >0){
             if(game.winner === index){
                 game.winner = -1;
@@ -90,7 +83,7 @@ angular.module('beerPongTournamentApp')
             score[index] = score[index] -1;
             player.score = player.score - 1;
         }
-    }
+    };
 
     $scope.goNextStep = function(){
         playoffs[round].result = $scope.games;
@@ -113,7 +106,7 @@ angular.module('beerPongTournamentApp')
         else{
             $location.path('/winner');
         }
-    }
+    };
 
 
 });

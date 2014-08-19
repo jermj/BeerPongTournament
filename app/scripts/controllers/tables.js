@@ -46,13 +46,13 @@ angular.module('beerPongTournamentApp')
 
         $scope.goNextStep = function(){
             $location.path('/playoffs/0');
-        }
+        };
     }
     //simple championship = only 1 group
     else{
         $scope.goNextStep = function(){
             $location.path('/winner');
-        }
+        };
     }
 
 });

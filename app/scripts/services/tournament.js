@@ -26,54 +26,54 @@ angular.module('beerPongTournamentApp')
         localStorageService.remove('playoffs');
         
         tournamentSettings = teams = groupResult = playoffs = false;
-    }
+    };
 
     this.init = function(params){
         localStorageService.set('tournamentSettings',params);
         console.log(params);
         tournamentSettings = params;
         console.log('sam',params);
-    }
+    };
 
     this.isADirectTournament = function(){
         return tournamentSettings.isDirectTournament;
-    }
+    };
 
     this.getNumberOfGroups = function(){
         return tournamentSettings.numberOfGroups;
-    }
+    };
     this.getDirectTournamentStep = function(){
         return tournamentSettings.directTournamentStep;
-    }
+    };
     this.getNumberOfTeamsPerGroup = function(){
         return tournamentSettings.numberOfTeamsPerGroup;
-    }
+    };
 
     this.getNumberOfPlayerPerTeam = function(){
         return tournamentSettings.numberOfPlayerPerTeam;
-    }
+    };
 
     this.setTeams = function(params){
         console.log('setTeams',params);
         teams = params;
         localStorageService.set('teams',params);
-    }
+    };
 
     this.getTeams = function(){
         console.log('getTeams',teams);
         return teams;
-    }
+    };
 
 
     this.SetTeamsQualifiedForPlayoff = function(teamsQualified){
         playoffs = [{teams: teamsQualified}];
         localStorageService.set('playoffs',playoffs);
-    }
+    };
     
     this.setPlayoffs = function(params){
         localStorageService.set('playoffs',params);
         playoffs = params;
-    }
+    };
 
     this.getPlayoffs = function(){
 
@@ -83,25 +83,24 @@ angular.module('beerPongTournamentApp')
         else{
             return [{teams: teams[0]['teams']}];
         }
-
-    }
+    };
 
     this.getNumberOfCupsToWin = function(){
         return tournamentSettings.numberOfCupsToWin;
-    }
+    };
 
     this.getPlayoffStepAfterGroup = function(){
         return tournamentSettings.playoffStepAfterGroup;
-    }
+    };
 
     this.getGroupsResult = function(){
             return groupResult;
-    }
+    };
     
     this.setGroupsResult = function(gpResult){
         localStorageService.set('groupResult',gpResult);
         groupResult = gpResult;
-    }
+    };
 
     function updateTable(table,teamName,type,cupsFor,cupsAgainst){
         var i = table.length;
@@ -138,7 +137,7 @@ angular.module('beerPongTournamentApp')
                     lose:0,
                     cupsFor: 0,
                     cupsAgainst: 0
-                }
+                };
                 group.table.push(team);
             }
 
@@ -158,10 +157,10 @@ angular.module('beerPongTournamentApp')
             group.table.sort(function(a, b){
                 // console.log(b.win-a.win);
                 return b.win-a.win;
-            })
+            });
             tables.push(group);
         }
         return tables;
-    }
+    };
 
 });

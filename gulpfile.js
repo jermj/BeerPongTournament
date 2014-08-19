@@ -54,10 +54,12 @@ gulp.task('views', function () {
         },
         index = gulp.src(paths.app_base + '/index.html')
             .pipe($.processhtml('index.html'))
-            .pipe($.if(shouldMinify, $.minifyHtml(minifyHtmlConf)))
+            //.pipe($.if(shouldMinify, $.minifyHtml(minifyHtmlConf)))
+            .pipe($.ifElse(shouldMinify, function(){return $.minifyHtml(minifyHtmlConf);}))
             .pipe(gulp.dest(paths.dist_base)),
         views = gulp.src(paths.views, {cwd: paths.app_base, base: 'app/views'})
-            .pipe($.if(shouldMinify, $.minifyHtml(minifyHtmlConf)))
+            //.pipe($.if(shouldMinify, $.minifyHtml(minifyHtmlConf)))
+            .pipe($.ifElse(shouldMinify, function(){return $.minifyHtml(minifyHtmlConf);}))
             .pipe(gulp.dest(paths.dist_base + '/views'));
 
     return mergeStream(index, views);
@@ -70,7 +72,8 @@ gulp.task('styles', function () {
             lineNumbers: true
         }))
         .pipe($.autoprefixer('last 2 version', '> 1%', 'ie 8', 'ie 7'))
-        .pipe($.if(shouldMinify, $.cache($.csso())))
+        //.pipe($.if(shouldMinify, $.cache($.csso())))
+        .pipe($.ifElse(shouldMinify, function(){return $.cache($.csso());}))
         .pipe($.concat('main.css'))
         .pipe(gulp.dest(paths.dist_base + 'styles/'));
 });
@@ -86,10 +89,11 @@ gulp.task('jshint', function () {
 
 gulp.task('scripts', ['jshint'], function () {
     return gulp.src(paths.app_base + '/index.html')
-        .pipe($.assets.js())
-        .pipe($.ignore.include(/.*app\/scripts\/.*/))
-        .pipe($.ngAnnotate())
-        .pipe($.if(shouldMinify, $.uglify()))
+        .pipe($.assets.js()) //extracts the javascript files from index.html
+        .pipe($.ignore.include(/.*app\/scripts\/.*/)) //keep only app/scripts/* files
+        .pipe($.ngAnnotate()) //Add angularjs dependency injection annotations
+       // .pipe($.if(shouldMinify, $.uglify()))
+        .pipe($.ifElse(shouldMinify, function(){return $.uglify();}))
         .pipe($.concat('scripts.js'))
         .pipe(gulp.dest(paths.dist_base + '/scripts/'));
 });
@@ -99,7 +103,8 @@ gulp.task('vendor', function () {
         .pipe($.assets.js())
         .pipe($.ignore.include(/.*bower_components.*/))
         .pipe($.ngAnnotate())
-        .pipe($.if(shouldMinify, $.cache($.uglify())))
+        //.pipe($.if(shouldMinify, $.cache($.uglify())))
+        .pipe($.ifElse(shouldMinify, function(){return $.cache($.uglify());}))
         .pipe($.concat('vendor.js'))
         .pipe(gulp.dest(paths.dist_base + '/scripts/'))
 });

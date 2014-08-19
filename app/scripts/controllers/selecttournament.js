@@ -3,7 +3,7 @@
 angular.module('beerPongTournamentApp')
 .controller('SelectTournamentCtrl', function ($scope,$location,GroupEngine,Tournament,constants) {
 
-    
+
     var nbrOfPlayers;
 
     $scope.callAlgo = function(numberOfPlayers){
@@ -60,13 +60,13 @@ angular.module('beerPongTournamentApp')
 
             }
         }
-    }
+    };
 
 
     $scope.goNextStep = function(configuration,playoff,numberOfCup){
-        
+
         console.log('goNextStep',configuration,playoff,numberOfCup);
-        
+
         Tournament.clearSettings();
 
         var params = {
@@ -78,11 +78,11 @@ angular.module('beerPongTournamentApp')
             isDirectTournament: configuration.directTournament,
             directTournamentStep: configuration.step,
             numberOfCupsToWin:numberOfCup
-        }
-        
+        };
+
         Tournament.init(params);
         $location.path('/teamNaming');
-    }
+    };
 
 
 

@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('HeaderCtrl', function ($scope,$location,$window,Tournament,localStorageService) {
+.controller('HeaderCtrl', function ($scope,$location,Tournament,localStorageService) {
 
     var currentPath = $location.url(),
         goTournament = localStorageService.get('tournamentPath');
 
     $scope.isOpen = false;
 
-    if(currentPath == '/tables/0'){
+    if(currentPath === '/tables/0'){
         $scope.tablesView = true;
         $scope.scorersView = false;
         $scope.tournamentView = false;
     }
-    else if(currentPath == '/scorers'){
+    else if(currentPath === '/scorers'){
         $scope.scorersView = true;
         $scope.tablesView = false;
         $scope.tournamentView = false;
@@ -31,17 +31,15 @@ angular.module('beerPongTournamentApp')
     $scope.goBackToTournament =function(){
         console.log('go back tournament',goTournament);
         $location.path(goTournament);
-    }
+    };
 
     $scope.goTables =function(){
         console.log('go tables',goTournament);
         $location.path('/tables/0');
-    }
+    };
 
     $scope.toggleMenu = function(){
-        if($window.innerWidth < 400 ){
             $scope.isOpen = !$scope.isOpen;
-        }
-    }
+    };
 
 });

@@ -9,21 +9,22 @@ angular.module('beerPongTournamentApp')
         isDirectTournament = Tournament.isADirectTournament(),
         groups=[],
         teamCompt =1,
-        playerCompt =1;
+        playerCompt =1,
+        group;
 
     if(isDirectTournament){
-        var group = {
+        group = {
             name: 'Direct Tournament',
             teams:[]
         };
         
-        for(var y=0, len2=numberOfTeamsPerGroup; y < len2; y++){
+        for(var y=0; y < numberOfTeamsPerGroup; y++){
             group.teams.push({
                 name: 'Team '+teamCompt++,
                 players: []
             });
 
-            for(var z=0, len3=numberOfPlayerPerTeam; z < len3; z++){
+            for(var z=0; z < numberOfPlayerPerTeam; z++){
                 group.teams[y]['players'].push({
                     name: 'Player '+playerCompt++,
                 });
@@ -34,18 +35,18 @@ angular.module('beerPongTournamentApp')
     }
     else{
         for(var x=0, len=numberOfGroups; x < len; x++){
-            var group = {
+            group = {
                 name: 'GROUP '+ String.fromCharCode(65 + x), //97 lowercase
                 teams:[]
-            }
-            for(var y=0, len2=numberOfTeamsPerGroup; y < len2; y++){
+            };
+            for(var i=0, len2=numberOfTeamsPerGroup; i < len2; i++){
                 group.teams.push({
                     name: 'Team '+teamCompt++,
                     players: []
                 });
 
-                for(var z=0, len3=numberOfPlayerPerTeam; z < len3; z++){
-                    group.teams[y]['players'].push({
+                for(var j=0, len3=numberOfPlayerPerTeam; j < len3; j++){
+                    group.teams[i]['players'].push({
                         name: 'Player '+playerCompt++,
                     });
                 }
@@ -66,8 +67,7 @@ angular.module('beerPongTournamentApp')
         else{
             $location.path('/groups');
         }
-        
-    }
+    };
 
 
 });
