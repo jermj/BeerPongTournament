@@ -5,9 +5,11 @@ angular.module('beerPongTournamentApp')
 
     var stepPlayoff = Tournament.getPlayoffStepAfterGroup(),
         tables = Tournament.getTables(),
-        teams = Tournament.getTeams();
-
-    var tableViewFromGroups = $scope.showButton = $routeParams.showButton;
+        teams = Tournament.getTeams(),
+        playoffs = Tournament.getPlayoffs(),
+        tableViewFromGroups = parseInt($routeParams.showButton);
+    
+    $scope.showButton = tableViewFromGroups;
 
     $scope.tables = tables;
 
@@ -20,6 +22,7 @@ angular.module('beerPongTournamentApp')
         
         //set teams for playoffs if not tables from menu
         if(tableViewFromGroups){
+            
             var teamsQualified = [],
                 tmpTeams = angular.copy(teams);
 

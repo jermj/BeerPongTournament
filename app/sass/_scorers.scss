@@ -3,7 +3,7 @@
     table{
         table-layout: fixed;
         width: 100%;
-        
+
         .qualified{
             background-color: #6BB661;
         }
@@ -13,4 +13,22 @@
         border:1px solid black;
         border-collapse:collapse;
     }
+}
+
+@media screen and (max-width: 600px) {
+    .scorers{
+
+        table{
+            tr{
+                .group{
+                    display: none;
+                }
+                .ratio{
+                    display: none;
+                }
+            }
+
+        }
+    }
+
 }

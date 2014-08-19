@@ -17,19 +17,19 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="player" ng-repeat="player in game.match[0]['players']" ng-init="player.score =0;game.scorers[0].push(player)">
+                        <div class="player" ng-repeat="player in game.scorers[0]">
                             <p class="player-name" >{{player.name}}</p>
-                            <button  ng-click="scoreDown(game.scorers[0][$index],game.score,0,game)" >-</button>
+                            <button  ng-click="scoreDown(player,game.score,0,game)" >-</button>
                             <span  >{{player.score}}</span>
-                            <button ng-click="scoreUp(game.scorers[0][$index],game.score,0,game)">+</button>
+                            <button ng-click="scoreUp(player,game.score,0,game)">+</button>
                         </div>
                     </td>
                     <td>
-                        <div class="player" ng-repeat="player in game.match[1]['players']" ng-init="player.score =0;game.scorers[1].push(player)">
+                        <div class="player" ng-repeat="player in game.scorers[1]">
                             <p class="player-name" >{{player.name}}</p>
-                            <button  ng-click="scoreDown(game.scorers[1][$index],game.score,1,game)" >-</button>
-                            <span  >{{player.score}}</span>
-                            <button ng-click="scoreUp(game.scorers[1][$index],game.score,1,game)">+</button>
+                            <button ng-click="scoreDown(player,game.score,1,game)" >-</button>
+                            <span>{{player.score}}</span>
+                            <button ng-click="scoreUp(player,game.score,1,game)">+</button>
                         </div>
                     </td>
                 </tr>

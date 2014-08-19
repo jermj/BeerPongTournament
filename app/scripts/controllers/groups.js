@@ -34,8 +34,8 @@ angular.module('beerPongTournamentApp')
                 }
             }
         }
-        
-        
+
+
         if(numberOfGames === 0){
             $scope.showNextStep = true;
         }
@@ -60,22 +60,28 @@ angular.module('beerPongTournamentApp')
 
             for(var d=1, len8=teamsArray.length; d<len8; d++){
                 for(var e=0; e<=d-1; e++){
-                    var team1 = [], team2 = [];
+                    var playersHome = [], playersAway = [],
+                        numberOfPlayerTeamHome =  teamsArray[d]['players'].length,
+                        numberOfPlayerTeamAway =  teamsArray[e]['players'].length;
 
-                    for(var f= 0, len9 = teamsArray[d]['players'].length; f< len9; f++){
-                        teamsArray[d]['players'][f]['score'] = 0;
-                        team1.push(angular.copy(teamsArray[d]['players'][f]));
-
-                        teamsArray[e]['players'][f]['score'] = 0;
-                        team2.push(angular.copy(teamsArray[e]['players'][f]));
+                    for(var l=0, len4 = Math.max(numberOfPlayerTeamHome, numberOfPlayerTeamAway); l<len4; l++){
+                        if(l<numberOfPlayerTeamHome){
+                            teamsArray[d]['players'][l]['score'] = 0;
+                            playersHome.push(angular.copy(teamsArray[d]['players'][l]));
+                        }
+                        if(l<numberOfPlayerTeamAway){
+                            teamsArray[e]['players'][l]['score'] = 0;
+                            playersAway.push(angular.copy(teamsArray[e]['players'][l]));
+                        }
                     }
+
 
                     matchs.push({
                         priority: 0,
                         match: [d,e],
                         title:teamsArray[d]['name']+' vs '+teamsArray[e]['name'],
                         score:[0,0],
-                        scorers:[team1,team2],
+                        scorers:[playersHome,playersAway],
                         winner:-1
                     });
                 }
@@ -116,6 +122,7 @@ angular.module('beerPongTournamentApp')
             }
         }
         match.winner = winner;
+        Tournament.setGroupsResult($scope.groups);
     };
 
     $scope.scoreUp = function(player, score,index){

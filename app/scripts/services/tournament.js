@@ -20,11 +20,7 @@ angular.module('beerPongTournamentApp')
         playoffs = localStorageService.get('playoffs') || false;
 
     this.clearSettings = function(){
-        localStorageService.remove('tournamentSettings');
-        localStorageService.remove('teams');
-        localStorageService.remove('groupResult');
-        localStorageService.remove('playoffs');
-        localStorageService.remove('tournamentPath');
+        localStorageService.clearAll();
 
         tournamentSettings = teams = groupResult = playoffs = false;
     };
@@ -157,12 +153,15 @@ angular.module('beerPongTournamentApp')
         return tables;
     };
 
-    function updateScore(scorers,playerId,score){
+    function updateScore(scorers,playerId,score,victory){
         var i = scorers.length;
         while( i-- ) {
             if( scorers[i].id === playerId ){
                 scorers[i]['score'] += score;
                 scorers[i]['numberOfGame'] += 1;
+                console.log('win',victory);
+                scorers[i]['win'] += +victory;
+                
                 break;
             } 
         }
@@ -185,6 +184,7 @@ angular.module('beerPongTournamentApp')
                     player.numberOfGame = 0;
                     player.groupName = groupName;
                     player.teamName = teamName;
+                    player.win = 0;
                     scorers.push(player);
                 }
             }
@@ -209,11 +209,11 @@ angular.module('beerPongTournamentApp')
                             for(var l=0, len4 = Math.max(numberOfPlayerTeamHome, numberOfPlayerTeamAway); l<len4; l++){
                                 if(l<numberOfPlayerTeamHome){
                                     var playerTeamHome = match.scorers[0][l];
-                                    updateScore(scorers,playerTeamHome.id,playerTeamHome.score);
+                                    updateScore(scorers,playerTeamHome.id,playerTeamHome.score,match.winner===0);
                                 }
                                 if(l<numberOfPlayerTeamAway){
                                     var playerTeamAway = match.scorers[1][l];
-                                    updateScore(scorers,playerTeamAway.id,playerTeamAway.score);
+                                    updateScore(scorers,playerTeamAway.id,playerTeamAway.score,match.winner===1);
                                 }
                             }
                         }
@@ -232,7 +232,25 @@ angular.module('beerPongTournamentApp')
                  //last element can be the winner so no attribut result
                  if(playoffRound.result){
                      for(var j=0, len2 = playoffRound.result.length; j<len2; j++){
+                        var match = playoffRound.result[j];
                         
+                        //if no winner, game is not already played
+                        if(match.winner>-1){
+                            //DON'T FORGET MANUAL MODE equip of 2 against equip of 4
+                            var numberOfPlayerTeamHome = match.scorers[0].length,
+                                numberOfPlayerTeamAway = match.scorers[1].length;
+
+                            for(var l=0, len4 = Math.max(numberOfPlayerTeamHome, numberOfPlayerTeamAway); l<len4; l++){
+                                if(l<numberOfPlayerTeamHome){
+                                    var playerTeamHome = match.scorers[0][l];
+                                    updateScore(scorers,playerTeamHome.id,playerTeamHome.score,match.winner===0);
+                                }
+                                if(l<numberOfPlayerTeamAway){
+                                    var playerTeamAway = match.scorers[1][l];
+                                    updateScore(scorers,playerTeamAway.id,playerTeamAway.score,match.winner===1);
+                                }
+                            }
+                        }
                      }
                  }
                  

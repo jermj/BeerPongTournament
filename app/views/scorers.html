@@ -8,16 +8,20 @@
         <th>place</th>
         <th>name</th>
         <th>team</th>
-        <th>group</th>
+        <th class="group">group</th>
         <th>played</th>
+        <th>win</th>
+        <th class="ratio">ratio</th>
         <th>score</th>
     </tr>
     <tr ng-repeat="scorer in scorers">
         <td>{{$index+1}}</td>
         <td>{{scorer.name}}</td>
         <td>{{scorer.teamName}}</td>
-        <td>{{scorer.groupName}}</td>
+        <td class="group">{{scorer.groupName}}</td>
         <td>{{scorer.numberOfGame}}</td>
+        <td>{{scorer.win}}</td>
+        <td class="ratio">{{scorer.score/scorer.numberOfGame | number:2}}</td>
         <td>{{scorer.score}}</td>
     </tr>
 </table>

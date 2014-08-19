@@ -34,13 +34,12 @@
             &.new{
                 background-color: #50829A;
             }
-            
+
             color: white;
             text-decoration: none;
             margin-left: auto;
             margin-right: auto;
             padding: 20px 20px;
-            width: 170px;
         }
         a:active{
             position: relative;
@@ -53,7 +52,7 @@
 .home-wrapper{
     .home-wrapper-line{
         text-align: center;
-        
+
         .home-button{
             margin: 20px 20px 0px 20px;
             color:white;
@@ -70,7 +69,7 @@
                     width: 120px;
                     font-size: 60px;
                 }
-                
+
                 .home-button-content{
                     padding-left: 30px;
                 }
@@ -96,18 +95,27 @@
 }
 
 @media screen and (max-width: 449px){
-.home-wrapper{
+    #home-picture {
+        #home-start-block{ 
+            a{
+                display: block;
+                margin:15px;
+            }
+        }
+    } 
+
+    .home-wrapper{
         .home-button{
             table{
                 .home-button-content{
                     h1{
                         font-size: 1em;
                     }
-                    
+
                     p{
                         font-size: 1em;
                     }
-                    
+
                 }
             }
         }

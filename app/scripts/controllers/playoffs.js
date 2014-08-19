@@ -3,28 +3,23 @@
 angular.module('beerPongTournamentApp')
 .controller('PlayoffsCtrl', function ($scope,$location,$routeParams,Tournament,constants) {
 
-    var playoffs = Tournament.getPlayoffs(),        
+    var playoffs = angular.copy(Tournament.getPlayoffs()),        
         nbrOfCupsToWin = Tournament.getNumberOfCupsToWin(),
         round = $routeParams.round,
-        step = Math.log(playoffs[round]['teams'].length)/Math.log(2)-1,
-        numberOfGames = playoffs[round]['teams'].length/2;
-    
+        numberOfTeams=playoffs[round]['teams'].length,
+        step = Math.log(numberOfTeams)/Math.log(2)-1,
+        numberOfGames = numberOfTeams/2;
+
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
 
     $scope.title = constants.PLAYOFF_NAME[step];
-    
-    console.log(playoffs,        
-        nbrOfCupsToWin,
-        round,
-        step,
-        numberOfGames,
-               playoffs[round]['teams'].length);
 
     if(playoffs[round]['result']){
         $scope.games = playoffs[round]['result'];
-        
+
         for(var j = 0, len2 = playoffs[round]['result'].length; j < len2; j++){
-            if(playoffs[round]['result'][j]['score'][0] === nbrOfCupsToWin || playoffs[round]['result'][j]['match'][1] === nbrOfCupsToWin){
+            var game = playoffs[round]['result'][j];
+            if(game.winner > -1){
                 numberOfGames--;
             }
         }
@@ -34,29 +29,44 @@ angular.module('beerPongTournamentApp')
 
     }
     else{
-        var potentialTeams = playoffs[round]['teams'],
+        var potentialTeams = angular.copy(playoffs[round]['teams']),
             games = [];
-            
 
-    for(var i = 0, len = numberOfGames; i<len;i++){
-        var index1, index2, team1, team2;
 
-        index1 = Math.floor((Math.random() * potentialTeams.length));
-        team1 = potentialTeams[index1];
-        potentialTeams.splice(index1, 1);
+        for(var i = 0, len = numberOfGames; i<len;i++){
+            var indexHome, indexAway, teamHome, teamAway;
 
-        index2 = Math.floor((Math.random() * potentialTeams.length));
-        team2 = potentialTeams[index2];
-        potentialTeams.splice(index2, 1);
+            indexHome = Math.floor((Math.random() * potentialTeams.length));
+            teamHome = potentialTeams[indexHome];
+            potentialTeams.splice(indexHome, 1);
 
-        games.push({
-            title:team1.name+' vs '+team2.name,
-            match:[team1,team2],
-            score: [ 0, 0 ],
-            scorers: [[],[]],
-            winner: -1
-        });
-    }
+            indexAway = Math.floor((Math.random() * potentialTeams.length));
+            teamAway = potentialTeams[indexAway];
+            potentialTeams.splice(indexAway, 1);
+
+            var playersHome = [], playersAway = [],
+                numberOfPlayerTeamHome = teamHome.players.length,
+                numberOfPlayerTeamAway = teamAway.players.length;
+
+            for(var l=0, len4 = Math.max(numberOfPlayerTeamHome, numberOfPlayerTeamAway); l<len4; l++){
+                if(l<numberOfPlayerTeamHome){
+                    teamHome.players[l]['score'] = 0;
+                    playersHome.push(angular.copy(teamHome.players[l]));
+                }
+                if(l<numberOfPlayerTeamAway){
+                    teamAway.players[l]['score'] = 0;
+                    playersAway.push(angular.copy(teamAway.players[l]));
+                }
+            }
+
+            games.push({
+                title:teamHome.name+' vs '+teamAway.name,
+                match:[teamHome,teamAway],
+                score: [ 0, 0 ],
+                scorers: [playersHome,playersAway],
+                winner: -1
+            });
+        }
 
         $scope.games = games;
     }
@@ -70,14 +80,19 @@ angular.module('beerPongTournamentApp')
             }
         }
         match.winner = winner;
+        playoffs[round].result = $scope.games;
+        Tournament.setPlayoffs(playoffs);
     };
 
-    
+
 
     $scope.scoreUp = function(player, score,index){
         if(score[index] < nbrOfCupsToWin){
             score[index] = score[index] +1;
             player.score = player.score ? player.score + 1 : 1;
+
+            playoffs[round].result = $scope.games;
+            Tournament.setPlayoffs(playoffs);
         }
     };
 
@@ -89,6 +104,10 @@ angular.module('beerPongTournamentApp')
             }
             score[index] = score[index] -1;
             player.score = player.score - 1;
+
+            playoffs[round].result = $scope.games;
+            console.log('score down', playoffs);
+            Tournament.setPlayoffs(playoffs);
         }
     };
 
@@ -96,7 +115,7 @@ angular.module('beerPongTournamentApp')
         playoffs[round].result = $scope.games;
         var teamsQualified = [],
             nextRound = parseInt(round) +1;
-        
+
         for(var j = 0, len2 = playoffs[round]['result'].length; j < len2; j++){
             if(playoffs[round]['result'][j]['score'][0] === nbrOfCupsToWin){
                 teamsQualified.push(playoffs[round]['result'][j]['match'][0]);
