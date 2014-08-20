@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'beerpongfont';
-	src:url('../fonts/logo/beerpongfont.eot');
-	src:url('../fonts/logo/beerpongfont.eot') format('embedded-opentype'),
-		url('../fonts/logo/beerpongfont.woff') format('woff'),
-		url('../fonts/logo/beerpongfont.ttf') format('truetype'),
-		url('../fonts/logo/beerpongfont.svg') format('svg');
+	src:url('../fonts/beerpongfont.eot');
+	src:url('../fonts/beerpongfont.eot') format('embedded-opentype'),
+		url('../fonts/beerpongfont.woff') format('woff'),
+		url('../fonts/beerpongfont.ttf') format('truetype'),
+		url('../fonts/beerpongfont.svg') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,25 +23,21 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.bpicon-Logobeerpong:before {
+.bpicon-logo:before {
 	content: "\e600";
+}
+.bpicon-logo-cup:before {
+	content: "\e602";
 }
 .bpicon-capsule:before {
 	content: "\e601";
 }
-.bpicon-capsulevalidation:before {
-	content: "\e602";
-}
-.bpicon-capsuleaxe:before {
-	content: "\e603";
+.bpicon-menu:before {
+	content: "\e605";
 }
 .bpicon-trophy:before {
 	content: "\e604";
 }
-.bpicon-menu:before {
-	content: "\e605";
-}
-
 
 body{
 margin:0;

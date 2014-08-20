@@ -1,0 +1,40 @@
+@font-face {
+	font-family: 'beerpongfont';
+	src:url('fonts/beerpongfont.eot?-hgogk9');
+	src:url('fonts/beerpongfont.eot?#iefix-hgogk9') format('embedded-opentype'),
+		url('fonts/beerpongfont.woff?-hgogk9') format('woff'),
+		url('fonts/beerpongfont.ttf?-hgogk9') format('truetype'),
+		url('fonts/beerpongfont.svg?-hgogk9#beerpongfont') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="bpicon-"], [class*=" bpicon-"] {
+	font-family: 'beerpongfont';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.bpicon-logo:before {
+	content: "\e600";
+}
+.bpicon-logo-cup:before {
+	content: "\e602";
+}
+.bpicon-capsule:before {
+	content: "\e601";
+}
+.bpicon-menu:before {
+	content: "\e605";
+}
+.bpicon-trophy:before {
+	content: "\e604";
+}
