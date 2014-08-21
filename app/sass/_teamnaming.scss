@@ -23,41 +23,41 @@
         color: white;
         padding: 10px;
 
-        &.group-color-0{
+        &.random-color-0{
             background-color: #DF6363;
         }
-        &.group-color-1{
+        &.random-color-1{
             background-color: #434991;
         }
-        &.group-color-2{
+        &.random-color-2{
             background-color: #334E34;
         }
-        &.group-color-3{
+        &.random-color-3{
             background-color: #6D978C;
         }
-        &.group-color-4{
-            background-color: #55572B;
+        &.random-color-4{
+            background-color: #A2A81B;
         }
-        &.group-color-5{
+        &.random-color-5{
             background-color: #81547C;
         }
-        &.group-color-6{
+        &.random-color-6{
             background-color: #C06D21;
         }
-        &.group-color-7{
+        &.random-color-7{
             background-color: #DF6363;
         }
-        &.group-color-8{
+        &.random-color-8{
             background-color: #521111;
         }
-        &.group-color-9{
+        &.random-color-9{
             background-color: #7F858D;
         }
 
         h1{
             margin:0;
         }
-        
+
         .team-block{
             border: 1px solid black;
             display: inline-block;
@@ -65,12 +65,6 @@
                 font-weight: bold;
                 font-size: 1.3em;
             }
-        }
-
-
-
-        .player-name{
-
         }
 
     }
@@ -90,3 +84,5 @@
         width: 170px;
     }
 }
+
+

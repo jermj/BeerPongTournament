@@ -10,12 +10,26 @@
             </select>  
         </div>
         <div class="games-block">
-            <div class="group-game" ng-repeat="game in roundSelected">
-                <p>{{game.title}}</p>
-                <p ng-class="{'winner': game.winner == 0}">{{group.teams[game.match[0]]['name']}}: <span class="score">{{game.score[0]}}</span></p>
-                <p ng-class="{'winner': game.winner == 1}">{{group.teams[game.match[1]]['name']}}: <span class="score">{{game.score[1]}}</p>
+            <div class="group-game" ng-class="'random-color-'+game.id" ng-repeat="game in roundSelected">
+                <p class="group-game-title">{{game.title}}</p>       
 
                 <table>
+                    <tr>
+                        <td >
+                            <div class="team-name" ng-class="{'winner': game.winner == 0}">{{group.teams[game.match[0]]['name']}}:</div>
+                        </td>
+                        <td>
+                            <div class="team-name" ng-class="{'winner': game.winner == 1}">{{group.teams[game.match[1]]['name']}}: </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="score">{{game.score[0]}}</div>
+                        </td>
+                        <td>
+                            <div class="score">{{game.score[1]}}</div>
+                        </td>
+                    </tr>
                     <tr>
                         <td><button ng-if="game.score[0] === nbrOfCupsToWin" ng-click="setWinner(game,0);">winner</button></td>
                         <td><button ng-if="game.score[1] === nbrOfCupsToWin" ng-click="setWinner(game,1);">winner</button></td>
@@ -23,17 +37,21 @@
                     <tr>
                         <td>
                             <div class="player" ng-repeat="player in game.scorers[0]">
-                                <p class="player-name" >{{player.name}}</p>
-                                <button  ng-click="scoreDown(player,game.score,0,game)" >-</button>
-                                <span>{{player.score}}</span>
-                                <button ng-click="scoreUp(player,game.score,0,game)">+</button>
+                                <div class="player-name" >{{player.name}}</div>
+                                <div class="player-scoring" >
+                                    <button  class="scoreDown" ng-click="scoreDown(player,game.score,0,game)" >-</button>
+                                    <span>{{player.score}}</span>
+                                    <button class="scoreUp" ng-click="scoreUp(player,game.score,0,game)">+</button>
+                                </div>
                             </div>
                         </td>
                         <td>
                             <div class="player" ng-repeat="player in game.scorers[1]" >
-                                <p class="player-name" >{{player.name}}</p>
-                                <button  ng-click="scoreDown(player,game.score,1,game)" >-</button>                                               <span>{{player.score}}</span>
-                                <button ng-click="scoreUp(player,game.score,1,game)">+</button>
+                                <div class="player-name" >{{player.name}}</div>
+                                <div class="player-scoring">
+                                    <button class="scoreDown" ng-click="scoreDown(player,game.score,1,game)" >-</button>                                               <span>{{player.score}}</span>
+                                    <button class="scoreUp" ng-click="scoreUp(player,game.score,1,game)">+</button>
+                                </div>
                             </div>
                         </td>
                     </tr>

@@ -1,5 +1,5 @@
 <div ng-include src="'views/partials/header.html'"></div>
-    <div class="select-tournament-choose" ng-init="isAutomatic = true">
+<div class="select-tournament-choose" ng-init="isAutomatic = true">
 
     <div class="select-tournament-choose-title"><span>1. CREATE YOUR TOURNAMENT</span></div>
 
@@ -35,7 +35,7 @@
     <div class="select-tournament-form-line">
         <div class="column-left">Number of players</div>
         <div class="column-right">
-            <input ng-model="numberOfPlayers" ng-change="callAlgo(numberOfPlayers)" type="number" min="2" value="2">
+            <input ng-model="numberOfPlayers" ng-change="callAlgo(numberOfPlayers)" type="number" min="2" max="1000" value="2">
         </div>
     </div>
     <div class="select-tournament-form-line">
@@ -70,4 +70,3 @@
     </div>
 </div>
 <div ng-if="!isAutomatic">custom</div>
-

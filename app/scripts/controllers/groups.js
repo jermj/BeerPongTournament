@@ -4,7 +4,8 @@ angular.module('beerPongTournamentApp')
 .controller('GroupsCtrl', function ($scope,$location,Tournament) {
 
     var nbrOfCupsToWin = Tournament.getNumberOfCupsToWin(),
-        numberOfGames = 0;
+        numberOfGames = 0,
+        gameId=0;
 
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
     $scope.showNextStep = false;
@@ -45,6 +46,7 @@ angular.module('beerPongTournamentApp')
         var planning = [],
             groups = Tournament.getTeams();
 
+        //for each groups
         for(var b=0, len6=groups.length; b < len6; b++){
             var group = groups[b],
                 teamsArray = groups[b]['teams'],
@@ -58,6 +60,7 @@ angular.module('beerPongTournamentApp')
                 priorities.push(0);
             }
 
+            //generate each match between every teams
             for(var d=1, len8=teamsArray.length; d<len8; d++){
                 for(var e=0; e<=d-1; e++){
                     var playersHome = [], playersAway = [],
@@ -82,7 +85,8 @@ angular.module('beerPongTournamentApp')
                         title:teamsArray[d]['name']+' vs '+teamsArray[e]['name'],
                         score:[0,0],
                         scorers:[playersHome,playersAway],
-                        winner:-1
+                        winner:-1,
+                        id:gameId++
                     });
                 }
             }
@@ -110,7 +114,7 @@ angular.module('beerPongTournamentApp')
     }
 
 
-
+console.log($scope.groups);
 
 
 

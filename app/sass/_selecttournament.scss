@@ -110,58 +110,76 @@
         padding: 20px 20px;
         display: block;
         width: 170px;
+        cursor: inherit;
+    }
+    button:disabled {
+        background-color: #dedede;
+        color: #636363;
+        box-shadow: inherit;
+        border: inherit;
+        cursor: not-allowed;
     }
 }
 
 
-@media screen and (max-width: 550px) {
-    .select-tournament-choose .column_container{
+@media screen and (max-width: 550px) {    
+    .select-tournament-choose{
+        .column_container{
 
-        .select-tournament-choose-button{
-            width: inherit;
-            margin: 0px 10px;
-            display: inherit;
-            
-            .select-tournament-text{
-                display: table-cell;
-                width: 100%;
-                padding: 0px 10px;
-                
-                p{
-                    height: inherit;
+            .select-tournament-choose-button{
+                width: inherit;
+                margin: 0px 10px;
+                display: inherit;
+
+                .select-tournament-text{
+                    display: table-cell;
+                    width: 100%;
+                    padding: 0px 10px;
+
+                    p{
+                        height: inherit;
+                    }
+                }
+
+                .select-tournament-icon{
+                    display: table-cell;
+                    width: 125px;
+                    vertical-align: middle;
                 }
             }
 
-            .select-tournament-icon{
-                display: table-cell;
-                width: 125px;
-                vertical-align: middle;
+            .column-left {
+                float:inherit;
+                width: inherit;
+                margin-bottom: 20px;
             }
+            .column-right {
+                margin-left: inherit;
+            }
+
         }
     }
 
-    .select-tournament-choose .column_container .column-left {
-        float:inherit;
-        width: inherit;
-        margin-bottom: 20px;
-    }
-    .select-tournament-choose .column_container .column-right {
-        margin-left: inherit;
-    }
 
-    .select-tournament-form-line{
-        text-align: center;
-    }
 
     .select-tournament-form{
         .select-tournament-form-line{
+            text-align: center;
             .column-left {
                 float: inherit;
                 width: inherit;
                 text-align: center;
+                padding-right:inherit;
             }
             .column-right {
                 margin-left: inherit;
+                input{
+                    font-size: 40px;
+                    width: 125px;
+                }
+                select{
+                    height: 40px;
+                }
             }
         }
     }

@@ -1,8 +1,14 @@
 .games-block{
     text-align: center;
     .group-game{
-        border:1px solid black;
         overflow:hidden;
+
+        .group-game-title{
+            background-color: black;
+            color:white;
+            margin:0;
+            padding: 10px 0px;
+        }
 
         .winner{
             background-color: green;
@@ -12,9 +18,51 @@
         table{
             table-layout: fixed;
             width: 100%;
+            border-collapse:collapse;
 
-            td:first-child{
-                border-right: 1px solid black;
+            tr{
+                margin: 0;
+                padding: 0;
+            }
+
+            td + td{
+                border-left: 1px solid black; 
+            }
+
+            .score{
+                font-size: 60px;
+            }
+
+            .team-name{
+                font-weight: bold;
+            }
+
+            .player{
+                .player-scoring{
+                    button{
+                        height: 40px;
+                        width: 40px;
+                        color:white;
+
+                        &.scoreUp{
+                            background-color: #4D7A5B;
+                        }
+
+                        &.scoreDown{
+                            background-color: #C43434;
+                        }
+                    }
+                    
+                    button[disabled]{
+                        opacity: 0.6;
+                    }
+                    span{
+                        background: #dedede;
+                        padding: 5px;
+                        display: inline-block;
+                        width: 40px;
+                    }
+                }
             }
         }
     }
@@ -23,8 +71,10 @@
 @media screen and (min-width: 400px) {
     .games-block{
         .group-game{
+            margin: 5px;
             width: 400px;
             display: inline-block;
+            vertical-align: top;
         }
     }
 

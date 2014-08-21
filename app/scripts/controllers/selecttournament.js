@@ -23,7 +23,7 @@ angular.module('beerPongTournamentApp')
                 if(configs[x]['configurations'][y]['directTournament']){
                     $scope.groupsSelect.push({
                         separator:'team of '+configs[x]['numberOfPlayers'],
-                        value:'Direct tournament from '+constants.PLAYOFF_NAME[configs[x]['configurations'][y]['step']],
+                        value:'Tournament from '+constants.PLAYOFF_NAME[configs[x]['configurations'][y]['step']],
                         directTournament:1,
                         step:configs[x]['configurations'][y]['step'],
                         playersPerTeam:configs[x]['numberOfPlayers'],
