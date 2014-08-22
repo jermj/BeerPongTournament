@@ -116,6 +116,13 @@ angular.module('beerPongTournamentApp')
 
         return result;
     };
+    
+    api.getConfigsFromNumberOfTeams = function(numberOfTeams){
+
+        var configs = algo(numberOfTeams);        
+        return configs;
+    };
+
 
 
     return api;

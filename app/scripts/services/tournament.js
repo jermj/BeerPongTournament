@@ -145,8 +145,21 @@ angular.module('beerPongTournamentApp')
                 }
             }
             group.table.sort(function(a, b){
-                // console.log(b.win-a.win);
-                return b.win-a.win;
+                if(b.win === a.win){
+                    var golaverageA = a.cupsFor - a.cupsAgainst,
+                        golaverageB = b.cupsFor - b.cupsAgainst;
+                    if(golaverageB === golaverageA){
+                        return a.cupsFor-b.cupsFor;
+                    }
+                    else{
+                        return golaverageB-golaverageA;
+                    }
+                    
+                }else{
+                    return b.win-a.win;
+                }
+
+
             });
             tables.push(group);
         }
@@ -161,7 +174,7 @@ angular.module('beerPongTournamentApp')
                 scorers[i]['numberOfGame'] += 1;
                 console.log('win',victory);
                 scorers[i]['win'] += +victory;
-                
+
                 break;
             } 
         }
@@ -199,7 +212,7 @@ angular.module('beerPongTournamentApp')
 
                     for(var k=0, len3 = round.length; k<len3; k++){
                         var match = round[k];
-                        
+
                         //if no winner, game is not already played
                         if(match.winner>-1){
                             //DON'T FORGET MANUAL MODE equip of 2 against equip of 4
@@ -222,18 +235,18 @@ angular.module('beerPongTournamentApp')
                 }
             }
         }
-        
+
         console.log('playoffs',playoffs);
-        
+
         if(playoffs){
-             for(var i=0, len = playoffs.length; i<len; i++){
-                 var playoffRound= playoffs[i];
-                 
-                 //last element can be the winner so no attribut result
-                 if(playoffRound.result){
-                     for(var j=0, len2 = playoffRound.result.length; j<len2; j++){
+            for(var i=0, len = playoffs.length; i<len; i++){
+                var playoffRound= playoffs[i];
+
+                //last element can be the winner so no attribut result
+                if(playoffRound.result){
+                    for(var j=0, len2 = playoffRound.result.length; j<len2; j++){
                         var match = playoffRound.result[j];
-                        
+
                         //if no winner, game is not already played
                         if(match.winner>-1){
                             //DON'T FORGET MANUAL MODE equip of 2 against equip of 4
@@ -251,11 +264,11 @@ angular.module('beerPongTournamentApp')
                                 }
                             }
                         }
-                     }
-                 }
-                 
-             
-             }
+                    }
+                }
+
+
+            }
         }
 
         scorers.sort(function(a, b){

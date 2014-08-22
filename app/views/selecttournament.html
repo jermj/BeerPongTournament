@@ -45,7 +45,7 @@
         </div>
     </div>
     <div ng-show="numberOfPlayers" class="select-tournament-form-line">
-        <div class="column-left">Groups</div>
+        <div class="column-left">Configuration</div>
         <div class="column-right">
             <select
                     ng-click="$parent.showPlayoffs = true" 
@@ -69,4 +69,44 @@
         <button ng-disabled="!configuration || (configuration && !configuration.directTournament && !playoff)" ng-click="goNextStep(configuration,playoff,numberOfCup)">Step 2</button>
     </div>
 </div>
-<div ng-if="!isAutomatic">custom</div>
+
+
+<div class="select-tournament-form" ng-if="!isAutomatic">
+    <div class="select-tournament-form-line">
+        <div class="column-left">Number of Teams</div>
+        <div class="column-right">
+            <input ng-model="numberOfTeams" ng-change="getConfigFromNumberOfTeam(numberOfTeams)" type="number" min="2" max="1000" value="2">
+        </div>
+    </div>
+    <div class="select-tournament-form-line">
+        <div class="column-left">Number of cups</div>
+        <div class="column-right">
+            <input type="number" min="1" ng-model="numberOfCup" ng-init="numberOfCup=6">
+        </div>
+    </div>
+    <div ng-show="numberOfTeams" class="select-tournament-form-line">
+        <div class="column-left">Configuration</div>
+        <div class="column-right">
+            <select
+                    ng-click="$parent.showPlayoffs = true" 
+                    ng-disabled="!numberOfTeams"
+                    ng-model="configuration"
+                    ng-options="item.value for item in configurationsManual">
+            </select>    
+        </div>
+    </div>
+    <div ng-show="$parent.showPlayoffs && configuration && !configuration.directTournament" class="select-tournament-form-line">
+        <div class="column-left">Playoff</div>
+        <div class="column-right">
+            <select
+                    ng-disabled="!configuration"
+                    ng-model="playoff"
+                    ng-options="item.value for item in configuration.playoffs">
+            </select>      
+        </div>
+    </div>
+    <div class="select-tournament-nextstep">
+        <button ng-disabled="!numberOfTeams || (configuration && !configuration.directTournament && !playoff)" ng-click="goManualTeamNaming(configuration,playoff,numberOfCup)">Step 2</button>
+    </div>
+
+</div>

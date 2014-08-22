@@ -1,5 +1,21 @@
 .playoffs{
     &>h1{
         text-align: center;
+        background-color: black;
+        color: white;
+        margin: 10px 0px 0px 0px;
+    }
+
+    .games-block{
+
+        .playoffs-games{
+
+            .game-title{
+                background-color: black;
+                color: white;
+                margin: 0;
+                padding: 10px 0px;
+            }
+        }
     }
 }

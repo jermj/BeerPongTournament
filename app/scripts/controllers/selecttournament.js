@@ -4,7 +4,8 @@ angular.module('beerPongTournamentApp')
 .controller('SelectTournamentCtrl', function ($scope,$location,GroupEngine,Tournament,constants) {
 
 
-    var nbrOfPlayers;
+    var nbrOfPlayers,
+        nbrOfTeams;
 
     $scope.callAlgo = function(numberOfPlayers){
 
@@ -14,7 +15,7 @@ angular.module('beerPongTournamentApp')
         $scope.showPlayoffs = false;
 
         var configs = GroupEngine.getGroupFromNumberOfPlayers(numberOfPlayers);
-
+        
         $scope.groupsSelect = [];
 
         for(var x=0, len=configs.length; x < len; x++){
@@ -60,6 +61,76 @@ angular.module('beerPongTournamentApp')
 
             }
         }
+    };
+    
+    $scope.getConfigFromNumberOfTeam = function(numberOfTeams){
+        nbrOfTeams = numberOfTeams;
+        
+        var configs = GroupEngine.getConfigsFromNumberOfTeams(numberOfTeams);
+        
+                console.log('configs',configs);
+        
+        $scope.configurationsManual = [];
+        
+        for(var x=0, len=configs.length; x < len; x++){
+                //direct tournament
+                if(configs[x]['directTournament']){
+                    $scope.configurationsManual.push({
+                        value:'Tournament from '+constants.PLAYOFF_NAME[configs[x]['step']],
+                        directTournament:1,
+                        step:configs[x]['step'],
+                        numberOfTeams: numberOfTeams
+                    });
+                }
+                //group(s) whith potential playoffs
+                else{
+
+                    var playoffs=[];
+                    if(configs[x]['nbrOfGroups'] === 1){
+                        playoffs.push({
+                            step:-1,
+                            value:'simple championship'
+                        });
+                    }
+                    for(var i=0, len3=configs[x]['playOffStepMin'].length; i < len3; i++){
+                        playoffs.push({
+                            step:configs[x]['playOffStepMin'][i],
+                            value: constants.PLAYOFF_NAME[configs[x]['playOffStepMin'][i]]
+                        });
+                    }
+
+                    $scope.configurationsManual.push({
+                        value:configs[x]['nbrOfGroups']+' group(s) of '+configs[x]['nbrOfTeam']+' teams',
+                        playOffStepMin:configs[x]['playOffStepMin'],
+                        playoffs:playoffs,
+                        nbrOfGroups: configs[x]['nbrOfGroups'],
+                        numberOfTeams:configs[x]['nbrOfTeam']
+                    });
+                }
+
+        }
+        
+    }
+    
+    
+    
+    $scope.goManualTeamNaming = function(configuration,playoff,numberOfCup){
+
+        Tournament.clearSettings();
+        
+        console.log('go',configuration);
+
+        var params = {
+            numberOfGroups: configuration.nbrOfGroups,
+            numberOfTeamsPerGroup: configuration.numberOfTeams,
+            playoffStepAfterGroup: playoff ? playoff.step : undefined,
+            isDirectTournament: configuration.directTournament,
+            directTournamentStep: configuration.step,
+            numberOfCupsToWin:numberOfCup
+        };
+
+        Tournament.init(params);
+        $location.path('/manualTeamNaming');
     };
 
 

@@ -8,7 +8,8 @@ angular.module('beerPongTournamentApp')
         round = $routeParams.round,
         numberOfTeams=playoffs[round]['teams'].length,
         step = Math.log(numberOfTeams)/Math.log(2)-1,
-        numberOfGames = numberOfTeams/2;
+        numberOfGames = numberOfTeams/2,
+        gameId=0;
 
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
 
@@ -64,7 +65,8 @@ angular.module('beerPongTournamentApp')
                 match:[teamHome,teamAway],
                 score: [ 0, 0 ],
                 scorers: [playersHome,playersAway],
-                winner: -1
+                winner: -1,
+                id:gameId++
             });
         }
 

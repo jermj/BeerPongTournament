@@ -31,6 +31,16 @@
 
             .score{
                 font-size: 60px;
+                font-weight: bold;
+            }
+            
+            .players{
+                vertical-align: top;
+            }
+
+            .winner-button{
+                background-color: #FFD700;
+                padding: 10px 30px;
             }
 
             .team-name{
@@ -38,6 +48,10 @@
             }
 
             .player{
+                background-color: #dedede;
+                padding: 5px 0px;
+                margin-bottom: 10px;
+
                 .player-scoring{
                     button{
                         height: 40px;
@@ -52,12 +66,11 @@
                             background-color: #C43434;
                         }
                     }
-                    
+
                     button[disabled]{
                         opacity: 0.6;
                     }
                     span{
-                        background: #dedede;
                         padding: 5px;
                         display: inline-block;
                         width: 40px;

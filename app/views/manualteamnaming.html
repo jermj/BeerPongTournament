@@ -1,0 +1,19 @@
+<div ng-include src="'views/partials/header.html'"></div>
+<div class="naming-choose-title-block">
+    <div class="naming-choose-title"><span>2. Create Teams</span></div>    
+</div>
+<div class="naming-block">
+    <div class="group-block" ng-class="'random-color-'+($index %16)" ng-repeat="group in groups">
+        <h1>{{group.name}}</h1>
+        <div class="team-block" ng-repeat="team in group.teams">
+            <input class="team-name" type="text" ng-model="team.name" value="{{team.name}}">
+            <div><button>add player</button></div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="naming-nextstep">
+    <button ng-disabled="true" ng-click="startTournament()">Start Tournament</button>
+</div>

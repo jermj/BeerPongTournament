@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.controller('TeamNamingCtrl', function ($scope,$location,Tournament) {
-    var numberOfGroups = Tournament.getNumberOfGroups(),
+  .controller('ManualTeamNamingCtrl', function ($scope,$location,Tournament) {
+    
+      var numberOfGroups = Tournament.getNumberOfGroups(),
         numberOfTeamsPerGroup = Tournament.getNumberOfTeamsPerGroup(),
-        numberOfPlayerPerTeam = Tournament.getNumberOfPlayerPerTeam(),
         isDirectTournament = Tournament.isADirectTournament(),
         groups=[],
         teamCompt =1,
@@ -35,6 +35,7 @@ angular.module('beerPongTournamentApp')
         $scope.groups = groups;
     }
     else{
+        console.log('tournament',numberOfGroups, numberOfTeamsPerGroup);
         for(var x=0, len=numberOfGroups; x < len; x++){
             group = {
                 name: 'GROUP '+ String.fromCharCode(65 + x), //97 lowercase
@@ -46,12 +47,6 @@ angular.module('beerPongTournamentApp')
                     players: []
                 });
 
-                for(var j=0, len3=numberOfPlayerPerTeam; j < len3; j++){
-                    group.teams[i]['players'].push({
-                        name: 'Player '+playerCompt++,
-                        id:playerCompt
-                    });
-                }
             }
             groups.push(group);
             $scope.groups = groups;
@@ -67,6 +62,5 @@ angular.module('beerPongTournamentApp')
             $location.path('/groups');
         }
     };
-
-
-});
+      
+  });

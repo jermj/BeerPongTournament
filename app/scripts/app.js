@@ -19,6 +19,10 @@ angular
         templateUrl: 'views/teamnaming.html',
         controller: 'TeamNamingCtrl'
     })
+    .when('/manualTeamNaming', {
+        templateUrl: 'views/manualteamnaming.html',
+        controller: 'ManualTeamNamingCtrl'
+    })
     .when('/groups', {
         templateUrl: 'views/groups.html',
         controller: 'GroupsCtrl'
@@ -38,6 +42,15 @@ angular
     .when('/scorers', {
         templateUrl: 'views/scorers.html',
         controller: 'ScorersCtrl'
+    })
+    .when('/faq', {
+        templateUrl: 'views/faq.html'
+    })
+    .when('/rules', {
+        templateUrl: 'views/rules.html'
+    })
+    .when('/history', {
+        templateUrl: 'views/history.html'
     })
     .otherwise({
         redirectTo: '/'

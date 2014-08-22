@@ -54,7 +54,7 @@ box-sizing: border-box;
     background-color: #434991;
 }
 .random-color-2{
-    background-color: #334E34;
+    background-color: #6A8D6C;
 }
 .random-color-3{
     background-color: #6D978C;
@@ -72,7 +72,7 @@ box-sizing: border-box;
     background-color: #DF9F63;
 }
 .random-color-8{
-    background-color: #521111;
+    background-color: #6B4D4D;
 }
 .random-color-9{
     background-color: #0B7979;
@@ -107,6 +107,7 @@ $BP-light-green: #7CC570;
 @import 'home';
 @import 'selecttournament';
 @import 'teamnaming';
+@import 'manualteamnaming';
 @import 'header';
 @import 'groups';
 @import 'playoffs';
@@ -114,3 +115,4 @@ $BP-light-green: #7CC570;
 @import 'match';
 @import 'winner';
 @import 'scorers';
+@import 'rules';

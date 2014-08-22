@@ -3,10 +3,13 @@
         overflow:hidden;
         h1{
             text-align: center;
+            background-color: black;
+            color: white;
+            margin: 10px 0px 0px 0px;
         }
         .select-block{
-            margin: 0px 10px;
-            padding: 10px;
+            padding: 10px 20px;
+            background-color: black;
 
             select{
                 width: 100%;

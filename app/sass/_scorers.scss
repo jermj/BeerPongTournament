@@ -1,5 +1,26 @@
 .scorers{
     text-align: center;
+
+    h1{
+        background-color: black;
+        color: white;
+        margin-bottom: 0;
+    }
+
+    .select-block{
+        background-color: black;
+        padding: 10px 20px;
+
+        select{
+            width: 100%;
+            font-size: 30px;
+        }
+        
+        select + select{
+            margin-top: 10px;
+        }
+    }
+
     table{
         table-layout: fixed;
         width: 100%;
@@ -12,6 +33,10 @@
     {
         border:1px solid black;
         border-collapse:collapse;
+
+        tr:first-child{
+            background-color: #dedede;
+        }
     }
 }
 
