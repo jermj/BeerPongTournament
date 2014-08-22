@@ -108,7 +108,6 @@ angular.module('beerPongTournamentApp')
             player.score = player.score - 1;
 
             playoffs[round].result = $scope.games;
-            console.log('score down', playoffs);
             Tournament.setPlayoffs(playoffs);
         }
     };
@@ -132,6 +131,7 @@ angular.module('beerPongTournamentApp')
             $location.path('/playoffs/'+nextRound);
         }
         else{
+            Tournament.setWinner(teamsQualified[0]);
             $location.path('/winner');
         }
     };

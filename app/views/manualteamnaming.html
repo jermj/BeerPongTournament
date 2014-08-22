@@ -7,7 +7,10 @@
         <h1>{{group.name}}</h1>
         <div class="team-block" ng-repeat="team in group.teams">
             <input class="team-name" type="text" ng-model="team.name" value="{{team.name}}">
-            <div><button>add player</button></div>
+            <div><button ng-click="addPlayer(team)">add player</button></div>
+            <div ng-repeat="player in team.players">
+               <input class="player-name" type="text" ng-model="player.name" value="{{player.name}}">
+            </div>
         </div>
 
     </div>
@@ -15,5 +18,5 @@
 
 
 <div class="naming-nextstep">
-    <button ng-disabled="true" ng-click="startTournament()">Start Tournament</button>
+    <button ng-disabled="playersMinimum > 0" ng-click="startTournament()">Start Tournament</button>
 </div>

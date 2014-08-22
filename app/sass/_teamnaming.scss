@@ -61,6 +61,8 @@
         .team-block{
             border: 1px solid black;
             display: inline-block;
+            vertical-align: top;
+            
             .team-name{
                 font-weight: bold;
                 font-size: 1.3em;
@@ -82,6 +84,13 @@
         padding: 20px 20px;
         display: block;
         width: 170px;
+    }
+    button:disabled {
+        background-color: #dedede;
+        color: #636363;
+        box-shadow: inherit;
+        border: inherit;
+        cursor: not-allowed;
     }
 }
 

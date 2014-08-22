@@ -8,7 +8,7 @@ angular.module('beerPongTournamentApp')
         teams = Tournament.getTeams(),
         playoffs = Tournament.getPlayoffs(),
         tableViewFromGroups = parseInt($routeParams.showButton);
-    
+
     $scope.showButton = tableViewFromGroups;
 
     $scope.tables = tables;
@@ -19,10 +19,10 @@ angular.module('beerPongTournamentApp')
             numberOfTeamsQualifiedPerGroups = Math.pow(2,stepPlayoff+1)/nbrOfGroups;
 
         $scope.numberOfTeamsQualifiedPerGroups = numberOfTeamsQualifiedPerGroups;
-        
+
         //set teams for playoffs if not tables from menu
         if(tableViewFromGroups){
-            
+
             var teamsQualified = [],
                 tmpTeams = angular.copy(teams);
 
@@ -47,9 +47,23 @@ angular.module('beerPongTournamentApp')
             };
         }
     }
-    //simple championship = only 1 group
+    //simple championship = only 1 group, winner is first
     else{
-        $scope.goNextStep = function(){
+        $scope.numberOfTeamsQualifiedPerGroups = 1;
+        
+        var winner = tables[0]['table'][0],
+            tmpTeams = angular.copy(teams),
+            a = tmpTeams[0]['teams'].length;
+        
+        while( a-- ) {
+            if( tmpTeams[0]['teams'][a]['name'] === winner.name){
+                Tournament.setWinner(tmpTeams[0]['teams'][a]);
+                break;
+            }
+        }
+
+        
+        $scope.goNextStep = function(){  
             $location.path('/winner');
         };
     }

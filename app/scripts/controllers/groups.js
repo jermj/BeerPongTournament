@@ -113,11 +113,6 @@ angular.module('beerPongTournamentApp')
         Tournament.setGroupsResult($scope.groups);
     }
 
-
-console.log($scope.groups);
-
-
-
     $scope.setWinner = function(match,winner){
         if(match.winner === -1){
             numberOfGames--;

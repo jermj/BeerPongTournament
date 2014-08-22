@@ -3,5 +3,7 @@
 angular.module('beerPongTournamentApp')
   .controller('HomeCtrl', function ($scope,localStorageService) {
       
-      $scope.lastTournament = localStorageService.get('tournamentPath');
+      $scope.isTournamentPlaying = localStorageService.get('tournamentSettings');
+      $scope.lastTournamentPath = localStorageService.get('tournamentPath');
+      
   });

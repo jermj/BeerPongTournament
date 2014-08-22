@@ -106,7 +106,7 @@
         </div>
     </div>
     <div class="select-tournament-nextstep">
-        <button ng-disabled="!numberOfTeams || (configuration && !configuration.directTournament && !playoff)" ng-click="goManualTeamNaming(configuration,playoff,numberOfCup)">Step 2</button>
+        <button ng-disabled="!configuration  || (configuration && !configuration.directTournament && !playoff)" ng-click="goManualTeamNaming(configuration,playoff,numberOfCup)">Step 2</button>
     </div>
 
 </div>

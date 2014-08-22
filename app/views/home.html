@@ -11,7 +11,7 @@
         </table>
     </div>
     <div id="home-start-block">
-        <a ng-if="lastTournament" ng-href="{{lastTournament}}" class="continue" alt="">Continue your Tournament</a>
+        <a ng-if="isTournamentPlaying" ng-href="{{lastTournamentPath}}" class="continue" alt="">Continue your Tournament</a>
         <a href="#/selectTournament" class="new" alt="">Start a Tournament</a>
     </div>
 </div>

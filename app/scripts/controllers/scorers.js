@@ -9,8 +9,6 @@ angular.module('beerPongTournamentApp')
         listOfGroup = [],
         listOfTeams = [];
 
-    console.log('scorers',$scope.scorers,teams);
-
     for(var i=0, len = teams.length; i<len; i++){
         var group = teams[i];
         listOfGroup.push(group.name);
@@ -21,10 +19,5 @@ angular.module('beerPongTournamentApp')
     }
     
     $scope.filterTypes = [listOfGroup,listOfTeams];
-    
-    
-    console.log(listOfGroup,listOfTeams);
-
-
 
 });

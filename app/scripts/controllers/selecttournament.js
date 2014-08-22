@@ -6,6 +6,8 @@ angular.module('beerPongTournamentApp')
 
     var nbrOfPlayers,
         nbrOfTeams;
+    
+    Tournament.clearSettings();
 
     $scope.callAlgo = function(numberOfPlayers){
 
@@ -67,9 +69,7 @@ angular.module('beerPongTournamentApp')
         nbrOfTeams = numberOfTeams;
         
         var configs = GroupEngine.getConfigsFromNumberOfTeams(numberOfTeams);
-        
-                console.log('configs',configs);
-        
+
         $scope.configurationsManual = [];
         
         for(var x=0, len=configs.length; x < len; x++){
@@ -117,8 +117,6 @@ angular.module('beerPongTournamentApp')
     $scope.goManualTeamNaming = function(configuration,playoff,numberOfCup){
 
         Tournament.clearSettings();
-        
-        console.log('go',configuration);
 
         var params = {
             numberOfGroups: configuration.nbrOfGroups,
@@ -135,8 +133,6 @@ angular.module('beerPongTournamentApp')
 
 
     $scope.goNextStep = function(configuration,playoff,numberOfCup){
-
-        Tournament.clearSettings();
 
         var params = {
             numberOfPlayers: nbrOfPlayers,

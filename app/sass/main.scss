@@ -51,7 +51,7 @@ box-sizing: border-box;
     background-color: #DF6363;
 }
 .random-color-1{
-    background-color: #434991;
+    background-color: #5C608F;
 }
 .random-color-2{
     background-color: #6A8D6C;
@@ -107,7 +107,6 @@ $BP-light-green: #7CC570;
 @import 'home';
 @import 'selecttournament';
 @import 'teamnaming';
-@import 'manualteamnaming';
 @import 'header';
 @import 'groups';
 @import 'playoffs';
@@ -116,3 +115,5 @@ $BP-light-green: #7CC570;
 @import 'winner';
 @import 'scorers';
 @import 'rules';
+@import 'faq';
+@import 'history';

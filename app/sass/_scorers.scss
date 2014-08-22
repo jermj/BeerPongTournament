@@ -15,7 +15,7 @@
             width: 100%;
             font-size: 30px;
         }
-        
+
         select + select{
             margin-top: 10px;
         }
@@ -25,8 +25,11 @@
         table-layout: fixed;
         width: 100%;
 
-        .qualified{
-            background-color: #6BB661;
+        .winner{
+            background-color: gold;
+        }
+        tr:first-child{
+            background-color: #dedede;
         }
     }
     table,th,td
@@ -34,9 +37,7 @@
         border:1px solid black;
         border-collapse:collapse;
 
-        tr:first-child{
-            background-color: #dedede;
-        }
+
     }
 }
 

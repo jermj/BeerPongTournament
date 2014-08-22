@@ -3,7 +3,6 @@
 angular.module('beerPongTournamentApp')
 .filter('scorers', function () {
     return function (items,filterType, filter) {
-        console.log(items,filterType, filter);
         if(filterType < 0 || filterType>-1 && !filter){
             return items;
         }

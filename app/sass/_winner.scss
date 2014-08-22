@@ -1,18 +1,56 @@
 .winner-page{
 
-    h1,h3{
-        text-align: center;
-    }
-
-    h1{
+    .winner-title{
         color: gold;
         background-color: black;
+        text-align: center;
+        font-size: 2em;
     }
 
     .trophy{
         color:gold;
         text-align: center;
         font-size: 150px;
+    }
+
+    .team-name{
+        text-align: center;
+        font-size: 40px;
+        background-color: black;
+        color:white;
+    }
+
+    table{
+        table-layout: fixed;
+        width: 100%;
+        text-align: center;
+
+        tr:first-child{
+            background-color: #dedede;
+        }
+    }
+    table,th,td
+    {
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .winner-page{
+
+        table{
+            tr{
+                .group{
+                    display: none;
+                }
+                .ratio{
+                    display: none;
+                }
+            }
+
+        }
     }
 
 }

@@ -14,15 +14,16 @@ angular.module('beerPongTournamentApp')
         playoffStepAfterGroup: number
         numberOfCupsToWin: number        
       */
-    var tournamentSettings = localStorageService.get('tournamentSettings') || {},
-        teams = localStorageService.get('teams') || {},
+    var tournamentSettings = localStorageService.get('tournamentSettings') || false,
+        teams = localStorageService.get('teams') || false,
         groupResult = localStorageService.get('groupResult') || false,
-        playoffs = localStorageService.get('playoffs') || false;
+        playoffs = localStorageService.get('playoffs') || false,
+        winner = localStorageService.get('winner') || false;
 
     this.clearSettings = function(){
         localStorageService.clearAll();
 
-        tournamentSettings = teams = groupResult = playoffs = false;
+        winner = tournamentSettings = teams = groupResult = playoffs = false;
     };
 
     this.init = function(params){
@@ -92,6 +93,14 @@ angular.module('beerPongTournamentApp')
     this.setGroupsResult = function(gpResult){
         localStorageService.set('groupResult',gpResult);
         groupResult = gpResult;
+    };
+    
+    this.setWinner = function(team){
+        localStorageService.set('winner',team);
+        winner = team;
+    };
+    this.getWinner = function(team){
+        return winner;
     };
 
     function updateTable(table,teamName,type,cupsFor,cupsAgainst){
@@ -172,7 +181,6 @@ angular.module('beerPongTournamentApp')
             if( scorers[i].id === playerId ){
                 scorers[i]['score'] += score;
                 scorers[i]['numberOfGame'] += 1;
-                console.log('win',victory);
                 scorers[i]['win'] += +victory;
 
                 break;
@@ -192,12 +200,15 @@ angular.module('beerPongTournamentApp')
                     teamName = teams[i]['teams'][j]['name'];
 
                 for(var k=0, len3 = team.players.length; k<len3; k++){
+                    
+                    
                     var player = team.players[k];
                     player.score = 0;
                     player.numberOfGame = 0;
                     player.groupName = groupName;
                     player.teamName = teamName;
                     player.win = 0;
+                    player.winner = (winner && winner.name === teamName) ? 1 : 0;
                     scorers.push(player);
                 }
             }
@@ -235,8 +246,6 @@ angular.module('beerPongTournamentApp')
                 }
             }
         }
-
-        console.log('playoffs',playoffs);
 
         if(playoffs){
             for(var i=0, len = playoffs.length; i<len; i++){
