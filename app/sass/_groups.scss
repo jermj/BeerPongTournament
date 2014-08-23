@@ -32,4 +32,11 @@
         display: block;
         width: 170px;
     }
+    button:disabled {
+        background-color: #dedede;
+        color: #636363;
+        box-shadow: inherit;
+        border: inherit;
+        cursor: not-allowed;
+    }
 }
