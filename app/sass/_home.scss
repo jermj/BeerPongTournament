@@ -50,6 +50,7 @@
 }
 
 .home-wrapper{
+    margin-bottom: 20px;
     .home-wrapper-line{
         text-align: center;
 
@@ -94,7 +95,7 @@
     }
 }
 
-@media screen and (max-width: 449px){
+@media screen and (max-width: 500px){
     #home-picture {
         #home-start-block{ 
             margin: inherit;

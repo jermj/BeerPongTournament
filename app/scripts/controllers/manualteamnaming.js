@@ -11,8 +11,8 @@ angular.module('beerPongTournamentApp')
         playerCompt =1,
         group,
         playerId=1;
-    
-        $scope.playersMinimum = numberOfGroups*numberOfTeamsPerGroup;
+
+    $scope.playersMinimum = numberOfGroups*numberOfTeamsPerGroup;
 
     if(isDirectTournament){
         group = {
@@ -49,11 +49,25 @@ angular.module('beerPongTournamentApp')
     }
 
     $scope.addPlayer = function(team){
-        console.log(team.players,team.players.length);
         if(team.players.length === 0){
             $scope.playersMinimum--;
         }
         team.players.push({name:'Player '+playerCompt++,id:playerId++});
+    }
+
+    $scope.removePlayer = function(team,player){
+        var a = team.players.length;
+        while( a-- ) {
+            if( team.players[a]['id'] === player.id){
+                team.players.splice(a, 1);
+                break;
+            }
+        }
+        
+        if(team.players.length === 0){
+            $scope.playersMinimum++;
+        }
+
     }
 
     $scope.startTournament = function(){

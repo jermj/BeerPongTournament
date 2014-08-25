@@ -14,6 +14,15 @@
             display: inline-block;
         }
     }
+    .random-groups-options{
+        text-align: center;
+    }
+}
+
+button.random-button{
+    padding: 10px;
+    background-color: #468faf;
+    color: white;
 }
 
 .naming-block{
@@ -62,10 +71,25 @@
             border: 1px solid black;
             display: inline-block;
             vertical-align: top;
-            
+
             .team-name{
                 font-weight: bold;
                 font-size: 1.3em;
+            }
+            .add-player{
+                background-color: #304B30;
+                padding: 10px;
+                color: white;
+            }
+
+            .remove-player{
+                background-color: #8D1010;
+                padding: 10px;
+                color: white;
+            }
+
+            .player-name{
+                padding: 10px 0px;
             }
         }
 

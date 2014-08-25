@@ -7,8 +7,9 @@
         <h1>{{group.name}}</h1>
         <div class="team-block" ng-repeat="team in group.teams">
             <input class="team-name" type="text" ng-model="team.name" value="{{team.name}}">
-            <div><button ng-click="addPlayer(team)">add player</button></div>
+            <div><button class="add-player" ng-click="addPlayer(team)">add player</button></div>
             <div ng-repeat="player in team.players">
+               <button class="remove-player" ng-click="removePlayer(team,player)">Remove</button>
                <input class="player-name" type="text" ng-model="player.name" value="{{player.name}}">
             </div>
         </div>
