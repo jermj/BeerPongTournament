@@ -71,7 +71,7 @@ gulp.task('styles', function () {
             style: 'expanded',
             lineNumbers: true
         }))
-        .pipe($.autoprefixer('last 2 version', '> 1%', 'ie 8', 'ie 7'))
+        .pipe($.autoprefixer('last 2 version', '> 1%', 'ie 8', 'Android >= 4'))
         //.pipe($.if(shouldMinify, $.cache($.csso())))
         .pipe($.ifElse(shouldMinify, function(){return $.cache($.csso());}))
         .pipe($.concat('main.css'))
