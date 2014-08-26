@@ -35,6 +35,7 @@ var getCurrentIP = _.memoize(function () {
 var paths = {};
 paths.app_base = 'app/';
 paths.bower_components = paths.app_base + 'bower_components/';
+paths.favicon = ['*.ico'];
 paths.views = ['views/**/*.html'];
 paths.scripts = ['**/*.js'];
 paths.images = ['**/*.{jpg,png}'];
@@ -114,8 +115,14 @@ gulp.task('images', function () {
         .pipe(gulp.dest(paths.dist_base + 'images/'));
 });
 
+
+gulp.task('favicon', function () {
+    return gulp.src(paths.app_base+paths.favicon)
+        .pipe(gulp.dest(paths.dist_base));
+});
+
+
 gulp.task('fonts', function () {
-    console.log('copy fonts',paths.app_base+paths.fonts);
     return gulp.src(paths.app_base+paths.fonts)
         .pipe(gulp.dest(paths.dist_base + 'fonts/'));
 });
@@ -125,7 +132,7 @@ gulp.task('other-resources', function () {
         .pipe(gulp.dest(paths.dist_base));
 });
 
-gulp.task('assets', ['images', 'fonts', 'other-resources']);
+gulp.task('assets', ['images', 'fonts', 'other-resources','favicon']);
 
 gulp.task('test', function () {});
 
