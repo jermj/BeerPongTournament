@@ -128,22 +128,18 @@ angular.module('beerPongTournamentApp')
 
     
     $scope.switchTeam = function(){
-        console.log('random',groups);
-
         var listTeams = [];
 
         for(var a=0, length=groups.length;a<length;a++){
             listTeams = listTeams.concat(groups[a]['teams']);
         }
         shuffle(listTeams);
-        console.log('sam',listTeams);
         
         for(var a=0, length=groups.length;a<length;a++){
             for(var i=0, len=groups[a]['teams'].length; i<len;i++){
                 groups[a]['teams'][i] = listTeams.pop();
             }
         }
-        console.log('sss',groups);
         $scope.groups = groups;
     }
 

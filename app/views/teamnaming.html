@@ -13,9 +13,9 @@
             <button class="random-button" ng-click="switchPlayers(group)">Switch Players</button>
         </div>
         <div class="team-block" ng-repeat="team in group.teams">
-            <input class="team-name" type="text" ng-model="team.name" value="{{team.name}}">
+            <input alt="team name" class="team-name" type="text" ng-model="team.name" value="{{team.name}}">
             <div ng-repeat="player in team.players">
-                <input class="player-name" type="text" ng-model="player.name" value="{{player.name}}">
+                <input alt="player name" class="player-name" type="text" ng-model="player.name" value="{{player.name}}">
             </div>
         </div>
 

@@ -35,13 +35,13 @@
     <div class="select-tournament-form-line">
         <div class="column-left">Number of players</div>
         <div class="column-right">
-            <input ng-model="numberOfPlayers" ng-change="callAlgo(numberOfPlayers)" type="number" min="2" max="1000" value="2">
+            <input alt="number of players" ng-model="numberOfPlayers" ng-change="callAlgo(numberOfPlayers)" type="number" min="2" max="1000" value="2">
         </div>
     </div>
     <div class="select-tournament-form-line">
         <div class="column-left">Number of cups</div>
         <div class="column-right">
-            <input type="number" min="1" ng-model="numberOfCup" ng-init="numberOfCup=6">
+            <input alt="number of cup" type="number" min="1" ng-model="numberOfCup" ng-init="numberOfCup=6">
         </div>
     </div>
     <div ng-show="numberOfPlayers" class="select-tournament-form-line">
@@ -75,13 +75,13 @@
     <div class="select-tournament-form-line">
         <div class="column-left">Number of Teams</div>
         <div class="column-right">
-            <input ng-model="numberOfTeams" ng-change="getConfigFromNumberOfTeam(numberOfTeams)" type="number" min="2" max="1000" value="2">
+            <input alt="number of teams" ng-model="numberOfTeams" ng-change="getConfigFromNumberOfTeam(numberOfTeams)" type="number" min="2" max="1000" value="2">
         </div>
     </div>
     <div class="select-tournament-form-line">
         <div class="column-left">Number of cups</div>
         <div class="column-right">
-            <input type="number" min="1" ng-model="numberOfCup" ng-init="numberOfCup=6">
+            <input alt="number of cups" type="number" min="1" ng-model="numberOfCup" ng-init="numberOfCup=6">
         </div>
     </div>
     <div ng-show="numberOfTeams" class="select-tournament-form-line">
