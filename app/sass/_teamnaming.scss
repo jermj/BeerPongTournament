@@ -68,9 +68,11 @@ button.random-button{
         }
 
         .team-block{
-            border: 1px solid black;
+            background-color: black;
             display: inline-block;
             vertical-align: top;
+            margin: 5px;
+            padding: 5px;
 
             .team-name{
                 font-weight: bold;

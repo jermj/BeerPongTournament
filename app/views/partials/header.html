@@ -7,6 +7,8 @@
             <li ng-class="{'active': iconActive===0}"><a ng-href="{{goTournament}}">Tournament</a></li>
             <li ng-class="{'active': iconActive===1}" ng-if="displayTablesButton" ><a href="#/tables/0">Tables</a></li>
             <li ng-class="{'active': iconActive===2}" ng-if="displayScorersButton" ng-click="goScorers()"><a href="#/scorers">Scorers</a></li>
+            <li ng-click="toggleMenu()" class="splashscreen"></li>
         </ul>
     </span>
 </div>
+    
