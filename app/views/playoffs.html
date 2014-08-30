@@ -27,10 +27,16 @@
                 </tr>
                 <tr>
                     <td>
-                        <button class="winner-button" ng-if="game.score[0] === nbrOfCupsToWin" ng-click="setWinner(game,0);">winner</button>
+                        <button class="winner-button" ng-disabled="game.score[0] < nbrOfCupsToWin || game.winner == 0" ng-click="setWinner(game,0);">
+                            <span class="bpicon-trophy"></span>
+                            <span>winner</span>
+                        </button>
                     </td>
                     <td>
-                        <button class="winner-button" ng-if="game.score[1] === nbrOfCupsToWin" ng-click="setWinner(game,1);">winner</button>
+                        <button class="winner-button" ng-disabled="game.score[1] < nbrOfCupsToWin || game.winner == 1" ng-click="setWinner(game,1);">
+                            <span class="bpicon-trophy"></span>
+                            <span>winner</span>
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -38,9 +44,15 @@
                         <div class="player" ng-repeat="player in game.scorers[0]">
                             <div class="player-name" >{{player.name}}</div>
                             <div class="player-scoring" >
-                                <button  class="scoreDown" ng-click="scoreDown(player,game.score,0,game)" >-</button>
-                                <span>{{player.score}}</span>
-                                <button class="scoreUp" ng-click="scoreUp(player,game.score,0,game)">+</button>
+                                <button ng-disabled="game.score[0] === 0 || player.score ===0" class="scoreDown" ng-click="scoreDown(player,game.score,0,game)" >
+                                    <span>-</span>
+                                    <span class="bpicon-cup"></span>
+                                </button>
+                                <span class="player-score">{{player.score}}</span>
+                                <button ng-disabled="game.score[0] === nbrOfCupsToWin" class="scoreUp" ng-click="scoreUp(player,game.score,0,game)">
+                                    <span>+</span>
+                                    <span class="bpicon-cup"></span>
+                                </button>
                             </div>
                         </div>
                     </td>
@@ -48,8 +60,14 @@
                         <div class="player" ng-repeat="player in game.scorers[1]" >
                             <div class="player-name" >{{player.name}}</div>
                             <div class="player-scoring">
-                                <button class="scoreDown" ng-click="scoreDown(player,game.score,1,game)" >-</button>                                               <span>{{player.score}}</span>
-                                <button class="scoreUp" ng-click="scoreUp(player,game.score,1,game)">+</button>
+                                <button ng-disabled="game.score[1] === 0 || player.score ===0" class="scoreDown" ng-click="scoreDown(player,game.score,1,game)" >
+                                    <span>-</span>
+                                    <span class="bpicon-cup"></span>
+                                </button>                                                  <span class="player-score">{{player.score}}</span>
+                                <button ng-disabled="game.score[1] === nbrOfCupsToWin" class="scoreUp" ng-click="scoreUp(player,game.score,1,game)">
+                                    <span>+</span>
+                                    <span class="bpicon-cup"></span>
+                                </button>
                             </div>
                         </div>
                     </td>

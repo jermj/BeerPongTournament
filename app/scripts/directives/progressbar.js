@@ -13,6 +13,8 @@ angular.module('beerPongTournamentApp')
             current: "="
         },
         link: function postLink(scope, element) {
+            console.log(scope.total,scope.current);
+            
             var bar = angular.element(element.children());
             scope.$watch("current", function (value) {
                 bar.css("width", value / scope.total * 100 + "%");

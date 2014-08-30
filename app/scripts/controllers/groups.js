@@ -94,9 +94,9 @@ angular.module('beerPongTournamentApp')
             }
 
 
-            numberOfGames += matchs.length;
-            
+            numberOfGames += matchs.length;         
             $scope.numberOfGamesTotal = numberOfGames;
+            $scope.numberOfGames = numberOfGames;
 
             group.rounds = [];
 

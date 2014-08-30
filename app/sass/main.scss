@@ -26,18 +26,22 @@
 .bpicon-logo:before {
 	content: "\e600";
 }
-.bpicon-logo-cup:before {
-	content: "\e602";
-}
 .bpicon-capsule:before {
 	content: "\e601";
 }
-.bpicon-menu:before {
-	content: "\e605";
+.bpicon-logo-cup:before {
+	content: "\e602";
+}
+.bpicon-cup:before {
+	content: "\e603";
 }
 .bpicon-trophy:before {
 	content: "\e604";
 }
+.bpicon-menu:before {
+	content: "\e605";
+}
+
 
 body{
 margin:0;

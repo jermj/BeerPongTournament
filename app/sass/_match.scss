@@ -19,21 +19,26 @@
             table-layout: fixed;
             width: 100%;
             border-collapse:collapse;
+            border-bottom: 4Px black solid;
 
-            tr{
+            tr,td{
                 margin: 0;
                 padding: 0;
             }
 
+            td{
+                border-left: 4px solid black;
+            }
+
             td + td{
-                border-left: 1px solid black; 
+                border-right: 4px solid black; 
             }
 
             .score{
                 font-size: 60px;
                 font-weight: bold;
             }
-            
+
             .players{
                 vertical-align: top;
             }
@@ -41,6 +46,18 @@
             .winner-button{
                 background-color: #FFD700;
                 padding: 10px 30px;
+
+                span{
+                    vertical-align: middle;
+
+                    &:first-child{
+                        padding-right: 5px;
+                    }
+                }
+
+                &[disabled]{
+                    background-color: #D6CD9C;
+                }
             }
 
             .team-name{
@@ -57,6 +74,7 @@
                         height: 40px;
                         width: 40px;
                         color:white;
+                        padding: 0;
 
                         &.scoreUp{
                             background-color: #4D7A5B;
@@ -65,12 +83,16 @@
                         &.scoreDown{
                             background-color: #C43434;
                         }
+
+                        span{
+                            vertical-align: middle;
+                        }
                     }
 
                     button[disabled]{
                         opacity: 0.6;
                     }
-                    span{
+                    .player-score{
                         padding: 5px;
                         display: inline-block;
                         width: 40px;
