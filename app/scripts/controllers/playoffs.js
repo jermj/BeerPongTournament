@@ -77,7 +77,7 @@ angular.module('beerPongTournamentApp')
                         }
                         if(l<numberOfPlayerTeamAway){
                             teamAway.players[l]['score'] = 0;
-                            playersAway.push(angular.copy(teamAway.players[l]));
+                            playersAway.push(angular.copy(teamAway.players  [l]));
                         }
                     }
 
