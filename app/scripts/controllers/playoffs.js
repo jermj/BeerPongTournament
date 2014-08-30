@@ -6,17 +6,20 @@ angular.module('beerPongTournamentApp')
     var playoffs = angular.copy(Tournament.getPlayoffs()),        
         nbrOfCupsToWin = Tournament.getNumberOfCupsToWin(),
         round = $routeParams.round,
-        numberOfTeams=playoffs[round]['teams'].length,
-        step = Math.log(numberOfTeams)/Math.log(2)-1,
-        numberOfGames = numberOfTeams/2,
+        step,
+        numberOfGames = 0,
         gameId=0;
 
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
 
-    $scope.title = constants.PLAYOFF_NAME[step];
-
+    //refreshed page
     if(playoffs[round]['result']){
+        numberOfGames = playoffs[round]['result'].length;
+        step = Math.log(numberOfGames)/Math.log(2);
+        $scope.title = constants.PLAYOFF_NAME[step];
+        
         $scope.games = playoffs[round]['result'];
+        
 
         for(var j = 0, len2 = playoffs[round]['result'].length; j < len2; j++){
             var game = playoffs[round]['result'][j];
@@ -29,11 +32,69 @@ angular.module('beerPongTournamentApp')
         }
 
     }
+    //first load of the page
     else{
-        var potentialTeams = angular.copy(playoffs[round]['teams']),
+        var divisions = angular.copy(playoffs[round]['divisions']),
             games = [];
 
+        var divisionHome,
+            divisionAway,
+            nbrOfGamesPerDivision,
+            index;
 
+        for(var i=0,len=divisions.length;i<len/2;i++){
+
+            //only one group
+            if(divisions.length === 1){
+                divisionHome = divisions[0];
+                divisionAway = divisions[0];
+                nbrOfGamesPerDivision = divisionHome.teams.length/2;
+                index = divisionHome.teams.length;
+            }
+            //more than one group
+            else{
+                divisionHome = divisions[i*2];
+                divisionAway = divisions[i*2+1];
+                nbrOfGamesPerDivision = divisionHome.teams.length;
+                index = divisionHome.teams.length;
+            }
+
+            for(var j=0;j<nbrOfGamesPerDivision;j++){
+                var teamHome = divisionHome.teams[j],
+                    teamAway = divisionAway.teams[index-j-1];
+
+                numberOfGames++;
+                
+                
+                var playersHome = [], playersAway = [],
+                        numberOfPlayerTeamHome =  teamHome.players.length,
+                        numberOfPlayerTeamAway =  teamAway.players.length;
+
+                    for(var l=0, len4 = Math.max(numberOfPlayerTeamHome, numberOfPlayerTeamAway); l<len4; l++){
+                        if(l<numberOfPlayerTeamHome){
+                            teamHome.players[l]['score'] = 0;
+                            playersHome.push(angular.copy(teamHome.players[l]));
+                        }
+                        if(l<numberOfPlayerTeamAway){
+                            teamAway.players[l]['score'] = 0;
+                            playersAway.push(angular.copy(teamAway.players[l]));
+                        }
+                    }
+
+                games.push({
+                    title:teamHome.name+' vs '+teamAway.name,
+                    match:[teamHome,teamAway],
+                    score: [ 0, 0 ],
+                    scorers: [teamHome.players,teamAway.players],
+                    winner: -1,
+                    id:gameId++
+                });
+            }
+        }
+
+
+
+        /*
         for(var i = 0, len = numberOfGames; i<len;i++){
             var indexHome, indexAway, teamHome, teamAway;
 
@@ -69,7 +130,10 @@ angular.module('beerPongTournamentApp')
                 id:gameId++
             });
         }
+        */
 
+        step = Math.log(numberOfGames)/Math.log(2);
+        $scope.title = constants.PLAYOFF_NAME[step];
         $scope.games = games;
     }
 
@@ -125,7 +189,9 @@ angular.module('beerPongTournamentApp')
                 teamsQualified.push(playoffs[round]['result'][j]['match'][1]);
             }
         }
-        playoffs.push({teams:teamsQualified});
+
+        playoffs.push({divisions:[{teams:teamsQualified}]});
+        
         Tournament.setPlayoffs(playoffs);
         if(teamsQualified.length>1){
             $location.path('/playoffs/'+nextRound);

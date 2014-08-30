@@ -27,20 +27,23 @@ angular.module('beerPongTournamentApp')
                 tmpTeams = angular.copy(teams);
 
 
-            for(var i = 0; i< teams.length; i++){
+            for(var i = 0; i< tables.length; i++){
+                var group = [];
                 for(var j = 0; j<numberOfTeamsQualifiedPerGroups;j++){
                     var a = tmpTeams[i]['teams'].length;
+
                     while( a-- ) {
                         if( tmpTeams[i]['teams'][a]['name'] === tables[i]['table'][j]['name']){
-                            teamsQualified.push(tmpTeams[i]['teams'][a]);
+                            group.push(tmpTeams[i]['teams'][a]);
                             break;
                         }
                     }
 
                 }
+                teamsQualified.push({teams:group});
             }
 
-            Tournament.SetTeamsQualifiedForPlayoff(teamsQualified);
+            Tournament.setTeamsQualifiedForPlayoff(teamsQualified);
 
             $scope.goNextStep = function(){
                 $location.path('/playoffs/0');

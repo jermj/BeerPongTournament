@@ -21,6 +21,7 @@ angular.module('beerPongTournamentApp')
     }
 
     if(Tournament.getGroupsResult()){
+        $scope.numberOfGamesTotal = 0;
         var previousResult = Tournament.getGroupsResult();
         $scope.groups = previousResult;
 
@@ -32,11 +33,12 @@ angular.module('beerPongTournamentApp')
                     if(previousResult[k]['rounds'][l][a]['winner'] <0){
                         numberOfGames++;
                     }
+                    $scope.numberOfGamesTotal++;
                 }
             }
         }
 
-
+        $scope.numberOfGames = numberOfGames;
         if(numberOfGames === 0){
             $scope.showNextStep = true;
         }
@@ -93,6 +95,8 @@ angular.module('beerPongTournamentApp')
 
 
             numberOfGames += matchs.length;
+            
+            $scope.numberOfGamesTotal = numberOfGames;
 
             group.rounds = [];
 
@@ -116,6 +120,7 @@ angular.module('beerPongTournamentApp')
     $scope.setWinner = function(match,winner){
         if(match.winner === -1){
             numberOfGames--;
+            $scope.numberOfGames = numberOfGames;
             if(numberOfGames === 0){
                 $scope.showNextStep = true;
             }
@@ -137,6 +142,7 @@ angular.module('beerPongTournamentApp')
             if(game.winner === index){
                 game.winner = -1;
                 numberOfGames++;
+                $scope.numberOfGames = numberOfGames;
             }
             score[index] = score[index] -1;
             player.score = player.score - 1;

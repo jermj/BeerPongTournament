@@ -1,4 +1,23 @@
 .tournament-games{
+
+    .progressbar {
+        background-color: black;
+        border-radius: 13px;
+        padding: 3px;
+        margin-top: 10px;
+
+        div {
+            background-color: orange;
+            width: 0%;
+            /* Adjust with JavaScript */
+            height: 20px;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 20px;
+        }
+    }
+
+
     .group-block{
         overflow:hidden;
         h1{

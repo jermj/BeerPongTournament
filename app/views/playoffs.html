@@ -5,7 +5,7 @@
 
 
     <div class="games-block">
-        <div class="group-game" ng-class="'random-color-'+game.id" ng-repeat="game in games">
+        <div class="group-game" ng-class="'random-color-'+(game.id %16)" ng-repeat="game in games">
             <p class="group-game-title">{{game.title}}</p>
 
             <table>

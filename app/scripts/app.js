@@ -5,7 +5,7 @@ angular
     'ngRoute',
     'LocalStorageModule'
 ])
-.config(function ($routeProvider) {
+.config(function ($routeProvider,$compileProvider) {
     $routeProvider
     .when('/', {
         templateUrl: 'views/home.html',
@@ -55,5 +55,7 @@ angular
     .otherwise({
         redirectTo: '/'
     });
+    
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):|data:image\//);
 
 });

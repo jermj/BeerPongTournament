@@ -59,8 +59,8 @@ angular.module('beerPongTournamentApp')
     };
 
 
-    this.SetTeamsQualifiedForPlayoff = function(teamsQualified){
-        playoffs = [{teams: teamsQualified}];
+    this.setTeamsQualifiedForPlayoff = function(teamsQualifiedPerDivision){        
+        playoffs = [{divisions: teamsQualifiedPerDivision}];
         localStorageService.set('playoffs',playoffs);
     };
 
@@ -74,7 +74,7 @@ angular.module('beerPongTournamentApp')
             return playoffs;
         }
         else{
-            return [{teams: teams[0]['teams']}];
+            return [{divisions: [{teams: teams[0]['teams']}]}];
         }
     };
 
