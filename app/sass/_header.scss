@@ -111,6 +111,8 @@
                     &.splashscreen{
                         background-color: rgba(0, 0, 0, 0.9);
                         height: 100%;
+                        z-index: 10;
+                        position: relative;
                     }
                 }
 

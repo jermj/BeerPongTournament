@@ -3,15 +3,17 @@
 angular.module('beerPongTournamentApp')
 .controller('ManualTeamNamingCtrl', function ($scope,$location,Tournament) {
 
-    var numberOfGroups = Tournament.getNumberOfGroups(),
-        numberOfTeamsPerGroup = Tournament.getNumberOfTeamsPerGroup(),
+    var numberOfTeamsPerGroup = Tournament.getNumberOfTeamsPerGroup(),
         isDirectTournament = Tournament.isADirectTournament(),
+        numberOfGroups = isDirectTournament ? 1 : Tournament.getNumberOfGroups(),
         groups=[],
         teamCompt =1,
         playerCompt =1,
         group,
         playerId=1;
 
+    console.log(numberOfGroups,numberOfTeamsPerGroup);
+    
     $scope.playersMinimum = numberOfGroups*numberOfTeamsPerGroup;
 
     if(isDirectTournament){
