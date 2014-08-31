@@ -11,8 +11,6 @@ angular.module('beerPongTournamentApp')
         playerCompt =1,
         group,
         playerId=1;
-
-    console.log(numberOfGroups,numberOfTeamsPerGroup);
     
     $scope.playersMinimum = numberOfGroups*numberOfTeamsPerGroup;
 

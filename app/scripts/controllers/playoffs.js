@@ -27,7 +27,7 @@ angular.module('beerPongTournamentApp')
                 numberOfGames--;
             }
         }
-        console.log('test',numberOfGames);
+
         if(numberOfGames === 0){
             $scope.showNextStep = true;
         }
