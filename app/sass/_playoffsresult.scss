@@ -1,32 +1,12 @@
-.table-group{
+.playoffs-results{
     text-align: center;
 
     h1{
         background-color: black;
-        color:white;
-        margin-bottom: 0;
+        color: white;
     }
-
-    .table-results{
-        table{
-            width: 100%;
-
-            tr:first-child{
-                background-color: #dedede;
-            }
-
-            .qualified{
-                background-color: #6BB661;
-            }
-        }
-        table,th,td
-        {
-            border:1px solid black;
-            border-collapse:collapse;
-        }
-    }
-
     .game-results{
+
         span{
             display: inline-block;
             background-color: #dedede;

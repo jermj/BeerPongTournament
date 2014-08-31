@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('beerPongTournamentApp')
-.service('Tournament', function Tournament(localStorageService) {
+.service('Tournament', function Tournament(localStorageService,constants) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     /*
@@ -90,11 +90,89 @@ angular.module('beerPongTournamentApp')
         return groupResult;
     };
 
+    this.getGroupsGamesResults = function(){
+        if(groupResult){
+            var games = [];
+
+            for(var i=0, len = groupResult.length; i<len; i++){
+                var group = groupResult[i],
+                    gamesInGroup = [];
+
+                for(var j=0, len2 = group.rounds.length; j<len2; j++){
+                    var round = group.rounds[j];
+
+                    for(var k=0, len3 = round.length; k<len3; k++){
+                        var game = round[k];
+
+                        if(game.winner>-1){
+                            gamesInGroup.push({
+                                teams:[
+                                    group.teams[game.match[0]],
+                                    group.teams[game.match[1]]
+                                ],
+                                score: game.score,
+                                winner: game.winner
+                            });
+                        }
+                    }
+                }
+                games.push(gamesInGroup);
+            }
+            return games;
+        }
+        else{
+            return [];
+        }
+    }
+
+    this.getPlayoffsResult = function(){
+
+        if(playoffs){
+            var games = [];
+
+            for(var i=0, len = playoffs.length; i<len; i++){
+                var playoffRound = playoffs[i],                    
+                    currentStep = tournamentSettings.playoffStepAfterGroup - i,
+                    gamesInRound = {
+                        step :currentStep,
+                        stepName: constants.PLAYOFF_NAME[currentStep],
+                        games:[]
+                    };
+
+                if(playoffRound.result){
+                    for(var j=0, len2 = playoffRound.result.length; j<len2; j++){
+                        var game = playoffRound.result[j];
+
+                        if(game.winner>-1){
+
+                            gamesInRound.games.push({
+                                teams:[
+                                    game.match[0],
+                                    game.match[1]
+                                ],
+                                score: game.score,
+                                winner: game.winner
+                            });
+                        }
+
+                    }
+                    games.push(gamesInRound);
+                }
+
+            }
+
+            return games;
+        }
+        else{
+            return false;
+        }
+    }
+
     this.setGroupsResult = function(gpResult){
         localStorageService.set('groupResult',gpResult);
         groupResult = gpResult;
     };
-    
+
     this.setWinner = function(team){
         localStorageService.set('winner',team);
         winner = team;
@@ -163,7 +241,7 @@ angular.module('beerPongTournamentApp')
                     else{
                         return golaverageB-golaverageA;
                     }
-                    
+
                 }else{
                     return b.win-a.win;
                 }
@@ -200,8 +278,8 @@ angular.module('beerPongTournamentApp')
                     teamName = teams[i]['teams'][j]['name'];
 
                 for(var k=0, len3 = team.players.length; k<len3; k++){
-                    
-                    
+
+
                     var player = team.players[k];
                     player.score = 0;
                     player.numberOfGame = 0;

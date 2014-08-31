@@ -9,7 +9,7 @@ angular.module('beerPongTournamentApp')
         step,
         numberOfGames = 0,
         gameId=0;
-
+    
     $scope.nbrOfCupsToWin = nbrOfCupsToWin;
 
     //refreshed page
@@ -27,6 +27,7 @@ angular.module('beerPongTournamentApp')
                 numberOfGames--;
             }
         }
+        console.log('test',numberOfGames);
         if(numberOfGames === 0){
             $scope.showNextStep = true;
         }

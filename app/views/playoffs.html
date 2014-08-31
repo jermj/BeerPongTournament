@@ -80,6 +80,6 @@
 </div>
 
 
-<div ng-if="showNextStep" class="tournament-nextstep">
-    <button ng-click="goNextStep()">Next Round</button>
+<div class="tournament-nextstep">
+    <button ng-disabled="!showNextStep" ng-click="goNextStep()">Next Round</button>
 </div>

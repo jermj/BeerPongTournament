@@ -35,6 +35,10 @@ angular
         templateUrl: 'views/tables.html',
         controller: 'TablesCtrl'
     })
+    .when('/playoffsResults', {
+        templateUrl: 'views/playoffsresult.html',
+        controller: 'PlayoffsResultCtrl'
+    })
     .when('/winner', {
         templateUrl: 'views/winner.html',
         controller: 'WinnerCtrl'

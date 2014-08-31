@@ -7,11 +7,13 @@ angular.module('beerPongTournamentApp')
         tables = Tournament.getTables(),
         teams = Tournament.getTeams(),
         playoffs = Tournament.getPlayoffs(),
-        tableViewFromGroups = parseInt($routeParams.showButton);
+        tableViewFromGroups = parseInt($routeParams.showButton),
+        groupsGamesResults = Tournament.getGroupsGamesResults();
 
     $scope.showButton = tableViewFromGroups;
 
     $scope.tables = tables;
+    $scope.groupsGamesResults = groupsGamesResults;
 
     //playoff
     if(stepPlayoff >-1){

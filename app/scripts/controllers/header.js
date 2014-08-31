@@ -17,6 +17,9 @@ angular.module('beerPongTournamentApp')
     else if(currentPath === '/scorers'){
         $scope.iconActive = 2;
     }
+    else if(currentPath === '/playoffsResults'){
+        $scope.iconActive = 3;
+    }
     else{
         localStorageService.set('tournamentPath','#'+currentPath);
         $scope.goTournament = '#'+currentPath;
@@ -25,6 +28,7 @@ angular.module('beerPongTournamentApp')
 
     $scope.displayTablesButton = Tournament.getTables();
     $scope.displayScorersButton = Tournament.getTeams();
+    $scope.displayPlayoffsResultButton = Tournament.getPlayoffsResult();
 
     $scope.toggleMenu = function(){
             $scope.isOpen = !$scope.isOpen;
