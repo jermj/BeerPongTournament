@@ -132,7 +132,7 @@ angular.module('beerPongTournamentApp')
 
             for(var i=0, len = playoffs.length; i<len; i++){
                 var playoffRound = playoffs[i],                    
-                    currentStep = tournamentSettings.playoffStepAfterGroup - i,
+                    currentStep = tournamentSettings.playoffStepAfterGroup ? tournamentSettings.playoffStepAfterGroup - i : tournamentSettings.directTournamentStep - i,
                     gamesInRound = {
                         step :currentStep,
                         stepName: constants.PLAYOFF_NAME[currentStep],
